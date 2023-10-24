@@ -117,9 +117,7 @@ require "ok2.php";
             <a class="navbar-brand" href="index.php" style="color: #d1e7dd; font-weight: bolder;">
                 <i class="fas fa-warehouse" style="margin-right: 10px;"></i> Warehouse Simulator
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -181,46 +179,46 @@ require "ok2.php";
                 </div>
             </div>
 
-                <table id="example" class="table table-bordered table-striped table-hover">
-                    <thead class="table-success thead-dark">
+            <table id="example" class="table table-bordered table-striped table-hover">
+                <thead class="table-success thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Simulation Name</th>
+                        <th>Loading Time</th>
+                        <th>Duration</th>
+                        <th>Start Distance</th>
+                        <th>End Distance</th>
+                        <th>Truck Content</th>
+                        <th>Warehouse Name</th>
+                        <th>Specifity</th>
+                        <th>Warehouse Inventory</th>
+                        <th>Truck Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $ambilsemuadata = mysqli_query($conn, "SELECT * FROM simul LEFT JOIN jarak ON simul.nama = jarak.namaSimul LEFT JOIN gudang ON simul.nama = gudang.namaSimul LEFT JOIN truck ON simul.nama = truck.namaSimul");
+                    $i = 1;
+                    while ($data = mysqli_fetch_assoc($ambilsemuadata)) {
+                    ?>
                         <tr>
-                            <th>ID</th>
-                            <th>Simulation Name</th>
-                            <th>Loading Time</th>
-                            <th>Duration</th>
-                            <th>Start Distance</th>
-                            <th>End Distance</th>
-                            <th>Truck Content</th>
-                            <th>Warehouse Name</th>
-                            <th>Specifity</th>
-                            <th>Warehouse Inventory</th>
-                            <th>Truck Name</th>
+                            <td><?= $i++; ?></td>
+                            <td><?= $data['namaSimul']; ?></td>
+                            <td><?= $data['waktuLoading']; ?></td>
+                            <td><?= $data['durasi']; ?></td>
+                            <td><?= $data['jarakAwal']; ?></td>
+                            <td><?= $data['jarakAkhir']; ?></td>
+                            <td><?= $data['isiTruck']; ?></td>
+                            <td><?= $data['namaGudang']; ?></td>
+                            <td><?= $data['khusus']; ?></td>
+                            <td><?= $data['isiGudang']; ?></td>
+                            <td><?= $data['namaTruck']; ?></td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $ambilsemuadata = mysqli_query($conn, "SELECT * FROM simul LEFT JOIN jarak ON simul.nama = jarak.namaSimul LEFT JOIN gudang ON simul.nama = gudang.namaSimul LEFT JOIN truck ON simul.nama = truck.namaSimul");
-                        $i = 1;
-                        while ($data = mysqli_fetch_assoc($ambilsemuadata)) {
-                        ?>
-                            <tr>
-                                <td><?= $i++; ?></td>
-                                <td><?= $data['namaSimul']; ?></td>
-                                <td><?= $data['waktuLoading']; ?></td>
-                                <td><?= $data['durasi']; ?></td>
-                                <td><?= $data['jarakAwal']; ?></td>
-                                <td><?= $data['jarakAkhir']; ?></td>
-                                <td><?= $data['isiTruck']; ?></td>
-                                <td><?= $data['namaGudang']; ?></td>
-                                <td><?= $data['khusus']; ?></td>
-                                <td><?= $data['isiGudang']; ?></td>
-                                <td><?= $data['namaTruck']; ?></td>
-                            </tr>
-                        <?php
-                        }
-                        ?>
-                    </tbody>
-                </table>
+                    <?php
+                    }
+                    ?>
+                </tbody>
+            </table>
         </div>
 
 

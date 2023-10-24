@@ -92,9 +92,7 @@ require "ok2.php";
         <div class="pe-lg-0 ps-lg-5 container-fluid justify-content-between">
             <a class="navbar-brand" href="index.php" style="color: #d1e7dd; font-weight: bolder;">
                 <i class="fas fa-warehouse" style="margin-right: 10px;"></i> Warehouse Simulator
-            </a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            </a> 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
