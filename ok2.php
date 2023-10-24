@@ -59,12 +59,12 @@ if (isset($_POST['addData'])) {
     // echo $addtotableTruck;
 
     if ($addtotableSimul && $addtotableGudang && $addtotableJarak && $addtotableTruck) {
-        header('location: coba.php');
+        header('location: index.php');
         echo
         '
             <script>
             alert("berhasil");
-            window.location.href="coba.php";
+            window.location.href="index.php";
             </script>
             ';
     } else {
@@ -72,7 +72,7 @@ if (isset($_POST['addData'])) {
         '
             <script>
             alert("Add barang gagal karena barang sudah ada! Mohon menginput barang yang baru!");
-            window.location.href="coba.php";
+            window.location.href="index.php";
         </script>
         ';
     }

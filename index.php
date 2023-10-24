@@ -14,92 +14,155 @@ require "ok2.php";
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+
     <title>Manpro Simulation Truck</title>
+
+    <style>
+        .nav_left {
+            background-color: #d1e7dd;
+            border-top-left-radius: 48px;
+            border-bottom-left-radius: 48px;
+        }
+
+        .nav-tabs .nav-link.active {
+            background-color: transparent;
+            border-color: transparent;
+            border-top: 4px solid green;
+            color: green;
+            font-weight: bolder;
+        }
+
+        .nav-tabs .nav-link {
+            border: none;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            margin: 0 30px 0 40px;
+        }
+
+        .nav-tabs {
+            border-bottom: none;
+        }
+
+        .nav-link {
+            padding: 1rem 0.5rem;
+            color: #fff;
+        }
+
+        .nav-link:focus,
+        .nav-link:hover {
+            color: gray;
+        }
+
+        .search_input {
+            width: 100%;
+            border-radius: 10px;
+            border: none;
+            line-height: initial;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            color: #f19159;
+        }
+
+        .search_input:focus-visible {
+            outline: none;
+        }
+
+        input.search_input::placeholder {
+            color: #cfd2ec;
+            vertical-align: middle;
+        }
+
+        .navbar-toggler {
+            border: 3px solid #f19159;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(35, 76, 203, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+    </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="coba.php">Manpro Simul</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg bg-success py-3 ">
+        <div class="pe-lg-0 ps-lg-5 container-fluid justify-content-between">
+            <a class="navbar-brand" href="index.php" style="color: #d1e7dd; font-weight: bolder;">
+                <i class="fas fa-warehouse" style="margin-right: 10px;"></i> Warehouse Simulator
+            </a> <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="coba.php">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="lala.php">Compare</a>
-                    </li>
-                </ul>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <div class="nav_left d-lg-flex align-items-center">
+                    <nav>
+                        <div class="nav d-block d-lg-flex nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="index-tab" data-bs-toggle="tab" data-bs-target="#index" type="button" role="tab" aria-controls="home" aria-selected="false" onclick="redirectToIndex()" style="color: black;">Input</button>
+                            <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type "button" role="tab" aria-controls="data" aria-selected="false" onclick="redirectToData()" style="color: black;">Data</button>
+                            <button class="nav-link" id="timing-tab" data-bs-toggle="tab" data-bs-target="#timing" type="button" role="tab" aria-controls="timing" aria-selected="false" onclick="redirectToCompare()" style="color: black;">Compare</button>
+                        </div>
+                    </nav>
+                </div>
             </div>
         </div>
     </nav>
-    <div class="container-fluid p-5">
 
 
-
+    <div class="container p-5">
         <form id="addDataForm" method="POST">
-            <h1>
-                Input User
-            </h1>
+            <h1>Input Data</h1>
             <div class="mb-3">
-                <label for="inputNamaSimul" class="form-label">Nama Simulasi</label>
+                <label for="inputNamaSimul" class="form-label">Simulation Name</label>
                 <input name="namaSimulasi" type="text" class="form-control" id="inputNamaSimul">
             </div>
             <div class="mb-3">
                 <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="inputJumlahArea" class="form-label">Jumlah Area</label>
+                    <div class="col-md-6">
+                        <label for="inputJumlahArea" class="form-label">Area Amount</label>
                         <input type="number" name="jumlahArea" class="form-control" id="inputJumlahArea">
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6">
                         <label for="inputTotalTruck" class="form-label">Total Truck</label>
                         <input type="number" name="jumlahTruck" class="form-control" id="inputTotalTruck">
                     </div>
-
-
                 </div>
-                <button class="btn btn-danger" type="button" id="button1">Button 1</button>
-
-
+                <button class="btn btn-primary mt-3" type="button" id="button1">Set</button>
             </div>
 
-            <div class="mb-3" id="result1">
 
+            <div class="mb-3" id="result1">
+                <!-- Content generated by JavaScript will be displayed here -->
             </div>
 
             <div class="mb-3">
-                <label for="inputJumlahGudang" class="form-label">Jumlah Gudang</label>
+                <label for="inputJumlahGudang" class="form-label">Warehouse Amount</label>
                 <input type="number" name="jumlahGudang" class="form-control" id="inputJumlahGudang">
-
-                <button class="btn btn-primary mt-3" type="button" id="button2">Button 2</button>
-
+                <button class="btn btn-primary mt-3" type="button" id="button2">Set</button>
             </div>
 
             <div id="result2">
-
+                <!-- Content generated by JavaScript will be displayed here -->
             </div>
 
             <div class="mb-3 pt-2">
-                <label for="inputWaktuLoading" class="form-label">Waktu Loading</label>
+                <label for="inputWaktuLoading" class="form-label">Loading Time</label>
                 <input type="number" name="waktuLoading" class="form-control" id="inputWaktuLoading">
             </div>
 
             <div class="mb-3">
-                <label for="inputDurasiSimul" class="form-label">Durasi Simul</label>
+                <label for="inputDurasiSimul" class="form-label">Duration</label>
                 <input type="number" name="durasiSimul" class="form-control" id="inputDurasiSimul">
             </div>
 
-            <button type="submit" class="btn btn-primary justify-content-end" name="addData">Add</button>
+            <button type="submit" class="btn btn-primary">Add</button>
         </form>
-
     </div>
 
-
-    </form>
-    </div>
 
     <!-- <script>
         const coba = document.getElementById('addDataForm"');
@@ -308,6 +371,22 @@ require "ok2.php";
 
         });
     </script> -->
+    <script>
+        function redirectToIndex() {
+            // Redirect the user to index.php
+            window.location.href = "index.php";
+        }
+
+        function redirectToData() {
+            // Redirect the user to index.php
+            window.location.href = "raw_data.php";
+        }
+
+        function redirectToCompare() {
+            // Redirect the user to index.php
+            window.location.href = "compare.php";
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
