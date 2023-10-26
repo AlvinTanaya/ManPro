@@ -67,12 +67,16 @@ class Truk {
     private $jarak;
     private $waktuLoading;
     private $kriteria;
+    private $randomTime;
 
-    public function __construct($id, $indexJarak, $jarak, $waktuLoading) {
+    public function __construct($id, $indexJarak, $jarak, $waktuLoading, $durasiSimulasi) {
         $this->id = $id;
         $this->indexJarak = $indexJarak;
         $this->jarak = $jarak;
         $this->waktuLoading = $waktuLoading;
+
+        // Generate a random time within the specified range
+        $this->randomTime = date("H:i:s", strtotime("00:00:00") + rand(0, $durasiSimulasi * 3600));
     }
 
     public function getID() {
@@ -95,8 +99,12 @@ class Truk {
         return $this->kriteria;
     }
 
+    public function getRandomTime() {
+        return $this->randomTime;
+    }
+
     public function printInfo() {
-        echo $this->id . " " . $this->indexJarak . " " . $this->jarak . " " . $this->waktuLoading . "<br>";
+        echo $this->id . " " . $this->indexJarak . " " . $this->jarak . " " . $this->waktuLoading . " " . $this->randomTime . "<br>";
     }
 }
 
@@ -139,6 +147,13 @@ $kekhususanGudang = array(
     array(3)
 );
 
+// $kekhususanGudang = array(
+//     array(0),
+//     array(1),
+//     array(2),
+//     array(3)
+// );
+
 // Input Durasi Simulasi Di Jalankan
 $durasiSimulasi = 50;
 
@@ -170,7 +185,7 @@ $id = 1;
 // Randomize truck distances based on their range
 for ($i = 0; $i < count($jumlahTruk); $i++) {
     for ($j = 0; $j < $jumlahTruk[$i]; $j++) {
-        $daftarTruk[] = new Truk($id, $i, getRandomInt($daftarJarak[$i][0], $daftarJarak[$i][1]), $waktuLoading);
+        $daftarTruk[] = new Truk($id, $i, getRandomInt($daftarJarak[$i][0], $daftarJarak[$i][1]), $waktuLoading, $durasiSimulasi);
         $id++;
     }
 }
