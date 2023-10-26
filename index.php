@@ -436,7 +436,7 @@ require "ok2.php";
 
 
     <div class="container p-4 shadowed-square">
-        <form id="addDataForm" method="POST">
+        <form id="addDataForm" method="POST" action="insert_data.php">
             <h2>Input form</h2>
             <h6>Plese fill out the following information for the simulation</h6>
             <br>
