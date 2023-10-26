@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
@@ -115,7 +116,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Loading Time</h5>
-                        <canvas id="lineChart1" class="chart-container"></canvas>
+                        <canvas id="barPlot1" class="chart-container"></canvas>
                     </div>
                 </div>
             </div>
@@ -123,7 +124,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Waiting Time</h5>
-                        <canvas id="lineChart2" class="chart-container"></canvas>
+                        <canvas id="barPlot2" class="chart-container"></canvas>
                     </div>
                 </div>
             </div>
@@ -133,7 +134,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Truck Distance</h5>
-                        <canvas id="lineChart3" class="chart-container"></canvas>
+                        <canvas id="barPlot3" class="chart-container"></canvas>
                     </div>
                 </div>
             </div>
@@ -141,34 +142,24 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Truck Content</h5>
-                        <canvas id="lineChart4" class="chart-container"></canvas>
+                        <canvas id="barPlot4" class="chart-container"></canvas>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+
 
     <script>
-        function generateRandomData(days, isKeuangan) {
-            var data = [];
-            for (var i = 0; i < days; i++) {
-                // Generate larger values for Keuangan (data2)
-                var value = isKeuangan ? Math.floor(Math.random() * 20) + 5 : Math.floor(Math.random() * 10) + 1;
-                data.push(value);
-            }
-            return data;
-        }
-
-        var ctx1 = document.getElementById("lineChart1").getContext("2d");
-        var lineChart1 = new Chart(ctx1, {
-            type: "line",
+        var ctx1 = document.getElementById("barPlot1").getContext("2d");
+        var barPlot1 = new Chart(ctx1, {
+            type: "bar",
             data: {
                 labels: [],
                 datasets: [{
                     label: "Loading Time (s)",
                     data: [],
-                    borderColor: "rgba(75, 192, 192, 1)",
+                    borderColor: "#20c997",
                     borderWidth: 2,
                     fill: false
                 }]
@@ -188,15 +179,15 @@
             }
         });
 
-        var ctx2 = document.getElementById("lineChart2").getContext("2d");
-        var lineChart2 = new Chart(ctx2, {
-            type: "line",
+        var ctx2 = document.getElementById("barPlot2").getContext("2d");
+        var barPlot2 = new Chart(ctx2, {
+            type: "bar",
             data: {
                 labels: [],
                 datasets: [{
                     label: "Waiting Time (s)",
                     data: [],
-                    borderColor: "rgba(255, 99, 132, 1)",
+                    borderColor: "#198754",
                     borderWidth: 2,
                     fill: false
                 }]
@@ -216,15 +207,15 @@
             }
         });
 
-        var ctx3 = document.getElementById("lineChart3").getContext("2d");
-        var lineChart3 = new Chart(ctx3, {
-            type: "line",
+        var ctx3 = document.getElementById("barPlot3").getContext("2d");
+        var barPlot3 = new Chart(ctx3, {
+            type: "bar",
             data: {
                 labels: [],
                 datasets: [{
                     label: "Truck Distance (Km)",
                     data: [],
-                    borderColor: "rgba(75, 192, 192, 1)",
+                    borderColor: "#198754",
                     borderWidth: 2,
                     fill: false
                 }]
@@ -244,15 +235,15 @@
             }
         });
 
-        var ctx3 = document.getElementById("lineChart4").getContext("2d");
-        var lineChart4 = new Chart(ctx3, {
-            type: "line",
+        var ctx3 = document.getElementById("barPlot4").getContext("2d");
+        var barPlot4 = new Chart(ctx3, {
+            type: "bar",
             data: {
                 labels: [],
                 datasets: [{
                     label: "Truck Content (Kg)",
                     data: [],
-                    borderColor: "rgba(255, 99, 132, 1)",
+                    borderColor: "#20c997",
                     borderWidth: 2,
                     fill: false
                 }]
