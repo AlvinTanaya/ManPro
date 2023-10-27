@@ -349,8 +349,8 @@ require "ok2.php";
                             <input type="text" name="simulationName" placeholder="Simulation One" id="simulationName" class="formbold-form-input" required />
                         </div>
                         <div>
-                            <label for="truckContent" class="formbold-form-label"> Truck Content <span style="color: red;">*</span> </label>
-                            <input type="text" name="truckContent" placeholder="100 (kg)" id="truckContent" class="formbold-form-input" required />
+                            <label for="truckContent" class="formbold-form-label"> Truck Name <span style="color: red;">*</span> </label>
+                            <input type="text" name="truck" placeholder="Sejati" id="truckName" class="formbold-form-input" required />
                         </div>
                     </div>
 
@@ -374,10 +374,14 @@ require "ok2.php";
                             <input type="duration" name="duration" id="duration" placeholder="24 hours" class="formbold-form-input" required />
                         </div>
                     </div>
-                    <div>
+                    <div class="formbold-input-flex">
                         <div>
                             <label for="warehouseInventory" class="formbold-form-label"> Warehouse Inventory <span style="color: red;">*</span> </label>
                             <input type="number" name="warehouseInventory" placeholder="4" id="warehouseInventory" class="formbold-form-input" required />
+                        </div>
+                        <div>
+                            <label for="truckContent" class="formbold-form-label"> Warehouse Amount <span style="color: red;">*</span> </label>
+                            <input type="text" name="warehouseAmount" placeholder="4" id="warehouseAmount" class="formbold-form-input" required />
                         </div>
                     </div>
                 </div>
@@ -412,7 +416,7 @@ require "ok2.php";
                         Back
                     </button>
 
-                    <button class="formbold-btn">
+                    <button id="button1" class="formbold-btn">
                         Next Step
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_1675_1807)">
