@@ -349,7 +349,7 @@ require "ok2.php";
                             <input type="text" name="simulationName" placeholder="Simulation One" id="simulationName" class="formbold-form-input" required />
                         </div>
                         <div>
-                            <label for="truckContent" class="formbold-form-label"> Truck Name <span style="color: red;">*</span> </label>
+                            <label for="truckName" class="formbold-form-label"> Truck Name <span style="color: red;">*</span> </label>
                             <input type="text" name="truck" placeholder="Sejati" id="truckName" class="formbold-form-input" required />
                         </div>
                     </div>
@@ -376,8 +376,8 @@ require "ok2.php";
                     </div>
                     <div class="formbold-input-flex">
                         <div>
-                            <label for="warehouseInventory" class="formbold-form-label"> Warehouse Inventory <span style="color: red;">*</span> </label>
-                            <input type="number" name="warehouseInventory" placeholder="4" id="warehouseInventory" class="formbold-form-input" required />
+                            <label for="warehouseName" class="formbold-form-label"> Warehouse Name <span style="color: red;">*</span> </label>
+                            <input type="text" name="warehouseName" placeholder="Warehouse 1" id="warehouseName" class="formbold-form-input" required />
                         </div>
                         <div>
                             <label for="truckContent" class="formbold-form-label"> Warehouse Amount <span style="color: red;">*</span> </label>
@@ -484,97 +484,119 @@ require "ok2.php";
             </div>
             <button type="button" class="btn btn-success" onclick="success()">Add</button>
         </form>
-    </div> --> -->
+    </div> -->
+    <script>
+        var formData = {}  
+    </script>
+
+    <script>
+        function getFormValues() {
+            console.log("getformvalue funct")
+            var form = document.querySelector('.formbold-form-step-1.active');
+        
+            var inputs = form.querySelectorAll('input');
+            for (var i = 0; i < inputs.length; i++) {
+                var input = inputs[i];
+                formData[input.name] = input.value;
+            }
+
+            for (var i = 0; i < formData['totalTruck']; i++)
+        }
+        // Call the function when a button is clicked (e.g., "Next Step" button)
+        var nextButton = document.getElementById('button1');
+        nextButton.addEventListener('click', getFormValues);
+</script>
+
 
 
     <script>
-        const form1 = document.getElementById('addDataForm');
-        const resultDiv1 = document.getElementById('result1');
-        const resultDiv2 = document.getElementById('result2');
-        const button1 = document.getElementById('button1');
-        const button2 = document.getElementById('button2');
+        // const form1 = document.getElementById('addDataForm');
+        // const resultDiv1 = document.getElementById('result1');
+        // const resultDiv2 = document.getElementById('result2');
+        // const button1 = document.getElementById('button1');
+        // const button2 = document.getElementById('button2');
 
-        button1.addEventListener('click', function() {
-            functionForButton1();
-        });
+        // button1.addEventListener('click', function() {
+        //     functionForButton1();
+        // });
 
-        button2.addEventListener('click', function() {
-            functionForButton2();
-        });
+        // button2.addEventListener('click', function() {
+        //     functionForButton2();
+        // });
 
-        function functionForButton1() {
-            const jumlahArea = document.getElementById('inputJumlahArea').value;
-            const jumlahTruck = document.getElementById('inputTotalTruck').value;
+        // function functionForButton1() {
+        //     const jumlahArea = document.getElementById('inputJumlahArea').value;
+        //     const jumlahTruck = document.getElementById('inputTotalTruck').value;
 
-            // Create a variable to hold the content
-            let newPageContent = `
-                <div class="row">
-                    <div class="col-md-4 mb-3">
-                        <label for="inputJarakAwal" class="form-label">Jarak Awal <span style="color: red;">*</span></label>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="inputJarakAkhir" class="form-label">Jarak Akhir <span style="color: red;">*</span></label>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="inputPresentaseTruck" class="form-label">Presentase Jumlah Truck <span style="color: red;">*</span></label>
-                    </div>
-                </div>
-            `;
+        //     // Create a variable to hold the content
+        //     let newPageContent = `
+        //         <div class="row">
+        //             <div class="col-md-4 mb-3">
+        //                 <label for="inputJarakAwal" class="form-label">Jarak Awal <span style="color: red;">*</span></label>
+        //             </div>
+        //             <div class="col-md-4 mb-3">
+        //                 <label for="inputJarakAkhir" class="form-label">Jarak Akhir <span style="color: red;">*</span></label>
+        //             </div>
+        //             <div class="col-md-4 mb-3">
+        //                 <label for="inputPresentaseTruck" class="form-label">Presentase Jumlah Truck <span style="color: red;">*</span></label>
+        //             </div>
+        //         </div>
+        //     `;
 
-            for (let i = 1; i <= jumlahArea; i++) {
-                // Concatenate the content for each input
-                newPageContent += `
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <input type="number" name="jarakAwal${i}" class="form-control" id="inputJarakAwal${i}">
-                        </div>
+        //     for (let i = 1; i <= jumlahArea; i++) {
+        //         // Concatenate the content for each input
+        //         newPageContent += `
+        //             <div class="row">
+        //                 <div class="col-md-4 mb-3">
+        //                     <input type="number" name="jarakAwal${i}" class="form-control" id="inputJarakAwal${i}">
+        //                 </div>
 
-                        <div class="col-md-4 mb-3">
-                            <input type="number" name="jarakAkhir${i}" class="form-control" id="inputJarakAkhir${i}">
-                        </div>
-                        <div class="col-md-3 mb-3 pe-0">
-                            <input type="number" name="presentaseTruck${i}" class="form-control" id="inputPresentaseTruck${i}">
-                        </div>
-                        <div class="col-md-1 mb-3 ps-0">
-                            <span class="input-group-text text-center" id="basic-addon2">%</span>
-                        </div>
-                    </div>
-                `;
-            }
+        //                 <div class="col-md-4 mb-3">
+        //                     <input type="number" name="jarakAkhir${i}" class="form-control" id="inputJarakAkhir${i}">
+        //                 </div>
+        //                 <div class="col-md-3 mb-3 pe-0">
+        //                     <input type="number" name="presentaseTruck${i}" class="form-control" id="inputPresentaseTruck${i}">
+        //                 </div>
+        //                 <div class="col-md-1 mb-3 ps-0">
+        //                     <span class="input-group-text text-center" id="basic-addon2">%</span>
+        //                 </div>
+        //             </div>
+        //         `;
+        //     }
 
-            // Display the new page content
-            resultDiv1.innerHTML = newPageContent;
-        }
+        //     // Display the new page content
+        //     resultDiv1.innerHTML = newPageContent;
+        // }
 
-        function functionForButton2() {
-            const jumlahGudang = document.getElementById('inputJumlahGudang').value;
-            const jumlahArea = document.getElementById('inputJumlahArea').value;
+        // function functionForButton2() {
+        //     const jumlahGudang = document.getElementById('inputJumlahGudang').value;
+        //     const jumlahArea = document.getElementById('inputJumlahArea').value;
 
-            // Create a variable to hold the content
-            let newPageContent2 = `
-                <h3>Choose Warehouse Specifity</h3>
-            `;
+        //     // Create a variable to hold the content
+        //     let newPageContent2 = `
+        //         <h3>Choose Warehouse Specifity</h3>
+        //     `;
 
-            // Generate checkboxes based on jumlahGudang
-            for (let i = 1; i <= jumlahGudang; i++) {
-                newPageContent2 += `
-                    <b>Gudang ${i}</b>
-                `;
-                for (let j = 1; j <= jumlahArea; j++) {
-                    newPageContent2 += `
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="${i}khusus${j}">
-                            <label class="form-check-label" for="${i}khusus${j}">
-                                Area ${j}
-                            </label>
-                        </div>
-                    `;
-                }
-            }
+        //     // Generate checkboxes based on jumlahGudang
+        //     for (let i = 1; i <= jumlahGudang; i++) {
+        //         newPageContent2 += `
+        //             <b>Gudang ${i}</b>
+        //         `;
+        //         for (let j = 1; j <= jumlahArea; j++) {
+        //             newPageContent2 += `
+        //                 <div class="form-check">
+        //                     <input class="form-check-input" type="checkbox" name="${i}khusus${j}">
+        //                     <label class="form-check-label" for="${i}khusus${j}">
+        //                         Area ${j}
+        //                     </label>
+        //                 </div>
+        //             `;
+        //         }
+        //     }
 
-            // Display the new page content
-            resultDiv2.innerHTML = newPageContent2;
-        }
+        //     // Display the new page content
+        //     resultDiv2.innerHTML = newPageContent2;
+        // }
     </script>
 
     <script>
