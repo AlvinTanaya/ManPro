@@ -10,7 +10,7 @@ if (!$conn) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve data from the form
-    $namaSimulasi = $_POST["namaSimulasi"];
+    $namaSimulasi = $_POST["simulationName"];
     $jumlahArea = $_POST["jumlahArea"];
     $jumlahTruck = $_POST["jumlahTruck"];
     $jumlahGudang = $_POST["jumlahGudang"];
