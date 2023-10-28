@@ -21,6 +21,16 @@ require "ok2.php";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
 
     <style>
+        .page-item.active .page-link {
+            background-color: #28a745 !important;
+            color: white !important;
+            border: 1px solid black;
+        }
+
+        .page-link {
+            color: #28a745 !important;
+        }
+
         .nav_left {
             background-color: #d1e7dd;
             border-top-left-radius: 48px;
