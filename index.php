@@ -323,7 +323,7 @@ require "ok2.php";
         <!-- Author: FormBold Team -->
         <!-- Learn More: https://formbold.com -->
         <div class="formbold-form-wrapper">
-            <form action="https://formbold.com/s/FORM_ID" method="POST">
+            <form action="insert_data.php" method="POST">
                 <div class="formbold-steps">
                     <ul>
                         <li class="formbold-step-menu1 active">
