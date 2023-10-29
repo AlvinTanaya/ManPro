@@ -486,26 +486,26 @@ require "ok2.php";
         </form>
     </div> -->
     <script>
-        var formData = {}  
+        var formData = {}
     </script>
 
     <script>
         function getFormValues() {
             console.log("getformvalue funct")
             var form = document.querySelector('.formbold-form-step-1.active');
-        
+
             var inputs = form.querySelectorAll('input');
             for (var i = 0; i < inputs.length; i++) {
                 var input = inputs[i];
                 formData[input.name] = input.value;
             }
 
-            for (var i = 0; i < formData['totalTruck']; i++)
+            for (var i = 0; i < formData['totalTruck']; i++) {}
         }
         // Call the function when a button is clicked (e.g., "Next Step" button)
         var nextButton = document.getElementById('button1');
         nextButton.addEventListener('click', getFormValues);
-</script>
+    </script>
 
 
 
