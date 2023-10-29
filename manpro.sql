@@ -89,6 +89,77 @@ INSERT INTO `simul` (`id`, `nama`, `waktuLoading`, `durasi`) VALUES
 (2, '2', 1, 1),
 (3, '3', 1, 1);
 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `random`
+--
+
+CREATE TABLE `random` (
+  `id` int(11) NOT NULL,
+  `namaSimul` varchar(300) NOT NULL,
+  `jumlahTruk` int(11) NOT NULL,
+  `infoTruk` JSON NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `random`
+--
+
+INSERT INTO `random` (`id`, `namaSimul`, `jumlahTruk`, `infoTruk`) VALUES
+(1, 'Coba1', 10, JSON_ARRAY(1, '20:00:00', 0)),
+(2, 'Coba2', 15, JSON_ARRAY(2, '21:00:00', 1)),
+(3, 'Coba3', 20, JSON_ARRAY(3, '22:00:00', 2));
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `hasil`
+--
+
+CREATE TABLE `hasil` (
+  `id` int(11) NOT NULL,
+  `namaSimul` varchar(300) NOT NULL,
+  `delay` int(11) NOT NULL,
+  `jumlahTerima` int(11) NOT NULL,
+  `jumlahTolak` int(11) NOT NULL,
+  `jumlahGudang` int(11) NOT NULL,
+  `khusus` JSON NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hasil`
+--
+
+INSERT INTO `hasil` (`id`, `namaSimul`, `delay`, `jumlahTerima`, `jumlahTolak`, `jumlahGudang`, `khusus`) VALUES
+(1, 'Coba1', 5, 10, 0, 4, JSON_ARRAY(1, 0)),
+(2, 'Coba2', 6, 10, 1, 4, JSON_ARRAY(2, 1)),
+(3, 'Coba3', 7, 10, 2, 4, JSON_ARRAY(3, 2));
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `range`
+--
+
+CREATE TABLE `range` (
+  `id` int(11) NOT NULL,
+  `namaSimul` varchar(300) NOT NULL,
+  `range_jarak` JSON NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `range`
+--
+
+INSERT INTO `range` (`id`, `namaSimul`, `range_jarak`) VALUES
+(1, 'Coba1', JSON_ARRAY(0, 5)),
+(2, 'Coba1', JSON_ARRAY(6, 10)),
+(3, 'Coba1', JSON_ARRAY(11, 15));
+
 --
 -- Indexes for dumped tables
 --
@@ -112,6 +183,26 @@ ALTER TABLE `simul`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `random`
+--
+ALTER TABLE `random`
+  ADD PRIMARY KEY (`id`);
+
+
+--
+-- Indexes for table `hasil`
+--
+ALTER TABLE `hasil`
+  ADD PRIMARY KEY (`id`);
+
+
+--
+-- Indexes for table `range`
+--
+ALTER TABLE `range`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -131,6 +222,26 @@ ALTER TABLE `jarak`
 -- AUTO_INCREMENT for table `simul`
 --
 ALTER TABLE `simul`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `random`
+--
+ALTER TABLE `random`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+
+--
+-- AUTO_INCREMENT for table `hasil`
+--
+ALTER TABLE `hasil`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+
+--
+-- AUTO_INCREMENT for table `range`
+--
+ALTER TABLE `range`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
