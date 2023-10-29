@@ -145,124 +145,121 @@ require "ok2.php";
         </div>
     </nav>
 
+
     <div class="container-fluid pt-3 pe-5 ps-5 pb-1">
-        <div class="container-fluid pt-3 pb-5">
-            <h1>Data</h1>
+        <h1>Data</h1>
 
-            <div class="row mt-4 mb-3">
-                <div class="col-md-4 mb-3">
-                    <div class="rounded p-3 shadow">
-                        <select class="form-select" aria-label="Simulation Name">
-                            <option selected>Simulation Name</option>
-                            <?php
-                            $ambilSemuaNama = mysqli_query($conn, "SELECT nama FROM simul");
-                            while ($data = mysqli_fetch_assoc($ambilSemuaNama)) {
-                            ?>
-                                <option value="1"><?= $data['nama']; ?></option>
-                            <?php
-                            }
-                            ?>
-                        </select>
-                    </div>
+        <div class="row mt-4 mb-3">
+            <div class="col-md-4 mb-3">
+                <div class="rounded p-3 shadow">
+                    <form method="post">
+                        <div style="display: flex; align-items: center;">
+                            <select class="form-select" aria-label="Simulation Name" name="nama">
+                                <option value="" disabled selected>Choose Simulation Name</option>
+                                <?php
+                                $ambilSemuaNama = mysqli_query($conn, "SELECT nama FROM simul");
+                                while ($data = mysqli_fetch_assoc($ambilSemuaNama)) {
+                                ?>
+                                    <option value="<?= $data['nama']; ?>"><?= $data['nama']; ?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                            <input type="submit" name="submit" class="btn btn-success" value="Search">
+
+                        </div>
+                    </form>
                 </div>
 
-                <div class="col-md-4 mb-3">
-                    <div class="rounded p-3 shadow">
-                        <select class="form-select" aria-label="Area">
-                            <option selected>Area</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="col-md-4 mb-3">
-                    <div class="rounded p-3 shadow">
-                        <select class="form-select" aria-label="Specifity">
-                            <option selected>Specifity</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </div>
-                </div>
             </div>
 
-            <table id="example" class="table table-bordered table-striped table-hover">
-                <thead class="table-success thead-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Simulation Name</th>
-                        <th>Loading Time</th>
-                        <th>Duration</th>
-                        <th>Start Distance</th>
-                        <th>End Distance</th>
-                        <th>Truck Content</th>
-                        <th>Warehouse Name</th>
-                        <th>Specifity</th>
-                        <th>Warehouse Inventory</th>
-                        <th>Truck Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $ambilsemuadata = mysqli_query($conn, "SELECT * FROM simul LEFT JOIN jarak ON simul.nama = jarak.namaSimul LEFT JOIN gudang ON simul.nama = gudang.namaSimul LEFT JOIN truck ON simul.nama = truck.namaSimul");
-                    $i = 1;
-                    while ($data = mysqli_fetch_assoc($ambilsemuadata)) {
-                    ?>
-                        <tr>
-                            <td><?= $i++; ?></td>
-                            <td><?= $data['namaSimul']; ?></td>
-                            <td><?= $data['waktuLoading']; ?></td>
-                            <td><?= $data['durasi']; ?></td>
-                            <td><?= $data['jarakAwal']; ?></td>
-                            <td><?= $data['jarakAkhir']; ?></td>
-                            <td><?= $data['isiTruck']; ?></td>
-                            <td><?= $data['namaGudang']; ?></td>
-                            <td><?= $data['khusus']; ?></td>
-                            <td><?= $data['isiGudang']; ?></td>
-                            <td><?= $data['namaTruck']; ?></td>
-                        </tr>
-                    <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
+
         </div>
 
+        <table id="example" class="table table-bordered table-striped table-hover">
+            <thead class="table-success thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Simulation Name</th>
+                    <th>Loading Time</th>
+                    <th>Duration</th>
+                    <th>Start Distance</th>
+                    <th>End Distance</th>
+                    <th>Truck Content</th>
+                    <th>Warehouse Name</th>
+                    <th>Specifity</th>
+                    <th>Warehouse Inventory</th>
+                    <th>Truck Name</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <?php
+                if (isset($_POST['submit']) && isset($_POST['nama'])) {
+                    $selected = $_POST['nama'];
+                    $ambilsemuadata = mysqli_query($conn, "SELECT * FROM simul LEFT JOIN jarak ON simul.nama = jarak.namaSimul LEFT JOIN gudang ON simul.nama = gudang.namaSimul LEFT JOIN truck ON simul.nama = truck.namaSimul where simul.nama = '$selected'");
+                } else {
+                    $ambilsemuadata = mysqli_query($conn, "SELECT * FROM simul LEFT JOIN jarak ON simul.nama = jarak.namaSimul LEFT JOIN gudang ON simul.nama = gudang.namaSimul LEFT JOIN truck ON simul.nama = truck.namaSimul");
+                }
+
+
+                $i = 1;
+                while ($data = mysqli_fetch_assoc($ambilsemuadata)) {
+                ?>
+                    <tr>
+                        <td><?= $i++; ?></td>
+                        <td><?= $data['namaSimul']; ?></td>
+                        <td><?= $data['waktuLoading']; ?></td>
+                        <td><?= $data['durasi']; ?></td>
+                        <td><?= $data['jarakAwal']; ?></td>
+                        <td><?= $data['jarakAkhir']; ?></td>
+                        <td><?= $data['isiTruck']; ?></td>
+                        <td><?= $data['namaGudang']; ?></td>
+                        <td><?= $data['khusus']; ?></td>
+                        <td><?= $data['isiGudang']; ?></td>
+                        <td><?= $data['namaTruck']; ?></td>
+                    </tr>
+                <?php
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
 
 
 
-        <!-- Include jQuery and DataTables JavaScript -->
-        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
-        <!-- Include Bootstrap JavaScript -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous" defer></script>
+    <!-- Include jQuery and DataTables JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Include Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous" defer></script>
 
 
-        <script>
-            $(document).ready(function() {
-                $('#example').DataTable();
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                searching: false
             });
+        });
 
-            function redirectToIndex() {
-                // Redirect the user to index.php
-                window.location.href = "index.php";
-            }
+        function redirectToIndex() {
+            // Redirect the user to index.php
+            window.location.href = "index.php";
+        }
 
-            function redirectToData() {
-                // Redirect the user to index.php
-                window.location.href = "raw_data.php";
-            }
+        function redirectToData() {
+            // Redirect the user to index.php
+            window.location.href = "raw_data.php";
+        }
 
-            function redirectToCompare() {
-                // Redirect the user to index.php
-                window.location.href = "compare.php";
-            }
-        </script>
+        function redirectToCompare() {
+            // Redirect the user to index.php
+            window.location.href = "compare.php";
+        }
+    </script>
 </body>
 
 </html>
