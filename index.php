@@ -323,7 +323,7 @@ require "ok2.php";
         <!-- Author: FormBold Team -->
         <!-- Learn More: https://formbold.com -->
         <div class="formbold-form-wrapper">
-            <form action="insert_data.php" method="POST">
+            <form action="insert_data.php" method="POST" id="formLayout">
                 <div class="formbold-steps">
                     <ul>
                         <li class="formbold-step-menu1 active">
@@ -343,14 +343,10 @@ require "ok2.php";
 
 
                 <div class="formbold-form-step-1 active">
-                    <div class="formbold-input-flex">
+                    <div>
                         <div>
                             <label for="SimulationName" class="formbold-form-label"> Simulation Name <span style="color: red;">*</span></label>
                             <input type="text" name="simulationName" placeholder="Simulation One" id="simulationName" class="formbold-form-input" required />
-                        </div>
-                        <div>
-                            <label for="truckName" class="formbold-form-label"> Truck Name <span style="color: red;">*</span> </label>
-                            <input type="text" name="truck" placeholder="Sejati" id="truckName" class="formbold-form-input" required />
                         </div>
                     </div>
 
@@ -364,21 +360,13 @@ require "ok2.php";
                             <input type="number" name="totalTruck" placeholder="4" id="totalTruck" class="formbold-form-input" required />
                         </div>
                     </div>
-                    <div class="formbold-input-flex">
-                        <div>
-                            <label for="loadingTime" class="formbold-form-label"> Loading Time <span style="color: red;">*</span> </label>
-                            <input type="number" name="loadingTime" placeholder="30 minutes" id="loadingTime" class="formbold-form-input" required />
-                        </div>
+                    <div>
                         <div>
                             <label for="duration" class="formbold-form-label"> Duration <span style="color: red;">*</span></label>
                             <input type="duration" name="duration" id="duration" placeholder="24 hours" class="formbold-form-input" required />
                         </div>
                     </div>
-                    <div class="formbold-input-flex">
-                        <div>
-                            <label for="warehouseName" class="formbold-form-label"> Warehouse Name <span style="color: red;">*</span> </label>
-                            <input type="text" name="warehouseName" placeholder="Warehouse 1" id="warehouseName" class="formbold-form-input" required />
-                        </div>
+                    <div>
                         <div>
                             <label for="truckContent" class="formbold-form-label"> Warehouse Amount <span style="color: red;">*</span> </label>
                             <input type="text" name="warehouseAmount" placeholder="4" id="warehouseAmount" class="formbold-form-input" required />
@@ -387,28 +375,11 @@ require "ok2.php";
                 </div>
 
                 <div class="formbold-form-step-2">
-                    <div>
-                        <label for="setPercentage" class="formbold-form-label"> Set Percentage </label>
-                        <input type="number" name="setPercentage" id="setPercentage" placeholder="60%" class="formbold-form-input"></input>
-                    </div>
+
                 </div>
 
                 <div class="formbold-form-step-3">
-                    <div>
-                        <label class="formbold-form-label"> Warehouse Specificity </label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="warehouseSpecifity" id="warehouseSpecifity1" value="Area 1">
-                            <label class="form-check-label" for="warehouseSpecifity1">Area 1</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="warehouseSpecifity" id="warehouseSpecifity2" value="Area 2">
-                            <label class="form-check-label" for="warehouseSpecifity2">Area 2</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="warehouseSpecifity" id="warehouseSpecifity3" value="Area 3">
-                            <label class="form-check-label" for="warehouseSpecifity3">Area 3</label>
-                        </div>
-                    </div>
+
                 </div>
 
                 <div class="formbold-form-btn-wrapper">
@@ -416,7 +387,7 @@ require "ok2.php";
                         Back
                     </button>
 
-                    <button id="button1" class="formbold-btn">
+                    <button id="button1" name="addData" type="submit" class="formbold-btn" onclick="submitFormData()">
                         Next Step
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_1675_1807)">
@@ -489,23 +460,23 @@ require "ok2.php";
         var formData = {}
     </script>
 
-    <script>
+    <!-- <script>
         function getFormValues() {
             console.log("getformvalue funct")
             var form = document.querySelector('.formbold-form-step-1.active');
 
-            var inputs = form.querySelectorAll('input');
-            for (var i = 0; i < inputs.length; i++) {
-                var input = inputs[i];
-                formData[input.name] = input.value;
-            }
+            // var inputs = form.querySelectorAll('input');
+            // for (var i = 0; i < inputs.length; i++) {
+            //     var input = inputs[i];
+            //     formData[input.name] = input.value;
+            // }
 
-            for (var i = 0; i < formData['totalTruck']; i++) {}
+            // for (var i = 0; i < formData['totalTruck']; i++) {}
         }
         // Call the function when a button is clicked (e.g., "Next Step" button)
         var nextButton = document.getElementById('button1');
         nextButton.addEventListener('click', getFormValues);
-    </script>
+    </script> -->
 
 
 
@@ -651,11 +622,41 @@ require "ok2.php";
 
         const formSubmitBtn = document.querySelector('.formbold-btn')
         const formBackBtn = document.querySelector('.formbold-back-btn')
-
-        formSubmitBtn.addEventListener("click", function(event) {
-            event.preventDefault()
+      
+        function submitFormData(){
+         // formSubmitBtn.addEventListener("click", function(event){ 
+            // event.preventDefault()
             if (stepMenuOne.className == 'formbold-step-menu1 active') {
                 event.preventDefault()
+                const jumlahArea = document.getElementById('areaAmount').value;
+                const totalTruck = document.getElementById('totalTruck').value;
+                // let defaultTruckPercentage = 0
+                // if(totalTruck >=jumlahArea){
+                //     defaultTruckPercentage = totalTruck/
+                // }
+                
+                let newPageContent = `
+                `;
+                for (let i = 1; i <= jumlahArea; i++) {
+                // Concatenate the content for each input
+                newPageContent += `
+                <div class="formbold-input-flex">
+                        <div>
+                            <label for="jarakAwal${i}" class="formbold-form-label">Jarak Awal <span style="color: red;">*</span></label>
+                            <input name="jarakAwal${i}" type="number" class="formbold-form-input" id="inputJarakAwal${i}" required>
+                        </div>
+                        <div>
+                            <label for="jarakAkhir${i}" class="formbold-form-label">Jarak Akhir <span style="color: red;">*</span></label>
+                            <input name="jarakAkhir${i}" type="number" class="formbold-form-input" id="inputJarakAkhir${i}" required>
+                        </div>
+                        <div>
+                            <label for="truckPercentage${i}" class="formbold-form-label">Truck Percentage <span style="color: red;">*</span></label>
+                            <input name="truckPercentage${i}" type="number" class="formbold-form-input" id="inputTruckPercentage${i}" required>
+                        </div>
+                    </div>
+                `;
+                }
+                stepTwo.innerHTML = newPageContent;
 
                 stepMenuOne.classList.remove('active')
                 stepMenuTwo.classList.add('active')
@@ -679,7 +680,30 @@ require "ok2.php";
 
             } else if (stepMenuTwo.className == 'formbold-step-menu2 active') {
                 event.preventDefault()
-
+                const jumlahArea = document.getElementById('areaAmount').value;
+                const jumlahGudang = document.getElementById("warehouseAmount").value;
+                
+                    let newPageContent = `
+                `;
+                for(let i = 1;i <= jumlahGudang; i++){
+                    newPageContent += `
+                <div>
+                        <label class="formbold-form-label"> Warehouse Specificity ${i} </label>
+                `;
+                    for (let j = 1; j <= jumlahArea; j++) {
+                    // Concatenate the content for each input
+                    newPageContent += `
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="${i}warehouseSpecifity${j}" id="${i}warehouseSpecifity${j}">
+                                <label class="form-check-label" for="${i}warehouseSpecifity${j}">Area ${j}</label>
+                            </div>
+                    `;
+                    }
+                    newPageContent += `
+                    </div>
+                `;
+                }
+                stepThree.innerHTML = newPageContent;
                 stepMenuTwo.classList.remove('active')
                 stepMenuThree.classList.add('active')
 
@@ -689,9 +713,9 @@ require "ok2.php";
                 formBackBtn.classList.remove('active')
                 formSubmitBtn.textContent = 'Submit'
             } else if (stepMenuThree.className == 'formbold-step-menu3 active') {
-                document.querySelector('form').submit()
+                document.querySelector("form").submit()
             }
-        })
+        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
