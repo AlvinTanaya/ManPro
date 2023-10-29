@@ -1,3 +1,7 @@
+<?php
+require "ok2.php";
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -83,6 +87,20 @@
     .navbar-toggler:focus {
         box-shadow: none;
     }
+
+
+    .custom-border {
+        border-right: 1px solid silver;
+        border-top: 1px solid silver;
+        border-bottom: 1px solid silver;
+        padding-right: 10px;
+    }
+
+    .custom-border2 {
+        border-top: 1px solid silver;
+        border-bottom: 1px solid silver;
+        padding-right: 10px;
+    }
 </style>
 
 <body>
@@ -110,159 +128,264 @@
     </nav>
 
 
-    <div class="container mt-5">
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Loading Time</h5>
-                        <canvas id="barPlot1" class="chart-container"></canvas>
-                    </div>
+
+
+    <div class="container-fluid pt-3 pe-5 ps-5 pb-1">
+
+        <form method="post">
+            <div class="row mt-4">
+
+                <div class="col-md-2 pb-3">
+                    <h1>Compare</h1>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Waiting Time</h5>
-                        <canvas id="barPlot2" class="chart-container"></canvas>
+
+
+                <div class="col-md-3 ps-3 pb-3 pt-2 pe-3">
+                    <div style="display: flex; align-items: center;">
+                        <select class="form-select" aria-label="Simulation Name" name="nama1">
+                            <option value="" disabled selected>Choose Simulation Name</option>
+                            <?php
+                            $ambilSemuaNama = mysqli_query($conn, "SELECT nama FROM simul");
+                            while ($data = mysqli_fetch_assoc($ambilSemuaNama)) {
+                            ?>
+                                <option value="<?= $data['nama']; ?>"><?= $data['nama']; ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+
                     </div>
+
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Truck Distance</h5>
-                        <canvas id="barPlot3" class="chart-container"></canvas>
+
+
+
+                <div class="col-md-3 ps-3 pb-3 pt-2 pe-3">
+
+
+                    <div style="display: flex; align-items: center;">
+                        <select class="form-select" aria-label="Simulation Name" name="nama2">
+                            <option value="" disabled selected>Choose Simulation Name</option>
+                            <?php
+                            $ambilSemuaNama = mysqli_query($conn, "SELECT nama FROM simul");
+                            while ($data = mysqli_fetch_assoc($ambilSemuaNama)) {
+                            ?>
+                                <option value="<?= $data['nama']; ?>"><?= $data['nama']; ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+
                     </div>
+
+
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Truck Content</h5>
-                        <canvas id="barPlot4" class="chart-container"></canvas>
+
+
+
+                <div class="col-md-3 ps-3 pb-3 pt-2">
+
+                    <div style="display: flex; align-items: center;">
+                        <select class="form-select" aria-label="Simulation Name" name="nama3">
+                            <option value="" disabled selected>Choose Simulation Name</option>
+                            <?php
+                            $ambilSemuaNama = mysqli_query($conn, "SELECT nama FROM simul");
+                            while ($data = mysqli_fetch_assoc($ambilSemuaNama)) {
+                            ?>
+                                <option value="<?= $data['nama']; ?>"><?= $data['nama']; ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+
                     </div>
+
                 </div>
+                <div class="col mt-2">
+                    <input type="submit" name="submit" class="btn btn-success" value="Submit">
+                </div>
+
+
             </div>
-        </div>
+        </form>
+
+        <?php
+        if (isset($_POST['submit'])) {
+            $selected1 = $_POST['nama1'];
+            $selected2 = $_POST['nama2'];
+            $selected3 = $_POST['nama3'];
+
+            // Execute queries to retrieve and count the data
+            $result1 = mysqli_query($conn, "SELECT * FROM gudang where namaSimul = '$selected1'");
+            $result2 = mysqli_query($conn, "SELECT * FROM gudang where namaSimul = '$selected2'");
+            $result3 = mysqli_query($conn, "SELECT * FROM gudang where namaSimul = '$selected3'");
+            $result4 = mysqli_query($conn, "SELECT * FROM gudang where namaSimul = '$selected3'");
+
+            $result5 = mysqli_query($conn, "SELECT * FROM simul where nama = '$selected1'");
+            $result6 = mysqli_query($conn, "SELECT * FROM simul where nama = '$selected2'");
+            $result7 = mysqli_query($conn, "SELECT * FROM simul where nama = '$selected3'");
+
+
+            $count1 = mysqli_num_rows($result1);
+            $count2 = mysqli_num_rows($result2);
+            $count3 = mysqli_num_rows($result3);
+
+
+            // Verify that the counts are equal
+            if ($count1 == $count2 && $count2 == $count3 && $count1 == $count3) {
+                $i = 1;
+        ?>
+                <div class="row">
+                    <div class="col-md-2 pb-3 pt-2 custom-border">
+                        <?php
+
+                        while ($data = mysqli_fetch_assoc($result4)) {
+                        ?>
+                            <div class="row align-items-center">
+                                <h1 class="m-0 mb-2">gudang <?= $i++; ?></h1>
+                            </div>
+
+
+                        <?php } ?>
+                        <h1 class="m-0 mb-2">Waktu Loading</h1>
+                    </div>
+
+                    <div class="col-md-3 ps-3 pb-3 pt-2 pe-3 custom-border">
+                        <?php
+
+
+                        while ($data = mysqli_fetch_assoc($result1)) {
+                        ?>
+                            <h1 class="m-0 mb-2"><?= $data['isiGudang']; ?></h1>
+
+                        <?php }
+
+                        $waktu = mysqli_fetch_assoc($result5);
+                        ?>
+
+                        <h1 class="m-0 mb-2" id="waktuLoading1" value="<?= $waktu['waktuLoading']; ?>"><?= $waktu['waktuLoading']; ?></h1>
+
+
+                    </div>
+
+                    <div class="col-md-3 ps-3 pb-3 pt-2 pe-3 custom-border">
+                        <?php
+                        while ($data = mysqli_fetch_assoc($result2)) {
+                        ?>
+                            <h1 class="m-0 mb-2"><?= $data['isiGudang']; ?></h1>
+
+                        <?php }
+
+                        $waktu = mysqli_fetch_assoc($result6);
+                        ?>
+
+                        <h1 class="m-0 mb-2" id="waktuLoading2" value="<?= $waktu['waktuLoading']; ?>"><?= $waktu['waktuLoading']; ?></h1>
+
+                    </div>
+
+                    <div class="col-md-3 ps-3 pb-3 pt-2 custom-border2">
+                        <?php
+                        while ($data = mysqli_fetch_assoc($result3)) {
+                        ?>
+                            <h1 class="m-0 mb-2"><?= $data['isiGudang']; ?></h1>
+                        <?php }
+
+                        $waktu = mysqli_fetch_assoc($result7);
+                        ?>
+
+                        <h1 class="m-0 mb-2" id="waktuLoading3" value="<?= $waktu['waktuLoading']; ?>"><?= $waktu['waktuLoading']; ?></h1>
+
+                    </div>
+
+                </div>
+
+                <div class="row mb-3 mt-5">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Loading Time</h5>
+                                <canvas id="barPlot1" class="chart-container"></canvas>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Waiting Time</h5>
+                                <canvas id="barPlot2" class="chart-container"></canvas>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+                <!-- <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Truck Distance</h5>
+                                <canvas id="barPlot3" class="chart-container"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Truck Content</h5>
+                                <canvas id="barPlot4" class="chart-container"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+        <?php
+            } else {
+                echo
+                '
+        <script>
+            alert("Jumlah data tidak sama. Mohon input jumlah data yang sama.");
+            window.location.href="compare.php";
+        </script>
+        ';
+            }
+        }
+        ?>
+
+
+
+        <!-- <div class="row">
+            <div class="col-md-2 mb-3 mt-2">
+                <h1 class="m-0">Compare</h1>
+            </div>
+            <div id="verticalLine"></div>
+
+            <div class="col-md-3 ms-3 mb-3 mt-2 me-3">
+
+            </div>
+            <div id="verticalLine"></div>
+
+            <div class="col-md-3 ms-3 mb-3 mt-2 me-3">
+
+
+            </div>
+            <div id="verticalLine"></div>
+
+            <div class="col-md-3 ms-3 mb-3 mt-2">
+
+
+            </div>
+
+            <div id="horizontalLine"></div>
+
+        </div> -->
+
+
+
     </div>
 
 
+
+
     <script>
-        var ctx1 = document.getElementById("barPlot1").getContext("2d");
-        var barPlot1 = new Chart(ctx1, {
-            type: "bar",
-            data: {
-                labels: [],
-                datasets: [{
-                    label: "Loading Time (s)",
-                    data: [],
-                    borderColor: "#20c997",
-                    borderWidth: 2,
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    x: {
-                        display: true,
-                        beginAtZero: true
-                    },
-                    y: {
-                        display: true,
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-        var ctx2 = document.getElementById("barPlot2").getContext("2d");
-        var barPlot2 = new Chart(ctx2, {
-            type: "bar",
-            data: {
-                labels: [],
-                datasets: [{
-                    label: "Waiting Time (s)",
-                    data: [],
-                    borderColor: "#198754",
-                    borderWidth: 2,
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    x: {
-                        display: true,
-                        beginAtZero: true
-                    },
-                    y: {
-                        display: true,
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-        var ctx3 = document.getElementById("barPlot3").getContext("2d");
-        var barPlot3 = new Chart(ctx3, {
-            type: "bar",
-            data: {
-                labels: [],
-                datasets: [{
-                    label: "Truck Distance (Km)",
-                    data: [],
-                    borderColor: "#198754",
-                    borderWidth: 2,
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    x: {
-                        display: true,
-                        beginAtZero: true
-                    },
-                    y: {
-                        display: true,
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-        var ctx3 = document.getElementById("barPlot4").getContext("2d");
-        var barPlot4 = new Chart(ctx3, {
-            type: "bar",
-            data: {
-                labels: [],
-                datasets: [{
-                    label: "Truck Content (Kg)",
-                    data: [],
-                    borderColor: "#20c997",
-                    borderWidth: 2,
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    x: {
-                        display: true,
-                        beginAtZero: true
-                    },
-                    y: {
-                        display: true,
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
         function redirectToIndex() {
             // Redirect the user to index.php
             window.location.href = "index.php";
@@ -277,6 +400,134 @@
             // Redirect the user to index.php
             window.location.href = "compare.php";
         }
+
+        var ctx1 = document.getElementById("barPlot1").getContext("2d");
+        var barPlot1 = new Chart(ctx1, {
+            type: "bar",
+            data: {
+                labels: ["Simulasi 1", "Simulasi 2", "Simulasi 3"],
+                datasets: [{
+                    label: "Loading Time (s)",
+                    data: [],
+                    backgroundColor: "#20c997",
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        display: true,
+                        beginAtZero: true
+                    },
+                    y: {
+                        display: true,
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // var ctx2 = document.getElementById("barPlot2").getContext("2d");
+        // var barPlot2 = new Chart(ctx2, {
+        //     type: "bar",
+        //     data: {
+        //         labels: [],
+        //         datasets: [{
+        //             label: "Waiting Time (s)",
+        //             data: [],
+        //             borderColor: "#198754",
+        //             borderWidth: 2,
+        //             fill: false
+        //         }]
+        //     },
+        //     options: {
+        //         responsive: true,
+        //         scales: {
+        //             x: {
+        //                 display: true,
+        //                 beginAtZero: true
+        //             },
+        //             y: {
+        //                 display: true,
+        //                 beginAtZero: true
+        //             }
+        //         }
+        //     }
+        // });
+
+        // var ctx3 = document.getElementById("barPlot3").getContext("2d");
+        // var barPlot3 = new Chart(ctx3, {
+        //     type: "bar",
+        //     data: {
+        //         labels: [],
+        //         datasets: [{
+        //             label: "Truck Distance (Km)",
+        //             data: [],
+        //             borderColor: "#198754",
+        //             borderWidth: 2,
+        //             fill: false
+        //         }]
+        //     },
+        //     options: {
+        //         responsive: true,
+        //         scales: {
+        //             x: {
+        //                 display: true,
+        //                 beginAtZero: true
+        //             },
+        //             y: {
+        //                 display: true,
+        //                 beginAtZero: true
+        //             }
+        //         }
+        //     }
+        // });
+
+        // var ctx4 = document.getElementById("barPlot4").getContext("2d");
+        // var barPlot4 = new Chart(ctx4, {
+        //     type: "bar",
+        //     data: {
+        //         labels: [],
+        //         datasets: [{
+        //             label: "Truck Content (Kg)",
+        //             data: [],
+        //             borderColor: "#20c997",
+        //             borderWidth: 2,
+        //             fill: false
+        //         }]
+        //     },
+        //     options: {
+        //         responsive: true,
+        //         scales: {
+        //             x: {
+        //                 display: true,
+        //                 beginAtZero: true
+        //             },
+        //             y: {
+        //                 display: true,
+        //                 beginAtZero: true
+        //             }
+        //         }
+        //     }
+        // });
+
+
+        const waktuLoadingIds = ["waktuLoading1", "waktuLoading2", "waktuLoading3"];
+        const loadingTimeData = [];
+
+        waktuLoadingIds.forEach((id, index) => {
+            const waktuLoadingElement = document.getElementById(id);
+            const loadingTimeDataAttribute = waktuLoadingElement.getAttribute("value");
+            const loadingTimeDataArray = JSON.parse("[" + loadingTimeDataAttribute + "]");
+            loadingTimeData[index] = loadingTimeDataArray;
+        });
+
+        barPlot1.data.datasets[0].data[0] = loadingTimeData[0];
+        barPlot1.data.datasets[0].data[1] = loadingTimeData[1];
+        barPlot1.data.datasets[0].data[2] = loadingTimeData[2];
+        barPlot1.update();
     </script>
 </body>
 
