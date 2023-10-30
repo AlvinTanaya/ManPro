@@ -622,9 +622,9 @@ require "ok2.php";
 
         const formSubmitBtn = document.querySelector('.formbold-btn')
         const formBackBtn = document.querySelector('.formbold-back-btn')
-      
-        function submitFormData(){
-         // formSubmitBtn.addEventListener("click", function(event){ 
+
+        function submitFormData() {
+            // formSubmitBtn.addEventListener("click", function(event){ 
             // event.preventDefault()
             if (stepMenuOne.className == 'formbold-step-menu1 active') {
                 event.preventDefault()
@@ -634,12 +634,12 @@ require "ok2.php";
                 // if(totalTruck >=jumlahArea){
                 //     defaultTruckPercentage = totalTruck/
                 // }
-                
+
                 let newPageContent = `
                 `;
                 for (let i = 1; i <= jumlahArea; i++) {
-                // Concatenate the content for each input
-                newPageContent += `
+                    // Concatenate the content for each input
+                    newPageContent += `
                 <div class="formbold-input-flex">
                         <div>
                             <label for="jarakAwal${i}" class="formbold-form-label">Jarak Awal <span style="color: red;">*</span></label>
@@ -682,17 +682,17 @@ require "ok2.php";
                 event.preventDefault()
                 const jumlahArea = document.getElementById('areaAmount').value;
                 const jumlahGudang = document.getElementById("warehouseAmount").value;
-                
-                    let newPageContent = `
+
+                let newPageContent = `
                 `;
-                for(let i = 1;i <= jumlahGudang; i++){
+                for (let i = 1; i <= jumlahGudang; i++) {
                     newPageContent += `
                 <div>
                         <label class="formbold-form-label"> Warehouse Specificity ${i} </label>
                 `;
                     for (let j = 1; j <= jumlahArea; j++) {
-                    // Concatenate the content for each input
-                    newPageContent += `
+                        // Concatenate the content for each input
+                        newPageContent += `
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="${i}warehouseSpecifity${j}" id="${i}warehouseSpecifity${j}">
                                 <label class="form-check-label" for="${i}warehouseSpecifity${j}">Area ${j}</label>
@@ -713,7 +713,16 @@ require "ok2.php";
                 formBackBtn.classList.remove('active')
                 formSubmitBtn.textContent = 'Submit'
             } else if (stepMenuThree.className == 'formbold-step-menu3 active') {
-                document.querySelector("form").submit()
+                // document.querySelector("form").submit()
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Data has been saved!',
+                    icon: 'success',
+                    timer: 1000, // 5000 milliseconds (5 seconds)
+                    showConfirmButton: false, // To prevent users from closing it manually
+                }).then(() => {
+                    document.querySelector("form").submit()
+                });
             }
         }
     </script>

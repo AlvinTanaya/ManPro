@@ -52,7 +52,7 @@ if (isset($_POST["addData"])) {
         $truckname =1;
         for ($i = 1; $i <= $jumlahArea; $i++) {
             for($j = 1; $j <= $presentaseTruck[$i]; $j++){
-                $addtotableJarak = mysqli_query($conn, "INSERT INTO jarak (namaSimul, jarakAwal, jarakAkhir, namaTruck) VALUES ('$namaSimulasi', '$jarakAwal[$i]', '$jarakAkhir[$i]', 'Trcuk$truckname')");
+                $addtotableJarak = mysqli_query($conn, "INSERT INTO jarak (namaSimul, jarakAwal, jarakAkhir, namaTruck) VALUES ('$namaSimulasi', '$jarakAwal[$i]', '$jarakAkhir[$i]', 'Truck$truckname')");
                 $truckname+=1;
             }
         }

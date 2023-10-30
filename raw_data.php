@@ -185,7 +185,6 @@ require "ok2.php";
                     <th>Duration</th>
                     <th>Start Distance</th>
                     <th>End Distance</th>
-                    <th>Truck Content</th>
                     <th>Warehouse Name</th>
                     <th>Specifity</th>
                     <th>Warehouse Inventory</th>
@@ -197,9 +196,9 @@ require "ok2.php";
                 <?php
                 if (isset($_POST['submit']) && isset($_POST['nama'])) {
                     $selected = $_POST['nama'];
-                    $ambilsemuadata = mysqli_query($conn, "SELECT * FROM simul LEFT JOIN jarak ON simul.nama = jarak.namaSimul LEFT JOIN gudang ON simul.nama = gudang.namaSimul LEFT JOIN truck ON simul.nama = truck.namaSimul where simul.nama = '$selected'");
+                    $ambilsemuadata = mysqli_query($conn, "SELECT * FROM simul LEFT JOIN jarak ON simul.nama = jarak.namaSimul LEFT JOIN gudang ON simul.nama = gudang.namaSimul where simul.nama = '$selected'");
                 } else {
-                    $ambilsemuadata = mysqli_query($conn, "SELECT * FROM simul LEFT JOIN jarak ON simul.nama = jarak.namaSimul LEFT JOIN gudang ON simul.nama = gudang.namaSimul LEFT JOIN truck ON simul.nama = truck.namaSimul");
+                    $ambilsemuadata = mysqli_query($conn, "SELECT * FROM simul LEFT JOIN jarak ON simul.nama = jarak.namaSimul LEFT JOIN gudang ON simul.nama = gudang.namaSimul");
                 }
 
 
@@ -213,7 +212,6 @@ require "ok2.php";
                         <td><?= $data['durasi']; ?></td>
                         <td><?= $data['jarakAwal']; ?></td>
                         <td><?= $data['jarakAkhir']; ?></td>
-                        <td><?= $data['isiTruck']; ?></td>
                         <td><?= $data['namaGudang']; ?></td>
                         <td><?= $data['khusus']; ?></td>
                         <td><?= $data['isiGudang']; ?></td>
