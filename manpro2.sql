@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 30, 2023 at 03:52 PM
+-- Generation Time: Oct 31, 2023 at 02:58 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -53,6 +53,7 @@ CREATE TABLE `rawdata` (
   `id` int(11) NOT NULL,
   `rawDataName` varchar(300) NOT NULL,
   `jumlahArea` int(11) NOT NULL,
+  `rangeJarak` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`rangeJarak`)),
   `totalTruk` int(11) NOT NULL,
   `durasi` int(11) NOT NULL,
   `persentaseTruk` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`persentaseTruk`)),
@@ -63,9 +64,9 @@ CREATE TABLE `rawdata` (
 -- Dumping data for table `rawdata`
 --
 
-INSERT INTO `rawdata` (`id`, `rawDataName`, `jumlahArea`, `totalTruk`, `durasi`, `persentaseTruk`, `detailTruk`) VALUES
-(1, 'Data1', 4, 10, 50, '[3, 2, 3, 2]', '[0, 4.2, 3, \"07:11:53\", \"11:35:32\", \"01:23:39\"]'),
-(2, 'Data2', 4, 10, 30, '[3, 3, 2, 2]', '[1, 9.6, 4, \"12:12:51\", \"15:16:19\", \"00:03:28\"]');
+INSERT INTO `rawdata` (`id`, `rawDataName`, `jumlahArea`, `rangeJarak`, `totalTruk`, `durasi`, `persentaseTruk`, `detailTruk`) VALUES
+(1, 'Data1', 4, '[5,10,15,20]', 10, 50, '[3, 2, 3, 2]', '[0, 4.2, 3, \"07:11:53\", \"11:35:32\", \"01:23:39\"]'),
+(2, 'Data2', 4, '', 10, 30, '[3, 3, 2, 2]', '[1, 9.6, 4, \"12:12:51\", \"15:16:19\", \"00:03:28\"]');
 
 -- --------------------------------------------------------
 
