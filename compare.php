@@ -118,8 +118,8 @@ require "ok2.php";
                     <nav>
                         <div class="nav d-block d-lg-flex nav-tabs" id="nav-tab" role="tablist">
                             <button class="nav-link" id="index-tab" data-bs-toggle="tab" data-bs-target="#index" type="button" role="tab" aria-controls="home" aria-selected="false" onclick="redirectToIndex()" style="color: black;">Input</button>
-                            <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type "button" role="tab" aria-controls="data" aria-selected="false" onclick="redirectToData()" style="color: black;">Data</button>
-                            <button class="nav-link active" id="compare-tab" data-bs-toggle="tab" data-bs-target="#compare" type "button" role="tab" aria-controls="compare" aria-selected="false" onclick="redirectToCompare()" style="color: black;">Compare</button>
+                            <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" onclick="redirectToData()" style="color: black;">Data</button>
+                            <button class="nav-link active" id="compare-tab" data-bs-toggle="tab" data-bs-target="#compare" type="button" role="tab" aria-controls="compare" aria-selected="false" onclick="redirectToCompare()" style="color: black;">Compare</button>
                         </div>
                     </nav>
                 </div>
