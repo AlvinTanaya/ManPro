@@ -311,6 +311,7 @@ require "ok2.php";
                         <div class="nav d-block d-lg-flex nav-tabs" id="nav-tab" role="tablist">
                             <button class="nav-link active " id="index-tab" data-bs-toggle="tab" data-bs-target="#index" type="button" role="tab" aria-controls="home" aria-selected="false" onclick="redirectToIndex()" style="color: black;">Input</button>
                             <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type "button" role="tab" aria-controls="data" aria-selected="false" onclick="redirectToData()" style="color: black;">Data</button>
+                            <button class="nav-link" id="simul-tab" data-bs-toggle="tab" data-bs-target="#simul" type="button" role="tab" aria-controls="simul" aria-selected="false" onclick="redirectToSimul()" style="color: black;">Simulation</button>
                             <button class="nav-link" id="timing-tab" data-bs-toggle="tab" data-bs-target="#timing" type="button" role="tab" aria-controls="timing" aria-selected="false" onclick="redirectToCompare()" style="color: black;">Compare</button>
                         </div>
                     </nav>
@@ -336,7 +337,7 @@ require "ok2.php";
                         </li>
                         <li class="formbold-step-menu3">
                             <span>3</span>
-                            Warehouse Specificity
+                            Confirmation
                         </li>
                     </ul>
                 </div>
@@ -353,11 +354,11 @@ require "ok2.php";
                     <div class="formbold-input-flex">
                         <div>
                             <label for="areaAmount" class="formbold-form-label"> Area Amount <span style="color: red;">*</span> </label>
-                            <input type="number" name="areaAmount" placeholder="4" id="areaAmount" class="formbold-form-input" required />
+                            <input type="number" name="areaAmount" placeholder="3" id="areaAmount" class="formbold-form-input" required />
                         </div>
                         <div>
                             <label for="totalTruck" class="formbold-form-label"> Total Truck <span style="color: red;">*</span> </label>
-                            <input type="number" name="totalTruck" placeholder="4" id="totalTruck" class="formbold-form-input" required />
+                            <input type="number" name="totalTruck" placeholder="2" id="totalTruck" class="formbold-form-input" required />
                         </div>
                     </div>
                     <div>
@@ -379,11 +380,14 @@ require "ok2.php";
                 </div>
 
                 <div class="formbold-form-step-3">
-
+                    <div class="formbold-form-confirm">
+                        <p>
+                            "Are you certain you want to submit these data?"
+                        </p>
+                    </div>
                 </div>
-
                 <div class="formbold-form-btn-wrapper">
-                    <button class="formbold-back-btn">
+                    <button id="BACK" class="formbold-back-btn" identify="">
                         Back
                     </button>
 
@@ -612,6 +616,12 @@ require "ok2.php";
             window.location.href = "compare.php";
         }
 
+        function redirectToSimul() {
+            // Redirect the user to compare.php
+            window.location.href = "simul.php";
+        }
+
+
         const stepMenuOne = document.querySelector('.formbold-step-menu1')
         const stepMenuTwo = document.querySelector('.formbold-step-menu2')
         const stepMenuThree = document.querySelector('.formbold-step-menu3')
@@ -621,11 +631,58 @@ require "ok2.php";
         const stepThree = document.querySelector('.formbold-form-step-3')
 
         const formSubmitBtn = document.querySelector('.formbold-btn')
+
         const formBackBtn = document.querySelector('.formbold-back-btn')
+        const backBtn = document.getElementById("BACK")
+
+        formBackBtn.addEventListener("click", function(event) {
+
+            var identify = document.getElementById("BACK").getAttribute("identify")
+            if (identify == "btn1") {
+                console.log("back 1")
+                event.preventDefault()
+
+                stepMenuOne.classList.add('active')
+                stepMenuTwo.classList.remove('active')
+
+                stepOne.classList.add('active')
+                stepTwo.classList.remove('active')
+                backBtn.setAttribute("identify", "")
+                formBackBtn.classList.remove('active')
+            } else if(identify == "btn2") {
+                console.log("back 2")
+                event.preventDefault()
+
+                stepMenuTwo.classList.add('active')
+                stepMenuThree.classList.remove('active')
+
+                stepTwo.classList.add('active')
+                stepThree.classList.remove('active')
+                backBtn.setAttribute("identify", "btn1")
+                formSubmitBtn.innerHTML = `Next Step
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_1675_1807)">
+                                <path d="M10.7814 7.33312L7.20541 3.75712L8.14808 2.81445L13.3334 7.99979L8.14808 13.1851L7.20541 12.2425L10.7814 8.66645H2.66675V7.33312H10.7814Z" fill="white" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_1675_1807">
+                                    <rect width="16" height="16" fill="white" />
+                                </clipPath>
+                            </defs>
+                        </svg>`
+            }
+
+
+            // formBackBtn.classList.remove('active')
+
+        })
 
         function submitFormData() {
             // formSubmitBtn.addEventListener("click", function(event){ 
             // event.preventDefault()
+            console.log(stepMenuOne.className);
+            console.log(stepMenuTwo.className);
+            console.log(stepMenuThree.className);
             if (stepMenuOne.className == 'formbold-step-menu1 active') {
                 event.preventDefault()
                 const jumlahArea = document.getElementById('areaAmount').value;
@@ -636,21 +693,24 @@ require "ok2.php";
                 // }
 
                 let newPageContent = `
+                <p>
+                    "Please specify the percentage, starting distance, and ending distance you would like to use for the simulation." 
+                </p>
                 `;
                 for (let i = 1; i <= jumlahArea; i++) {
                     // Concatenate the content for each input
                     newPageContent += `
                 <div class="formbold-input-flex">
                         <div>
-                            <label for="jarakAwal${i}" class="formbold-form-label">Jarak Awal <span style="color: red;">*</span></label>
-                            <input name="jarakAwal${i}" type="number" class="formbold-form-input" id="inputJarakAwal${i}" required>
+                            <label for="jarakAwal${i}" class="formbold-form-label">Start Distance <span style="color: red;">*</span></label>
+                            <input name="jarakAwal${i}" type="number" placeholder="0"class="formbold-form-input" id="inputJarakAwal${i}" required>
                         </div>
                         <div>
-                            <label for="jarakAkhir${i}" class="formbold-form-label">Jarak Akhir <span style="color: red;">*</span></label>
-                            <input name="jarakAkhir${i}" type="number" class="formbold-form-input" id="inputJarakAkhir${i}" required>
+                            <label for="jarakAkhir${i}" class="formbold-form-label">End Distance <span style="color: red;">*</span></label>
+                            <input name="jarakAkhir${i}" type="number" placeholder="3" class="formbold-form-input" id="inputJarakAkhir${i}" required>
                         </div>
                         <div>
-                            <label for="truckPercentage${i}" class="formbold-form-label">Truck Percentage <span style="color: red;">*</span></label>
+                            <label for="truckPercentage${i}" class="formbold-form-label">Truck Percentage(%) <span style="color: red;">*</span></label>
                             <input name="truckPercentage${i}" type="number" class="formbold-form-input" id="inputTruckPercentage${i}" required>
                         </div>
                     </div>
@@ -665,55 +725,134 @@ require "ok2.php";
                 stepTwo.classList.add('active')
 
                 formBackBtn.classList.add('active')
-                formBackBtn.addEventListener("click", function(event) {
-                    event.preventDefault()
+                backBtn.setAttribute("identify", "btn1")
 
-                    stepMenuOne.classList.add('active')
-                    stepMenuTwo.classList.remove('active')
 
-                    stepOne.classList.add('active')
-                    stepTwo.classList.remove('active')
+                console.log("-------------")
+                console.log(stepMenuOne.className);
+                console.log(stepMenuTwo.className);
+                console.log(stepMenuThree.className);
 
-                    formBackBtn.classList.remove('active')
+                console.log("-------------")
 
-                })
 
             } else if (stepMenuTwo.className == 'formbold-step-menu2 active') {
                 event.preventDefault()
-                const jumlahArea = document.getElementById('areaAmount').value;
-                const jumlahGudang = document.getElementById("warehouseAmount").value;
 
-                let newPageContent = `
-                `;
-                for (let i = 1; i <= jumlahGudang; i++) {
-                    newPageContent += `
-                <div>
-                        <label class="formbold-form-label"> Warehouse Specificity ${i} </label>
-                `;
-                    for (let j = 1; j <= jumlahArea; j++) {
-                        // Concatenate the content for each input
-                        newPageContent += `
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="${i}warehouseSpecifity${j}" id="${i}warehouseSpecifity${j}">
-                                <label class="form-check-label" for="${i}warehouseSpecifity${j}">Area ${j}</label>
-                            </div>
-                    `;
-                    }
-                    newPageContent += `
-                    </div>
-                `;
-                }
-                stepThree.innerHTML = newPageContent;
+                // const jumlahArea = document.getElementById('areaAmount').value;
+                // const jumlahGudang = document.getElementById("warehouseAmount").value;
+
+                // let newPageContent = `
+                // `;
+                // for (let i = 1; i <= jumlahGudang; i++) {
+                //     //     newPageContent += `
+                //     // <div>
+                //     //         <label class="formbold-form-label"> Warehouse Specificity ${i} </label>
+                //     // `;
+                //     for (let j = 1; j <= jumlahArea; j++) {
+                //         // Concatenate the content for each input
+                //         newPageContent += `
+                //             <div class="form-check">
+                //                 <input class="form-check-input" type="checkbox" name="${i}warehouseSpecifity${j}" id="${i}warehouseSpecifity${j}">
+                //                 <label class="form-check-label" for="${i}warehouseSpecifity${j}">Area ${j}</label>
+                //             </div>
+                //     `;
+                //     }
+                //     newPageContent += `
+                //     </div>
+                // `;
+                // }
+                // stepThree.innerHTML = newPageContent;
                 stepMenuTwo.classList.remove('active')
                 stepMenuThree.classList.add('active')
 
                 stepTwo.classList.remove('active')
                 stepThree.classList.add('active')
 
-                formBackBtn.classList.remove('active')
+                formBackBtn.classList.add('active')
+                backBtn.setAttribute("identify", "btn2")
+
+                console.log("-------------")
+                console.log(stepMenuOne.className);
+                console.log(stepMenuTwo.className);
+                console.log(stepMenuThree.className);
+
+                console.log("-------------")
+
+
+                // formBackBtn.addEventListener("click", function(event) {
+                //     console.log("back 2")
+                //     event.preventDefault()
+
+                //     console.log("-------------")
+                //     console.log(stepMenuOne.className);
+                //     console.log(stepMenuTwo.className);
+                //     console.log(stepMenuThree.className);
+
+                //     console.log("-------------")
+                //     stepMenuTwo.classList.add('active')
+                //     stepMenuThree.classList.remove('active')
+
+                //     stepTwo.classList.add('active')
+                //     stepThree.classList.remove('active')
+
+                //     formSubmitBtn.innerHTML = `Next Step
+                //         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                //             <g clip-path="url(#clip0_1675_1807)">
+                //                 <path d="M10.7814 7.33312L7.20541 3.75712L8.14808 2.81445L13.3334 7.99979L8.14808 13.1851L7.20541 12.2425L10.7814 8.66645H2.66675V7.33312H10.7814Z" fill="white" />
+                //             </g>
+                //             <defs>
+                //                 <clipPath id="clip0_1675_1807">
+                //                     <rect width="16" height="16" fill="white" />
+                //                 </clipPath>
+                //             </defs>
+                //         </svg>`
+                //     // formBackBtn.classList.remove('active')
+                //     // step.classList.remove('active')
+
+                // })
+
+                // formBackBtn.classList.remove('active')
                 formSubmitBtn.textContent = 'Submit'
             } else if (stepMenuThree.className == 'formbold-step-menu3 active') {
                 // document.querySelector("form").submit()
+                // formBackBtn.classList.remove('active')
+
+                // formBackBtn.addEventListener("click", function(event) {
+                //     console.log("back 2")
+                //     event.preventDefault()
+
+                //     console.log("-------------")
+                //     console.log(stepMenuOne.className);
+                //     console.log(stepMenuTwo.className);
+                //     console.log(stepMenuThree.className);
+
+                //     console.log("-------------")
+                //     stepMenuTwo.classList.add('active')
+                //     stepMenuThree.classList.remove('active')
+                //     stepMenuOne.classList.remove('active')
+
+
+                //     stepTwo.classList.add('active')
+                //     stepThree.classList.remove('active')
+                //     stepOne.classList.remove('active')
+
+                //     formSubmitBtn.innerHTML = `Next Step
+                //         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                //             <g clip-path="url(#clip0_1675_1807)">
+                //                 <path d="M10.7814 7.33312L7.20541 3.75712L8.14808 2.81445L13.3334 7.99979L8.14808 13.1851L7.20541 12.2425L10.7814 8.66645H2.66675V7.33312H10.7814Z" fill="white" />
+                //             </g>
+                //             <defs>
+                //                 <clipPath id="clip0_1675_1807">
+                //                     <rect width="16" height="16" fill="white" />
+                //                 </clipPath>
+                //             </defs>
+                //         </svg>`
+                //     // formBackBtn.classList.remove('active')
+                //     // step.classList.remove('active')
+
+                // })
+
                 Swal.fire({
                     title: 'Success!',
                     text: 'Data has been saved!',
@@ -724,6 +863,8 @@ require "ok2.php";
                     document.querySelector("form").submit()
                 });
             }
+
+
         }
     </script>
 

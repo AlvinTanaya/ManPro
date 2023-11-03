@@ -2,7 +2,7 @@
 session_start();
 date_default_timezone_set("Asia/Jakarta");
 // membuat connection ke database
-$conn = mysqli_connect("localhost", "root", "", "manpro");
+$conn = mysqli_connect("localhost", "root", "", "manpro2");
 
 if (isset($_POST['addData'])) {
     $namaSimulasi = $_POST['namaSimulasi'];

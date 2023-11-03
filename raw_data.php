@@ -15,11 +15,14 @@ require "ok2.php";
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/dataTables.bootstrap5.min.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
-
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <style>
         .page-item.active .page-link {
             background-color: #28a745 !important;
@@ -45,7 +48,6 @@ require "ok2.php";
             font-weight: bolder;
         }
 
-
         .nav-tabs .nav-link {
             border: none;
             border-top-left-radius: 0;
@@ -67,25 +69,6 @@ require "ok2.php";
             color: gray;
         }
 
-        .search_input {
-            width: 100%;
-            border-radius: 10px;
-            border: none;
-            line-height: initial;
-            padding-top: 4px;
-            padding-bottom: 4px;
-            color: #f19159;
-        }
-
-        .search_input:focus-visible {
-            outline: none;
-        }
-
-        input.search_input::placeholder {
-            color: #cfd2ec;
-            vertical-align: middle;
-        }
-
         .navbar-toggler {
             border: 3px solid #f19159;
         }
@@ -97,6 +80,25 @@ require "ok2.php";
         .navbar-toggler:focus {
             box-shadow: none;
         }
+
+        /* .shadowed-square {
+            margin-top: 50px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        } */
+
+        /* .container {
+            max-width: 800px;
+        } */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
 
         .table tbody tr th {
             text-align: left;
@@ -118,7 +120,32 @@ require "ok2.php";
 
         }
     </style>
+
     <title>Manpro Simulation Truck</title>
+    <script>
+        $(document).ready(function() {
+            // $('#example').DataTable({
+            //     searching: false
+            // });
+
+            $("#index-tab").click(function() {
+                window.location.href = "index.php";
+            });
+
+            $("#data-tab").click(function() {
+                window.location.href = "raw_data.php";
+            });
+
+            $("#compare-tab").click(function() {
+                window.location.href = "compare.php";
+            });
+
+            $("#simul-tab").click(function() {
+                window.location.href = "simul.php";
+            });
+
+        });
+    </script>
 </head>
 
 <body>
@@ -136,8 +163,9 @@ require "ok2.php";
                     <nav>
                         <div class="nav d-block d-lg-flex nav-tabs" id="nav-tab" role="tablist">
                             <button class="nav-link" id="index-tab" data-bs-toggle="tab" data-bs-target="#index" type="button" role="tab" aria-controls="home" aria-selected="false" onclick="redirectToIndex()" style="color: black;">Input</button>
-                            <button class="nav-link active" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type "button" role="tab" aria-controls="data" aria-selected="false" onclick="redirectToData()" style="color: black;">Data</button>
-                            <button class="nav-link" id="timing-tab" data-bs-toggle="tab" data-bs-target="#timing" type="button" role="tab" aria-controls="timing" aria-selected="false" onclick="redirectToCompare()" style="color: black;">Compare</button>
+                            <button class="nav-link active" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" onclick="redirectToData()" style="color: black;">Data</button>
+                            <button class="nav-link" id="simul-tab" data-bs-toggle="tab" data-bs-target="#simul" type="button" role="tab" aria-controls="data" aria-selected="false" onclick="redirectToData()" style="color: black;">Simulation</button>
+                            <button class="nav-link" id="compare-tab" data-bs-toggle="tab" data-bs-target="#timing" type="button" role="tab" aria-controls="timing" aria-selected="false" onclick="redirectToCompare()" style="color: black;">Compare</button>
                         </div>
                     </nav>
                 </div>
@@ -234,30 +262,6 @@ require "ok2.php";
 
     <!-- Include Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous" defer></script>
-
-
-    <script>
-        $(document).ready(function() {
-            $('#example').DataTable({
-                searching: false
-            });
-        });
-
-        function redirectToIndex() {
-            // Redirect the user to index.php
-            window.location.href = "index.php";
-        }
-
-        function redirectToData() {
-            // Redirect the user to index.php
-            window.location.href = "raw_data.php";
-        }
-
-        function redirectToCompare() {
-            // Redirect the user to index.php
-            window.location.href = "compare.php";
-        }
-    </script>
 </body>
 
 </html>
