@@ -20,6 +20,26 @@ require "ok2.php";
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
 </head>
+<script>
+    $(document).ready(function() {
+
+        $("#index-tab").click(function() {
+            window.location.href = "index.php";
+        });
+
+        $("#data-tab").click(function() {
+            window.location.href = "raw_data.php";
+        });
+
+        $("#compare-tab").click(function() {
+            window.location.href = "compare.php";
+        });
+
+        $("#simul-tab").click(function() {
+            window.location.href = "simul.php";
+        });
+    });
+</script>
 <style>
     .nav_left {
         background-color: #d1e7dd;
@@ -332,10 +352,10 @@ require "ok2.php";
                 <div class="nav_left d-lg-flex align-items-center">
                     <nav>
                         <div class="nav d-block d-lg-flex nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link " id="index-tab" data-bs-toggle="tab" data-bs-target="#index" type="button" role="tab" aria-controls="home" aria-selected="false" onclick="redirectToIndex()" style="color: black;">Input</button>
-                            <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type "button" role="tab" aria-controls="data" aria-selected="false" onclick="redirectToData()" style="color: black;">Data</button>
-                            <button class="nav-link active" id="simul-tab" data-bs-toggle="tab" data-bs-target="#data" type "button" role="tab" aria-controls="data" aria-selected="false" onclick="redirectToSimul()" style="color: black;">Simulation</button>
-                            <button class="nav-link" id="timing-tab" data-bs-toggle="tab" data-bs-target="#timing" type="button" role="tab" aria-controls="timing" aria-selected="false" onclick="redirectToCompare()" style="color: black;">Compare</button>
+                            <button class="nav-link " id="index-tab" data-bs-toggle="tab" data-bs-target="#index" type="button" role="tab" aria-controls="home" aria-selected="false" style="color: black;">Input</button>
+                            <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" style="color: black;">Data</button>
+                            <button class="nav-link active" id="simul-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" style="color: black;">Simulation</button>
+                            <button class="nav-link" id="timing-tab" data-bs-toggle="tab" data-bs-target="#timing" type="button" role="tab" aria-controls="timing" aria-selected="false" style="color: black;">Compare</button>
                         </div>
                     </nav>
                 </div>
@@ -372,18 +392,13 @@ require "ok2.php";
                             <label for="SimulationName" class="formbold-form-label"> Simulation Name <span style="color: red;">*</span></label>
                             <input type="text" name="simulationName" placeholder="Simulation One" id="simulationName" class="formbold-form-input" required />
                         </div>
+
+                        <div>
+                            <label for="RawDataName" class="formbold-form-label"> Raw Data Name <span style="color: red;">*</span></label>
+                            <input type="text" name="RawDataName" placeholder="Choose Raw Data Name" id="RawDataName" class="formbold-form-input" required />
+                        </div>
                     </div>
 
-                    <div class="formbold-input-flex">
-                        <div>
-                            <label for="areaAmount" class="formbold-form-label"> Area Amount <span style="color: red;">*</span> </label>
-                            <input type="number" name="areaAmount" placeholder="3" id="areaAmount" class="formbold-form-input" required />
-                        </div>
-                        <div>
-                            <label for="totalTruck" class="formbold-form-label"> Total Truck <span style="color: red;">*</span> </label>
-                            <input type="number" name="totalTruck" placeholder="2" id="totalTruck" class="formbold-form-input" required />
-                        </div>
-                    </div>
                     <!-- <div>
                         <div>
                             <label for="duration" class="formbold-form-label"> Duration(hours) <span style="color: red;">*</span></label>
@@ -470,8 +485,8 @@ require "ok2.php";
             const jumlahArea = document.getElementById('areaAmount').value;
             const totalTruck = document.getElementById('totalTruck').value;
             let defaultTruckPercentage = 0
-            if(totalTruck >=jumlahArea){
-                defaultTruckPercentage = totalTruck/
+            if (totalTruck >= jumlahArea) {
+                defaultTruckPercentage = totalTruck /
             }
 
             let newPageContent = `
@@ -525,7 +540,7 @@ require "ok2.php";
             let newPageContent = `
             `;
             for (let i = 1; i <= jumlahGudang; i++) {
-                    newPageContent += `
+                newPageContent += `
                 <div>
                         <label class="formbold-form-label"> Warehouse Specificity ${i} </label>
                 `;
