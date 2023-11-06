@@ -329,7 +329,7 @@ require "ok2.php";
                     <ul>
                         <li class="formbold-step-menu1 active">
                             <span>1</span>
-                            Simulation Information
+                            Raw Data Information
                         </li>
                         <li class="formbold-step-menu2">
                             <span>2</span>
@@ -346,7 +346,7 @@ require "ok2.php";
                 <div class="formbold-form-step-1 active">
                     <div>
                         <div>
-                            <label for="SimulationName" class="formbold-form-label"> Simulation Name <span style="color: red;">*</span></label>
+                            <label for="SimulationName" class="formbold-form-label"> Raw Data Name <span style="color: red;">*</span></label>
                             <input type="text" name="simulationName" placeholder="Simulation One" id="simulationName" class="formbold-form-input" required />
                         </div>
                     </div>
@@ -363,7 +363,7 @@ require "ok2.php";
                     </div>
                     <div>
                         <div>
-                            <label for="duration" class="formbold-form-label"> Duration <span style="color: red;">*</span></label>
+                            <label for="duration" class="formbold-form-label"> Duration(hours) <span style="color: red;">*</span></label>
                             <input type="duration" name="duration" id="duration" placeholder="24 hours" class="formbold-form-input" required />
                         </div>
                     </div>
@@ -382,7 +382,7 @@ require "ok2.php";
                 <div class="formbold-form-step-3">
                     <div class="formbold-form-confirm">
                         <p>
-                            "Are you certain you want to submit these data?"
+                            Are you certain you want to submit these data?
                         </p>
                     </div>
                 </div>
@@ -694,7 +694,7 @@ require "ok2.php";
 
                 let newPageContent = `
                 <p>
-                    "Please specify the percentage, starting distance, and ending distance you would like to use for the simulation." 
+                    Please specify the percentage, starting distance, and ending distance you would like to use for the simulation.
                 </p>
                 `;
                 for (let i = 1; i <= jumlahArea; i++) {
@@ -857,7 +857,7 @@ require "ok2.php";
                     title: 'Success!',
                     text: 'Data has been saved!',
                     icon: 'success',
-                    timer: 1000, // 5000 milliseconds (5 seconds)
+                    timer: 3000, // 5000 milliseconds (5 seconds)
                     showConfirmButton: false, // To prevent users from closing it manually
                 }).then(() => {
                     document.querySelector("form").submit()

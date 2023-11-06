@@ -352,7 +352,7 @@ require "ok2.php";
                     <ul>
                         <li class="formbold-step-menu1 active">
                             <span>1</span>
-                            Simulation Information
+                            Choose
                         </li>
                         <li class="formbold-step-menu2">
                             <span>2</span>
@@ -384,18 +384,18 @@ require "ok2.php";
                             <input type="number" name="totalTruck" placeholder="2" id="totalTruck" class="formbold-form-input" required />
                         </div>
                     </div>
-                    <div>
+                    <!-- <div>
                         <div>
                             <label for="duration" class="formbold-form-label"> Duration(hours) <span style="color: red;">*</span></label>
                             <input type="duration" name="duration" id="duration" placeholder="24 hours" class="formbold-form-input" required />
                         </div>
-                    </div>
-                    <div>
+                    </div> -->
+                    <!-- <div>
                         <div>
                             <label for="truckContent" class="formbold-form-label"> Warehouse Amount <span style="color: red;">*</span> </label>
                             <input type="text" name="warehouseAmount" placeholder="4" id="warehouseAmount" class="formbold-form-input" required />
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="formbold-form-step-2">
@@ -469,10 +469,10 @@ require "ok2.php";
             event.preventDefault()
             const jumlahArea = document.getElementById('areaAmount').value;
             const totalTruck = document.getElementById('totalTruck').value;
-            // let defaultTruckPercentage = 0
-            // if(totalTruck >=jumlahArea){
-            //     defaultTruckPercentage = totalTruck/
-            // }
+            let defaultTruckPercentage = 0
+            if(totalTruck >=jumlahArea){
+                defaultTruckPercentage = totalTruck/
+            }
 
             let newPageContent = `
                 `;
@@ -525,10 +525,10 @@ require "ok2.php";
             let newPageContent = `
             `;
             for (let i = 1; i <= jumlahGudang; i++) {
-                //     newPageContent += `
-                // <div>
-                //         <label class="formbold-form-label"> Warehouse Specificity ${i} </label>
-                // `;
+                    newPageContent += `
+                <div>
+                        <label class="formbold-form-label"> Warehouse Specificity ${i} </label>
+                `;
                 for (let j = 1; j <= jumlahArea; j++) {
                     // Concatenate the content for each input
                     newPageContent += `
