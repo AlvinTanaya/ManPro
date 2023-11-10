@@ -369,12 +369,12 @@ require "ok2.php";
                             <input type="duration" name="duration" id="duration" placeholder="24 hours" class="formbold-form-input" required />
                         </div>
                     </div>
-                    <div>
+                    <!-- <div>
                         <div>
                             <label for="truckContent" class="formbold-form-label"> Warehouse Amount <span style="color: red;">*</span> </label>
                             <input type="text" name="warehouseAmount" placeholder="4" id="warehouseAmount" class="formbold-form-input" required />
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="formbold-form-step-2">
@@ -518,55 +518,61 @@ require "ok2.php";
 
         function submitFormData() {
             // formSubmitBtn.addEventListener("click", function(event){ 
-            // event.preventDefault()
+            event.preventDefault()
             console.log(stepMenuOne.className);
             console.log(stepMenuTwo.className);
             console.log(stepMenuThree.className);
             if (stepMenuOne.className == 'formbold-step-menu1 active') {
                 event.preventDefault()
-                const jumlahArea = document.getElementById('areaAmount').value;
-                let newPageContent = `
-                <p>
-                    Please specify the percentage, starting distance, and ending distance you would like to use for the simulation.
-                </p>
-                `;
-                for (let i = 1; i <= jumlahArea; i++) {
-                    // Concatenate the content for each input
-                    newPageContent += `
-                    <div class="formbold-input-flex">
-                        <div>
-                            <label for="indexArea${i}" class="formbold-form-label">Index Area </label>
-                            <input name="indexArea${i}" class="formbold-form-input" id="inputIndexArea${i}" value="${i-1}" readonly>
+                let namadata = document.getElementById('rawDataName').value;
+                let area = document.getElementById('areaAmount').value;
+                let totaltruck = document.getElementById('totalTruck').value;
+                let duration = document.getElementById('duration').value;
+                if (namadata.length > 0  && area.length > 0  && totaltruck.length > 0  && duration.length > 0 ){
+                    const jumlahArea = document.getElementById('areaAmount').value;
+                    let newPageContent = `
+                    <p>
+                        Please specify the percentage, starting distance, and ending distance you would like to use for the simulation.
+                    </p>
+                    `;
+                    for (let i = 1; i <= jumlahArea; i++) {
+                        // Concatenate the content for each input
+                        newPageContent += `
+                        <div class="formbold-input-flex">
+                            <div>
+                                <label for="indexArea${i}" class="formbold-form-label">Index Area </label>
+                                <input name="indexArea${i}" class="formbold-form-input" id="inputIndexArea${i}" value="${i-1}" readonly>
+                            </div>
+                            <div>
+                                <label for="jarak${i}" class="formbold-form-label">Area Distance <span style="color: red;">*</span></label>
+                                <input name="jarak${i}" type="number" class="formbold-form-input" id="inputJarak${i}" required>
+                            </div>
+                            <div>
+                                <label for="truckLoadDistributions${i}" class="formbold-form-label">Truck Load Distributions <span style="color: red;">*</span></label>
+                                <input name="truckLoadDistributions${i}" type="number" class="formbold-form-input" id="inputTruckLoadDistributions${i}" required>
+                            </div>
                         </div>
-                        <div>
-                            <label for="jarak${i}" class="formbold-form-label">Area Distance <span style="color: red;">*</span></label>
-                            <input name="jarak${i}" type="number" class="formbold-form-input" id="inputJarak${i}" required>
-                        </div>
-                        <div>
-                            <label for="truckLoadDistributions${i}" class="formbold-form-label">Truck Load Distributions <span style="color: red;">*</span></label>
-                            <input name="truckLoadDistributions${i}" type="number" class="formbold-form-input" id="inputTruckLoadDistributions${i}" required>
-                        </div>
-                    </div>
-                `;
+                    `;
+                    }
+                    stepTwo.innerHTML = newPageContent;
+
+                    stepMenuOne.classList.remove('active')
+                    stepMenuTwo.classList.add('active')
+
+                    stepOne.classList.remove('active')
+                    stepTwo.classList.add('active')
+
+                    formBackBtn.classList.add('active')
+                    backBtn.setAttribute("identify", "btn1")
+
+
+                    console.log("-------------")
+                    console.log(stepMenuOne.className);
+                    console.log(stepMenuTwo.className);
+                    console.log(stepMenuThree.className);
+
+                    console.log("-------------")
                 }
-                stepTwo.innerHTML = newPageContent;
-
-                stepMenuOne.classList.remove('active')
-                stepMenuTwo.classList.add('active')
-
-                stepOne.classList.remove('active')
-                stepTwo.classList.add('active')
-
-                formBackBtn.classList.add('active')
-                backBtn.setAttribute("identify", "btn1")
-
-
-                console.log("-------------")
-                console.log(stepMenuOne.className);
-                console.log(stepMenuTwo.className);
-                console.log(stepMenuThree.className);
-
-                console.log("-------------")
 
 
             } else if (stepMenuTwo.className == 'formbold-step-menu2 active') {
