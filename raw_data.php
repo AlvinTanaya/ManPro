@@ -119,6 +119,10 @@ require "ok2.php";
             align-content: center;
 
         }
+
+        h2 {
+            margin-bottom: 20px;
+        }
     </style>
 
     <title>Manpro Simulation Truck</title>
@@ -182,18 +186,18 @@ require "ok2.php";
                 <div class="rounded p-3 shadow">
                     <form method="post">
                         <div style="display: flex; align-items: center;">
-                            <select class="form-select" aria-label="Simulation Name" name="nama">
-                                <option value="" disabled selected>Choose Simulation Name</option>
+                            <select class="form-select" aria-label="Raw Data Name" name="rawDataName">
+                                <option value="" disabled selected>Choose Raw Data Name</option>
                                 <?php
-                                $ambilSemuaNama = mysqli_query($conn, "SELECT nama FROM simul");
+                                $ambilSemuaNama = mysqli_query($conn, "SELECT rawDataName FROM rawdata");
                                 while ($data = mysqli_fetch_assoc($ambilSemuaNama)) {
                                 ?>
-                                    <option value="<?= $data['nama']; ?>"><?= $data['nama']; ?></option>
+                                    <option value="<?= $data['rawDataName']; ?>"><?= $data['rawDataName']; ?></option>
                                 <?php
                                 }
                                 ?>
                             </select>
-                            <input type="submit" name="submit" class="btn btn-success" value="Search">
+                            <input type="submit" name="submit" class="btn btn-success ms-3" value="Search">
 
                         </div>
                     </form>
@@ -204,64 +208,103 @@ require "ok2.php";
 
         </div>
 
-        <table id="example" class="table table-bordered table-striped table-hover">
-            <thead class="table-success thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Simulation Name</th>
-                    <th>Loading Time</th>
-                    <th>Duration</th>
-                    <th>Start Distance</th>
-                    <th>End Distance</th>
-                    <th>Warehouse Name</th>
-                    <th>Specifity</th>
-                    <th>Warehouse Inventory</th>
-                    <th>Truck Name</th>
-                </tr>
-            </thead>
+        <div class="container-fluid p-0">
+            <div class="row mt-4">
+                <div class="col-md-6">
 
-            <tbody>
-                <?php
-                if (isset($_POST['submit']) && isset($_POST['nama'])) {
-                    $selected = $_POST['nama'];
-                    $ambilsemuadata = mysqli_query($conn, "SELECT * FROM simul LEFT JOIN jarak ON simul.nama = jarak.namaSimul LEFT JOIN gudang ON simul.nama = gudang.namaSimul where simul.nama = '$selected'");
-                } else {
-                    $ambilsemuadata = mysqli_query($conn, "SELECT * FROM simul LEFT JOIN jarak ON simul.nama = jarak.namaSimul LEFT JOIN gudang ON simul.nama = gudang.namaSimul");
-                }
+                    <?php
+                    if (isset($_POST['submit']) && isset($_POST['rawDataName'])) {
+                        $selected = $_POST['rawDataName'];
+                        $ambilSemuaData = mysqli_query($conn, "SELECT * FROM rawdata where rawDataName = '$selected'");
+                        while ($data = mysqli_fetch_assoc($ambilSemuaData)) {
+                    ?>
+                            <h1>Nama Raw Data:</h1>
+                            <h2><?= $data['rawDataName']; ?></h2>
 
 
-                $i = 1;
-                while ($data = mysqli_fetch_assoc($ambilsemuadata)) {
-                ?>
-                    <tr>
-                        <td><?= $i++; ?></td>
-                        <td><?= $data['namaSimul']; ?></td>
-                        <td><?= $data['waktuLoading']; ?></td>
-                        <td><?= $data['durasi']; ?></td>
-                        <td><?= $data['jarakAwal']; ?></td>
-                        <td><?= $data['jarakAkhir']; ?></td>
-                        <td><?= $data['namaGudang']; ?></td>
-                        <td><?= $data['khusus']; ?></td>
-                        <td><?= $data['isiGudang']; ?></td>
-                        <td><?= $data['namaTruck']; ?></td>
-                    </tr>
-                <?php
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
+                            <h1>Jumlah Area: </h1>
+                            <h2><?= $data['jumlahArea']; ?></h2>
+
+                            <h1>Range Jarak:</h1>
+                            <?php
+                            $jsonString = $data['rangeJarak'];
+                            $decodedData = json_decode($jsonString, true);
+
+                            $index = 0;
+                            $awal = 0;
+                            if (is_array($decodedData)) {
+                                foreach ($decodedData as $value) {
+                                    echo "<h2>Area $index: $awal - $value</h2>";
+                                    $index++;
+                                    $awal = $value += 1;
+                                }
+                            }
+                            ?>
+
+                            <h1>Total Jumlah Truck:</h1>
+                            <h2><?= $data['totalTruk']; ?></h2>
+
+                            <h1>Durasi waktu Simulasi:</h1>
+                            <h2><?= $data['durasi']; ?></h2>
+
+
+                            <h1>Jumlah Truck:</h1>
+                            <?php
+                            $jsonString = $data['persentaseTruk'];
+                            $decodedData = json_decode($jsonString, true);
+
+                            $index = 0;
+                            if (is_array($decodedData)) {
+                                foreach ($decodedData as $value) {
+
+                                    echo "<h2>Area $index: $value</h2>";
+                                    $index++;
+                                }
+                            }
+                            ?>
+
+
+                            <h1 style='margin-top: 50px'>Detail Truck:</h1>
+
+                            <?php
+                            $jsonString = $data['detailTruk'];
+                            $data = json_decode($jsonString, true);
+
+                            foreach ($data as $truckNumber => $truckData) {
+                                echo "<h1>Truck $truckNumber</h1><h2>" . PHP_EOL . "</h2>";
+                                echo "<h2>Index Area: {$truckData[0]}</h2>" . PHP_EOL;
+                                echo "<h2>Jarak: {$truckData[1]}</h2>" . PHP_EOL;
+                                echo "<h2>Durasi Waktu Perjalanan: {$truckData[2]}</h2>" . PHP_EOL;
+                                echo "<h2>Waktu Berangkat: {$truckData[3]}</h2>" . PHP_EOL;
+                                echo "<h2>Waktu Delay: {$truckData[4]}</h2>" . PHP_EOL;
+                                echo "<h2 style='margin-bottom: 50px'>Waktu Sampai: {$truckData[5]}</h2>" . PHP_EOL;
+                            }
+
+
+                            ?>
+
+                    <?php
+                        }
+                    } else {
+                    }
+
+
+
+                    ?>
+                </div>
+            </div>
+        </div>
 
 
 
 
-    <!-- Include jQuery and DataTables JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+        <!-- Include jQuery and DataTables JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 
-    <!-- Include Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous" defer></script>
+        <!-- Include Bootstrap JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous" defer></script>
 </body>
 
 </html>
