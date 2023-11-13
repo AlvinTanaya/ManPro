@@ -20,22 +20,23 @@ require "ok2.php";
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
 </head>
-<script>
-    $(document).ready(function() {
+<script src="https://code.jquery.com/jquery-3.6.4.min.js">
+    var $jq = jQuery.noConflict();
+    $jq(document).ready(function() {
 
-        $("#index-tab").click(function() {
+        $jq("#index-tab").click(function() {
             window.location.href = "index.php";
         });
 
-        $("#data-tab").click(function() {
+        $jq("#data-tab").click(function() {
             window.location.href = "raw_data.php";
         });
 
-        $("#compare-tab").click(function() {
+        $jq("#compare-tab").click(function() {
             window.location.href = "compare.php";
         });
 
-        $("#simul-tab").click(function() {
+        $jq("#simul-tab").click(function() {
             window.location.href = "simul.php";
         });
     });
@@ -395,22 +396,24 @@ require "ok2.php";
 
                         <div>
                             <label for="RawDataName" class="formbold-form-label"> Raw Data Name <span style="color: red;">*</span></label>
-                            <input type="text" name="RawDataName" placeholder="Choose Raw Data Name" id="RawDataName" class="formbold-form-input" required />
+                            <select name="RawDataName" placeholder="Choose Raw Data Name" id="RawDataName" class="formbold-form-input">
+                                <?php
+                                    include('ok2.php');
+                                    $namaRawData = mysqli_query($conn, "Select * from rawdata");
+                                    while($c = mysqli_fetch_array($namaRawData)){
+                                ?>
+                                <option value ="<?php echo $c['id'] ?>"> <?php echo $c['rawDataName'] ?></option>
+                                <?php } ?>
+                            </select>
                         </div>
-                    </div>
-
-                    <!-- <div>
                         <div>
-                            <label for="duration" class="formbold-form-label"> Duration(hours) <span style="color: red;">*</span></label>
-                            <input type="duration" name="duration" id="duration" placeholder="24 hours" class="formbold-form-input" required />
-                        </div>
-                    </div> -->
-                    <!-- <div>
                         <div>
                             <label for="truckContent" class="formbold-form-label"> Warehouse Amount <span style="color: red;">*</span> </label>
                             <input type="text" name="warehouseAmount" placeholder="4" id="warehouseAmount" class="formbold-form-input" required />
                         </div>
-                    </div> -->
+                    </div>
+                    </div>
+
                 </div>
 
                 <div class="formbold-form-step-2">
@@ -426,7 +429,7 @@ require "ok2.php";
                         Back
                     </button>
 
-                    <button id="button1" name="addData" type="submit" class="formbold-btn" onclick="submitFormData()">
+                    <button id="button1" name="addSimul" type="submit" class="formbold-btn" onclick="submitFormData()">
                         Next Step
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_1675_1807)">
@@ -482,35 +485,104 @@ require "ok2.php";
         // event.preventDefault()
         if (stepMenuOne.className == 'formbold-step-menu1 active') {
             event.preventDefault()
-            const jumlahArea = document.getElementById('areaAmount').value;
-            const totalTruck = document.getElementById('totalTruck').value;
-            let defaultTruckPercentage = 0
-            if (totalTruck >= jumlahArea) {
-                defaultTruckPercentage = totalTruck /
-            }
+            // const jumlahArea = document.getElementById('areaAmount').value;
+            // let defaultTruckPercentage = 0
 
-            let newPageContent = `
-                `;
-            for (let i = 1; i <= jumlahArea; i++) {
-                // Concatenate the content for each input
-                newPageContent += `
-                <div class="formbold-input-flex">
+            // let newPageContent = `
+            //     `;
+            // for (let i = 1; i <= jumlahArea; i++) {
+            //     // Concatenate the content for each input
+            //     newPageContent += `
+            //     <div class="formbold-input-flex">
+            //             <div>
+            //                 <label for="jarakAwal${i}" class="formbold-form-label">Jarak Awal <span style="color: red;">*</span></label>
+            //                 <input name="jarakAwal${i}" type="number" placeholder="0"class="formbold-form-input" id="inputJarakAwal${i}" required>
+            //             </div>
+            //             <div>
+            //                 <label for="jarakAkhir${i}" class="formbold-form-label">Jarak Akhir <span style="color: red;">*</span></label>
+            //                 <input name="jarakAkhir${i}" type="number" placeholder="3" class="formbold-form-input" id="inputJarakAkhir${i}" required>
+            //             </div>
+            //             <div>
+            //                 <label for="truckPercentage${i}" class="formbold-form-label">Truck Percentage(%) <span style="color: red;">*</span></label>
+            //                 <input name="truckPercentage${i}" type="number" class="formbold-form-input" id="inputTruckPercentage${i}" required>
+            //             </div>
+            //         </div>
+            //     `;
+            // }
+            // stepTwo.innerHTML = newPageContent;
+
+            const optionData = document.getElementById('RawDataName').value;
+            // console.log(optionData);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'takeData.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            var data = 'optionData=' + encodeURIComponent(optionData);
+
+            // Send the request
+            var jumarea = 0
+            xhr.send(data);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Handle the response from PHP if needed
+                    jumarea = xhr.responseText;
+                    console.log(jumarea);
+                    const jumlahGudang = document.getElementById("warehouseAmount").value;
+
+                    let newPageContent = `
+                    `;
+                    for (let i = 1; i <= jumlahGudang; i++) {
+                        newPageContent += `
                         <div>
-                            <label for="jarakAwal${i}" class="formbold-form-label">Jarak Awal <span style="color: red;">*</span></label>
-                            <input name="jarakAwal${i}" type="number" placeholder="0"class="formbold-form-input" id="inputJarakAwal${i}" required>
+                                <label class="formbold-form-label"> Warehouse Specificity ${i} </label>
+                        `;
+                        for (let j = 1; j <= jumarea; j++) {
+                            // Concatenate the content for each input
+                            newPageContent += `
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="${i}warehouseSpecifity${j}" id="${i}warehouseSpecifity${j}">
+                                    <label class="form-check-label" for="${i}warehouseSpecifity${j}">Area ${j}</label>
+                                </div>
+                        `;
+                        }
+                        newPageContent += `
                         </div>
-                        <div>
-                            <label for="jarakAkhir${i}" class="formbold-form-label">Jarak Akhir <span style="color: red;">*</span></label>
-                            <input name="jarakAkhir${i}" type="number" placeholder="3" class="formbold-form-input" id="inputJarakAkhir${i}" required>
-                        </div>
-                        <div>
-                            <label for="truckPercentage${i}" class="formbold-form-label">Truck Percentage(%) <span style="color: red;">*</span></label>
-                            <input name="truckPercentage${i}" type="number" class="formbold-form-input" id="inputTruckPercentage${i}" required>
-                        </div>
-                    </div>
-                `;
-            }
-            stepTwo.innerHTML = newPageContent;
+                    `;
+                    }
+                    stepTwo.innerHTML = newPageContent;
+                }
+            };
+            // const jumlahArea = <?php
+            //                         $jumarea = mysqli_query($conn, "Select * from rawdata");
+            //                         $idarea = ?> optionData<?php;
+            //                         echo $idarea;
+            //                         while ($c =  mysqli_fetch_array($jumarea)){
+            //                             echo $c['jumlahArea'];
+            //                         }
+            //                     ?>;
+            // console.log(jumlahArea);
+            // const jumlahGudang = document.getElementById("warehouseAmount").value;
+
+            // let newPageContent = `
+            // `;
+            // for (let i = 1; i <= jumlahGudang; i++) {
+            //     newPageContent += `
+            //     <div>
+            //             <label class="formbold-form-label"> Warehouse Specificity ${i} </label>
+            //     `;
+            //     for (let j = 1; j <= jumlahArea; j++) {
+            //         // Concatenate the content for each input
+            //         newPageContent += `
+            //             <div class="form-check">
+            //                 <input class="form-check-input" type="checkbox" name="${i}warehouseSpecifity${j}" id="${i}warehouseSpecifity${j}">
+            //                 <label class="form-check-label" for="${i}warehouseSpecifity${j}">Area ${j}</label>
+            //             </div>
+            //     `;
+            //     }
+            //     newPageContent += `
+            //     </div>
+            // `;
+            // }
+            // stepTwo.innerHTML = newPageContent;
 
             stepMenuOne.classList.remove('active')
             stepMenuTwo.classList.add('active')
@@ -534,30 +606,30 @@ require "ok2.php";
 
         } else if (stepMenuTwo.className == 'formbold-step-menu2 active') {
             event.preventDefault()
-            const jumlahArea = document.getElementById('areaAmount').value;
-            const jumlahGudang = document.getElementById("warehouseAmount").value;
+            // const jumlahArea = document.getElementById('areaAmount').value;
+            // const jumlahGudang = document.getElementById("warehouseAmount").value;
 
-            let newPageContent = `
-            `;
-            for (let i = 1; i <= jumlahGudang; i++) {
-                newPageContent += `
-                <div>
-                        <label class="formbold-form-label"> Warehouse Specificity ${i} </label>
-                `;
-                for (let j = 1; j <= jumlahArea; j++) {
-                    // Concatenate the content for each input
-                    newPageContent += `
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="${i}warehouseSpecifity${j}" id="${i}warehouseSpecifity${j}">
-                            <label class="form-check-label" for="${i}warehouseSpecifity${j}">Area ${j}</label>
-                        </div>
-                `;
-                }
-                newPageContent += `
-                </div>
-            `;
-            }
-            stepThree.innerHTML = newPageContent;
+            // let newPageContent = `
+            // `;
+            // for (let i = 1; i <= jumlahGudang; i++) {
+            //     newPageContent += `
+            //     <div>
+            //             <label class="formbold-form-label"> Warehouse Specificity ${i} </label>
+            //     `;
+            //     for (let j = 1; j <= jumlahArea; j++) {
+            //         // Concatenate the content for each input
+            //         newPageContent += `
+            //             <div class="form-check">
+            //                 <input class="form-check-input" type="checkbox" name="${i}warehouseSpecifity${j}" id="${i}warehouseSpecifity${j}">
+            //                 <label class="form-check-label" for="${i}warehouseSpecifity${j}">Area ${j}</label>
+            //             </div>
+            //     `;
+            //     }
+            //     newPageContent += `
+            //     </div>
+            // `;
+            // }
+            // stepThree.innerHTML = newPageContent;
 
             stepMenuTwo.classList.remove('active')
             stepMenuThree.classList.add('active')
