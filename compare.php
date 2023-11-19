@@ -120,6 +120,10 @@ require "ok2.php";
     h2 {
         border-bottom: 1px solid grey;
     }
+
+    .card {
+        margin-bottom: 10px;
+    }
 </style>
 
 <body>
@@ -222,6 +226,7 @@ require "ok2.php";
             // Verify that the counts are equal
             if ($cek1 == $cek2) {
         ?>
+
                 <div class="row mt-3 mb-3">
                     <div class="col-md-4 ps-0 pb-0 pt-2 pe-0 custom-border">
                         <?php
@@ -257,6 +262,13 @@ require "ok2.php";
                             ?>
                         </h2>
 
+                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                            <?php
+                            for ($i = 1; $i <= $loop; $i++) {
+                                echo 'Sum Jumlah Truck Gudang ' . $i . "<br>";
+                            }
+                            ?>
+                        </h2>
 
                         <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             <?php
@@ -274,9 +286,6 @@ require "ok2.php";
                             Maximum jumlah Truck Pada Gudang
                         </h2>
 
-
-
-
                         <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             <?php
                             for ($i = 1; $i <= $loop; $i++) {
@@ -286,11 +295,11 @@ require "ok2.php";
                         </h2>
 
                         <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
-                            Rata-rata Waktu Operasi Gudang
+                            Sum Waktu Operasi Gudang
                         </h2>
 
                         <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
-                            Sum Waktu Operasi Gudang
+                            Rata-rata Waktu Operasi Gudang
                         </h2>
 
                         <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
@@ -322,11 +331,11 @@ require "ok2.php";
                         </h2>
 
                         <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
-                            Rata-rata Waktu Antri Truck
+                            Sum Waktu Antri Truck
                         </h2>
 
                         <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
-                            Sum Waktu Operasi Gudang
+                            Rata-rata Waktu Antri Truck
                         </h2>
 
                         <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
@@ -368,6 +377,22 @@ require "ok2.php";
                                 ?>
                             </h2>
 
+                            <h2 class="m-0 pb-2" id="sumGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                                <?php
+                                $dataIsiGudang1 = json_decode($data1['isiGudang']);
+                                $sumTruck1 = [];
+                                foreach ($dataIsiGudang1 as $subarray) {
+                                    $count = 0;
+                                    foreach ($subarray as $value) {
+                                        $count++;
+                                    }
+                                    $sumTruck1[] = $count;
+                                    echo $count . "<br>";
+                                }
+                                ?>
+
+                            </h2>
+
                             <h2 class="m-0 pb-2" id="rataGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataIsiGudang1 = json_decode($data1['isiGudang']);
@@ -392,6 +417,9 @@ require "ok2.php";
                                 ?>
 
                             </h2>
+
+
+
 
                             <h2 class="m-0 pb-2" id="minGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
@@ -441,6 +469,13 @@ require "ok2.php";
                                 ?>
                             </h2>
 
+                            <h2 class="m-0 pb-2" id="sumWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                                <?php
+                                $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang']);
+                                $sum = array_sum($dataOperasiGudang1);
+                                echo $sum . "<br>";
+                                ?>
+                            </h2>
 
                             <h2 class="m-0 pb-2" id="rataWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
@@ -450,13 +485,7 @@ require "ok2.php";
                                 ?>
                             </h2>
 
-                            <h2 class="m-0 pb-2" id="sumWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
-                                <?php
-                                $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang']);
-                                $sum = array_sum($dataOperasiGudang1);
-                                echo $sum . "<br>";
-                                ?>
-                            </h2>
+
 
                             <h2 class="m-0 pb-2" id="minWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
@@ -504,6 +533,17 @@ require "ok2.php";
                                 ?>
                             </h2>
 
+
+
+                            <h2 class="m-0 pb-2" id="sumWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
+                                <?php
+                                $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk']);
+                                $sumValue = array_sum($dataWaktuAntriTruck1);
+                                echo $sumValue . "<br>";
+                                ?>
+                            </h2>
+
+
                             <h2 class="m-0 pb-2" id="rataWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
                                 <?php
                                 $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk']);
@@ -511,8 +551,6 @@ require "ok2.php";
                                 echo $rataRata3 . "<br>";
                                 ?>
                             </h2>
-
-
 
                             <h2 class="m-0 pb-2" id="minWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
                                 <?php
@@ -532,13 +570,7 @@ require "ok2.php";
                             </h2>
 
 
-                            <h2 class="m-0 pb-2" id="sumWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
-                                <?php
-                                $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk']);
-                                $sumValue = array_sum($dataWaktuAntriTruck1);
-                                echo $sumValue . "<br>";
-                                ?>
-                            </h2>
+
 
                             <h2 class="m-0 pb-2" id="stdevWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
                                 <?php
@@ -592,6 +624,21 @@ require "ok2.php";
                                 ?>
                             </h2>
 
+                            <h2 class="m-0 pb-2" id="SumGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                                <?php
+                                $dataIsiGudang2 = json_decode($data2['isiGudang']);
+                                $sumTruck2 = [];
+                                foreach ($dataIsiGudang2 as $subarray) {
+                                    $count = 0;
+                                    foreach ($subarray as $value) {
+                                        $count++;
+                                    }
+                                    $sumTruck2[] = $count;
+                                    echo $count . "<br>";
+                                }
+                                ?>
+                            </h2>
+
                             <h2 class="m-0 pb-2" id="rataGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataIsiGudang2 = json_decode($data2['isiGudang']);
@@ -615,6 +662,8 @@ require "ok2.php";
                                 }
                                 ?>
                             </h2>
+
+
 
                             <h2 class="m-0 pb-2" id="minGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
@@ -663,6 +712,14 @@ require "ok2.php";
                                 ?>
                             </h2>
 
+                            <h2 class="m-0 pb-2" id="sumWaktuOperasiGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                                <?php
+                                $dataOperasiGudang2 = json_decode($data2['waktuOperasiGudang']);
+                                $sum = array_sum($dataOperasiGudang2);
+                                echo $sum . "<br>";
+                                ?>
+                            </h2>
+
                             <h2 class="m-0 pb-2" id="rataWaktuOperasiGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataOperasiGudang2 = json_decode($data2['waktuOperasiGudang']);
@@ -671,13 +728,7 @@ require "ok2.php";
                                 ?>
                             </h2>
 
-                            <h2 class="m-0 pb-2" id="sumWaktuOperasiGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
-                                <?php
-                                $dataOperasiGudang2 = json_decode($data2['waktuOperasiGudang']);
-                                $sum = array_sum($dataOperasiGudang2);
-                                echo $sum . "<br>";
-                                ?>
-                            </h2>
+
 
                             <h2 class="m-0 pb-2" id="minWaktuOperasiGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
@@ -723,6 +774,15 @@ require "ok2.php";
                                 ?>
                             </h2>
 
+                            <h2 class="m-0 pb-2" id="sumWaktuAntriTruk2" style="display: flex; align-items: center; justify-content: center;">
+                                <?php
+                                $dataWaktuAntriTruck2 = json_decode($data2['waktuAntriTruk']);
+                                $sumValue = array_sum($dataWaktuAntriTruck2);
+                                echo $sumValue . "<br>";
+                                ?>
+                            </h2>
+
+
                             <h2 class="m-0 pb-2" id="rataWaktuAntriTruk2" style="display: flex; align-items: center; justify-content: center;">
                                 <?php
                                 $dataWaktuAntriTruck2 = json_decode($data2['waktuAntriTruk']);
@@ -730,7 +790,6 @@ require "ok2.php";
                                 echo $rataRata6 . "<br>";
                                 ?>
                             </h2>
-
 
 
 
@@ -751,13 +810,7 @@ require "ok2.php";
                             </h2>
 
 
-                            <h2 class="m-0 pb-2" id="sumWaktuAntriTruk2" style="display: flex; align-items: center; justify-content: center;">
-                                <?php
-                                $dataWaktuAntriTruck2 = json_decode($data2['waktuAntriTruk']);
-                                $sumValue = array_sum($dataWaktuAntriTruck2);
-                                echo $sumValue . "<br>";
-                                ?>
-                            </h2>
+
 
 
                             <h2 class="m-0 pb-2" id="stdevWaktuAntriTruk2" style="display: flex; align-items: center; justify-content: center;">
@@ -787,42 +840,81 @@ require "ok2.php";
 
                 </div>
 
+
                 <div class="row mb-3 mt-5">
-                    <div class="col-md-6">
+                    <div class="col-md-2">
+
+                    </div>
+                    <div class="col-md-8">
+                        <h1 class="mb-5 mt-5">Waktu Operasi Gudang</h1>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Waktu Operasi Gudang</h5>
-                                <canvas id="myChart1" style="width:100%;"></canvas>
+                                <h5 class="card-title">Data Waktu Operasi Gudang</h5>
+                                <canvas id="myChart1" style="width: 100%;"></canvas>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Rata-rata Waktu Operasi Gudang</h5>
+                                <canvas id="myChart2" style="width: 100%;"></canvas>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Stdev Waktu Operasi Gudang</h5>
+                                <canvas id="myChart3" style="width: 100%;"></canvas>
+                            </div>
+                        </div>
+
+                        <h1 class="mb-5 mt-5">Waktu Antri Truck</h1>
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Waktu Antri Truck</h5>
-                                <canvas id="myChart2" style="width:100%;"></canvas>
+                                <canvas id="myChart4" style="width:100%;"></canvas>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Rata-rata Waktu Antri Truck</h5>
+                                <canvas id="myChart5" style="width:100%;"></canvas>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Stdev Waktu Antri Truck</h5>
+                                <canvas id="myChart6" style="width:100%;"></canvas>
+                            </div>
+                        </div>
+
+
+                        <h1 class="mb-5 mt-5">Truck per Gudang</h1>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Truck per Gudang</h5>
+                                <canvas id="myChart7" style="width:100%;"></canvas>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Rata-rata Truck per Gudang</h5>
+                                <canvas id="myChart8" style="width:100%;"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Sum Truck per Gudang</h5>
+                                <canvas id="myChart9" style="width:100%;"></canvas>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Isi Jumlah Truck Setiap Gudang</h5>
-                                <canvas id="myChart3" style="width:100%;"></canvas>
-                            </div>
-                        </div>
+                    <div class="col-md-2">
+
                     </div>
-                    <!-- <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Truck Content</h5>
-                                <canvas id="myChart" style="width:100%;"></canvas>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
+
+
+
 
         <?php
                 $selected1 = $_POST['nama1'];
@@ -868,25 +960,21 @@ require "ok2.php";
         ?>
 
 
-
-
     </div>
 
+
+
+
+
+
+
+
+
     <script>
-        // Create the first chart for xValuesGudang1
+        //Waktu Operasi Gudang
         const xValuesGudang1 = <?= json_encode($xValuesGudang1) ?>;
         const chartDataGudang1 = <?= json_encode($dataOperasiGudang1) ?>;
         const chartDataGudang2 = <?= json_encode($dataOperasiGudang2) ?>;
-        const rataData2Gudang = <?= json_encode($rataRata2) ?>;
-        const rataData5Gudang = <?= json_encode($rataRata5) ?>;
-        const stdevData1Gudang = <?= json_encode($standardDeviasi1) ?>;
-        const stdevData3Gudang = <?= json_encode($standardDeviasi3) ?>;
-
-        const rataData2GudangLine = Array(xValuesGudang1.length).fill(rataData2Gudang);
-        const rataData5GudangLine = Array(xValuesGudang1.length).fill(rataData5Gudang);
-        const stdevData1GudangLine = Array(xValuesGudang1.length).fill(stdevData1Gudang);
-        const stdevData3GudangLine = Array(xValuesGudang1.length).fill(stdevData3Gudang);
-
         new Chart("myChart1", {
             type: "line",
             data: {
@@ -895,23 +983,58 @@ require "ok2.php";
                     data: chartDataGudang1,
                     borderColor: "red",
                     fill: false,
-                    label: 'Simulation 1',
+                    label: 'Simulation Data 1',
                 }, {
                     data: chartDataGudang2,
                     borderColor: "green",
                     fill: false,
-                    label: 'Simulation 2',
-                }, {
+                    label: 'Simulation Data 2',
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            }
+        });
+
+        const rataData2Gudang = <?= json_encode($rataRata2) ?>;
+        const rataData5Gudang = <?= json_encode($rataRata5) ?>;
+        const rataData2GudangLine = Array(xValuesGudang1.length).fill(rataData2Gudang);
+        const rataData5GudangLine = Array(xValuesGudang1.length).fill(rataData5Gudang);
+        new Chart("myChart2", {
+            type: "line",
+            data: {
+                labels: xValuesGudang1,
+                datasets: [{
                     data: rataData2GudangLine,
                     borderColor: "blue",
                     fill: false,
-                    label: 'rata Data 2 Line',
+                    label: 'Rata-rata Data 2 Line',
                 }, {
                     data: rataData5GudangLine,
                     borderColor: "yellow",
                     fill: false,
-                    label: 'rata Data 5 Line',
-                }, {
+                    label: 'Rata-rata Data 5 Line',
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            }
+        });
+        const stdevData1Gudang = <?= json_encode($standardDeviasi1) ?>;
+        const stdevData3Gudang = <?= json_encode($standardDeviasi3) ?>;
+        const stdevData1GudangLine = Array(xValuesGudang1.length).fill(stdevData1Gudang);
+        const stdevData3GudangLine = Array(xValuesGudang1.length).fill(stdevData3Gudang);
+        new Chart("myChart3", {
+            type: "line",
+            data: {
+                labels: xValuesGudang1,
+                datasets: [{
                     data: stdevData1GudangLine,
                     borderColor: "blue",
                     fill: false,
@@ -932,24 +1055,12 @@ require "ok2.php";
         });
 
 
-        // Create the second chart for Truck
+
+        // waktu Antri Truck
         const xValuesTruck1 = <?= json_encode($xValuesTruck1) ?>;
         const chartDataTruck1 = <?= json_encode($dataWaktuAntriTruck1) ?>;
         const chartDataTruck2 = <?= json_encode($dataWaktuAntriTruck2) ?>;
-
-        const rataData3 = <?= json_encode($rataRata3) ?>;
-        const rataData6 = <?= json_encode($rataRata6) ?>;
-        const stdevData2 = <?= json_encode($stdevValue2) ?>;
-        const stdevData4 = <?= json_encode($stdevValue4) ?>;
-
-
-        const rataData3Line = Array(xValuesTruck1.length).fill(rataData3);
-        const rataData6Line = Array(xValuesTruck1.length).fill(rataData6);
-
-        const stdevData2Line = Array(xValuesTruck1.length).fill(stdevData2);
-        const stdevData4Line = Array(xValuesTruck1.length).fill(stdevData4);
-
-        new Chart("myChart2", {
+        new Chart("myChart4", {
             type: "line",
             data: {
                 labels: xValuesTruck1,
@@ -957,23 +1068,59 @@ require "ok2.php";
                     data: chartDataTruck1,
                     borderColor: "red",
                     fill: false,
-                    label: 'Simulation 1',
+                    label: 'Simulation Data 1',
                 }, {
                     data: chartDataTruck2,
                     borderColor: "green",
                     fill: false,
-                    label: 'Simulation 2',
-                }, {
+                    label: 'Simulation Data 2',
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            }
+        });
+
+        const rataData3 = <?= json_encode($rataRata3) ?>;
+        const rataData6 = <?= json_encode($rataRata6) ?>;
+        const rataData3Line = Array(xValuesTruck1.length).fill(rataData3);
+        const rataData6Line = Array(xValuesTruck1.length).fill(rataData6);
+        new Chart("myChart5", {
+            type: "line",
+            data: {
+                labels: xValuesTruck1,
+                datasets: [{
                     data: rataData3Line,
                     borderColor: "blue",
                     fill: false,
-                    label: 'rata Data 1 Line',
+                    label: 'Rata-rata Data 1 Line',
                 }, {
                     data: rataData6Line,
                     borderColor: "yellow",
                     fill: false,
-                    label: 'rata Data 2 Line',
-                }, {
+                    label: 'Rata-rata Data 2 Line',
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            }
+        });
+
+        const stdevData2 = <?= json_encode($stdevValue2) ?>;
+        const stdevData4 = <?= json_encode($stdevValue4) ?>;
+        const stdevData2Line = Array(xValuesTruck1.length).fill(stdevData2);
+        const stdevData4Line = Array(xValuesTruck1.length).fill(stdevData4);
+        new Chart("myChart6", {
+            type: "line",
+            data: {
+                labels: xValuesTruck1,
+                datasets: [{
                     data: stdevData2Line,
                     borderColor: "blue",
                     fill: false,
@@ -998,11 +1145,10 @@ require "ok2.php";
         const xValuesCountedGudang1 = <?= json_encode($xValuesGudang1) ?>;
         const chartDataCountedGudang1 = <?= json_encode($countedArrayGudang1) ?>;
         const chartDataCountedGudang2 = <?= json_encode($countedArrayGudang2) ?>;
-        const chartrataTruck1 = <?= json_encode($rataTruck1) ?>;
-        const chartrataTruck2 = <?= json_encode($rataTruck2) ?>;
 
 
-        new Chart("myChart3", {
+
+        new Chart("myChart7", {
             type: "line",
             data: {
                 labels: xValuesCountedGudang1,
@@ -1010,22 +1156,64 @@ require "ok2.php";
                     data: chartDataCountedGudang1,
                     borderColor: "red",
                     fill: false,
-                    label: 'Simulation 1',
+                    label: 'Simulation Data 1',
                 }, {
                     data: chartDataCountedGudang2,
                     borderColor: "green",
                     fill: false,
-                    label: 'Simulation 2',
-                }, {
+                    label: 'Simulation Data 2',
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            }
+        });
+
+        const chartrataTruck1 = <?= json_encode($rataTruck1) ?>;
+        const chartrataTruck2 = <?= json_encode($rataTruck2) ?>;
+        new Chart("myChart8", {
+            type: "line",
+            data: {
+                labels: xValuesCountedGudang1,
+                datasets: [{
                     data: chartrataTruck1,
                     borderColor: "Blue",
                     fill: false,
-                    label: 'Rata-rata 1',
+                    label: 'Rata-rata Data 1',
                 }, {
                     data: chartrataTruck2,
                     borderColor: "yellow",
                     fill: false,
-                    label: 'Rata-rata 2',
+                    label: 'Rata-rata Data 2',
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            }
+        });
+
+        const chartSumTruck1 = <?= json_encode($sumTruck1) ?>;
+        const chartSumTruck2 = <?= json_encode($sumTruck2) ?>;
+        new Chart("myChart9", {
+            type: "line",
+            data: {
+                labels: xValuesCountedGudang1,
+                datasets: [{
+                    data: chartSumTruck1,
+                    borderColor: "purple",
+                    fill: false,
+                    label: 'Sum Data 1',
+                }, {
+                    data: chartSumTruck2,
+                    borderColor: "brown",
+                    fill: false,
+                    label: 'Sum Data 2',
                 }]
             },
             options: {

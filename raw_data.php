@@ -268,20 +268,40 @@ require "ok2.php";
 
                             <?php
                             $jsonString = $data['detailTruk'];
-                            $data = json_decode($jsonString, true);
+                            $truckDetails = json_decode($jsonString, true);
 
-                            foreach ($data as $truckNumber => $truckData) {
-                                echo "<h1>Truck $truckNumber</h1><h2>" . PHP_EOL . "</h2>";
-                                echo "<h2>Index Area: {$truckData[0]}</h2>" . PHP_EOL;
-                                echo "<h2>Jarak: {$truckData[1]}</h2>" . PHP_EOL;
-                                echo "<h2>Durasi Waktu Perjalanan: {$truckData[2]}</h2>" . PHP_EOL;
-                                echo "<h2>Waktu Berangkat: {$truckData[3]}</h2>" . PHP_EOL;
-                                echo "<h2>Waktu Delay: {$truckData[4]}</h2>" . PHP_EOL;
-                                echo "<h2 style='margin-bottom: 50px'>Waktu Sampai: {$truckData[5]}</h2>" . PHP_EOL;
+                            echo '<table class="table" id="truckDetailsTable">';
+                            echo '<thead>';
+                            echo '<tr>';
+                            echo '<th>Truck Number</th>';
+                            echo '<th>Index Area</th>';
+                            echo '<th>Jarak</th>';
+                            echo '<th>Durasi Waktu Perjalanan</th>';
+                            echo '<th>Waktu Berangkat</th>';
+                            echo '<th>Waktu Delay</th>';
+                            echo '<th>Waktu Sampai</th>';
+                            echo '</tr>';
+                            echo '</thead>';
+                            echo '<tbody>';
+
+                            foreach ($truckDetails as $truckNumber => $truckData) {
+                                echo '<tr>';
+                                echo "<td>Truck $truckNumber</td>";
+                                echo "<td>{$truckData[0]}</td>";
+                                echo "<td>{$truckData[1]}</td>";
+                                echo "<td>{$truckData[2]}</td>";
+                                echo "<td>{$truckData[3]}</td>";
+                                echo "<td>{$truckData[4]}</td>";
+                                echo "<td>{$truckData[5]}</td>";
+                                echo '</tr>';
                             }
 
-
+                            echo '</tbody>';
+                            echo '</table>';
                             ?>
+
+
+
 
                     <?php
                         }
@@ -298,6 +318,11 @@ require "ok2.php";
 
 
 
+        <script>
+            $(document).ready(function() {
+                $('#truckDetailsTable').DataTable();
+            });
+        </script>
         <!-- Include jQuery and DataTables JavaScript -->
         <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>

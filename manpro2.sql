@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2023 at 02:40 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.1.12
+-- Generation Time: Nov 19, 2023 at 09:06 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -68,7 +68,7 @@ CREATE TABLE `rawdata` (
 INSERT INTO `rawdata` (`id`, `rawDataName`, `jumlahArea`, `rangeJarak`, `totalTruk`, `durasi`, `persentaseTruk`, `detailTruk`) VALUES
 (1, 'Data1', 4, '[5,10,15,20]', 10, 50, '[3, 2, 3, 2]', '[0, 4.2, 3, \"07:11:53\", \"11:35:32\", \"01:23:39\"]'),
 (2, 'Data2', 4, '[4]', 10, 30, '[3, 3, 2, 2]', '[1, 9.6, 4, \"12:12:51\", \"15:16:19\", \"00:03:28\"]'),
-(4, 'Coba2', 2, '{\"1\":\"2\",\"2\":\"4\"}', 10, 24, '{\"1\":\"5\",\"2\":\"5\"}', '{\"1\":[\"0\",\"1.8\",\"1\",\"7:48:19\",\"1:43:36\",\"9:52:55\"],\"2\":[\"0\",\"1.6\",\"2\",\"2:39:38\",\"2:0:53\",\"4:59:31\"],\"3\":[\"0\",\"2.3\",\"2\",\"24:33:5\",\"0:2:27\",\"25:2:32\"],\"4\":[\"0\",\"2.1\",\"1\",\"6:58:46\",\"3:17:1\",\"10:40:47\"],\"5\":[\"0\",\"1.1\",\"3\",\"7:55:0\",\"0:9:39\",\"8:17:39\"],\"6\":[\"1\",\"4.6\",\"1\",\"22:51:45\",\"0:16:6\",\"24:2:51\"],\"7\":[\"1\",\"4.2\",\"2\",\"4:48:6\",\"3:0:30\",\"8:38:36\"],\"8\":[\"1\",\"4.7\",\"1\",\"4:33:42\",\"2:46:14\",\"8:15:56\"],\"9\":[\"1\",\"4.7\",\"1\",\"5:18:51\",\"2:16:25\",\"8:31:16\"],\"10\":[\"1\",\"4.8\",\"1\",\"15:37:57\",\"0:58:3\",\"17:33:0\"]}');
+(3, 'Data 3', 3, '{\"1\":\"5\",\"2\":\"10\",\"3\":\"20\"}', 4, 24, '{\"1\":\"2\",\"2\":\"1\",\"3\":\"1\"}', '{\"1\":[\"0\",\"3.3\",\"1\",\"14:51:29\",\"3:28:46\",\"18:59:15\"],\"2\":[\"0\",\"3.2\",\"2\",\"5:9:10\",\"3:22:27\",\"9:9:37\"],\"3\":[\"1\",\"10.2\",\"1\",\"3:12:30\",\"2:57:36\",\"8:12:6\"],\"4\":[\"2\",\"10.9\",\"2\",\"1:8:11\",\"3:8:11\",\"6:26:22\"]}');
 
 -- --------------------------------------------------------
 
@@ -80,18 +80,17 @@ CREATE TABLE `simulasi` (
   `id` int(11) NOT NULL,
   `namaSimul` varchar(300) NOT NULL,
   `jumlahGudang` int(11) NOT NULL,
-  `spekGudang` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`spekGudang`)),
-  `rawDataName` varchar(100) NOT NULL
+  `spekGudang` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`spekGudang`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `simulasi`
 --
 
-INSERT INTO `simulasi` (`id`, `namaSimul`, `jumlahGudang`, `spekGudang`, `rawDataName`) VALUES
-(1, 'Simul1', 4, '[[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]', 'Data1'),
-(2, 'Simul2', 4, '[[1, 1, 1, 1], [1, 1, 0, 0], [0, 0, 1, 1], [0, 0, 1, 1]]', 'Data1'),
-(3, 'Simul3', 3, '[[1, 1, 0], [1, 0, 0], [0, 0, 1]]', 'Data1');
+INSERT INTO `simulasi` (`id`, `namaSimul`, `jumlahGudang`, `spekGudang`) VALUES
+(1, 'Simul1', 4, '[[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]'),
+(2, 'Simul2', 4, '[[1, 1, 1, 1], [1, 1, 0, 0], [0, 0, 1, 1], [0, 0, 1, 1]]'),
+(3, 'Simul3', 3, '[[1, 1, 0], [1, 0, 0], [0, 0, 1]]');
 
 --
 -- Indexes for dumped tables
@@ -129,7 +128,7 @@ ALTER TABLE `hasil`
 -- AUTO_INCREMENT for table `rawdata`
 --
 ALTER TABLE `rawdata`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `simulasi`
