@@ -178,14 +178,13 @@ require "ok2.php";
     </nav>
 
 
-    <div class="container-fluid pt-3 pe-5 ps-5 pb-1">
-        <h1>Data</h1>
-
-        <div class="row mt-4 mb-3">
-            <div class="col-md-4 mb-3">
-                <div class="rounded p-3 shadow">
+    <div class="container-fluid pt-1 pe-5 ps-5 pb-1">
+        <div class="row mt-4 mb-2">
+            <div class="col-md-4 mb-2">
+                <div class="rounded p-3">
                     <form method="post">
                         <div style="display: flex; align-items: center;">
+                            <h1 style="margin-right: 20px;">Data</h1>
                             <select class="form-select" aria-label="Raw Data Name" name="rawDataName">
                                 <option value="" disabled selected>Choose Raw Data Name</option>
                                 <?php
@@ -198,119 +197,124 @@ require "ok2.php";
                                 ?>
                             </select>
                             <input type="submit" name="submit" class="btn btn-success ms-3" value="Search">
-
                         </div>
                     </form>
                 </div>
-
             </div>
-
-
         </div>
 
         <div class="container-fluid p-0">
             <div class="row mt-4">
-                <div class="col-md-6">
-
+                <div class="col">
                     <?php
                     if (isset($_POST['submit']) && isset($_POST['rawDataName'])) {
                         $selected = $_POST['rawDataName'];
                         $ambilSemuaData = mysqli_query($conn, "SELECT * FROM rawdata where rawDataName = '$selected'");
-                        while ($data = mysqli_fetch_assoc($ambilSemuaData)) {
+
+                        if (mysqli_num_rows($ambilSemuaData) > 0) {
                     ?>
-                            <h1>Nama Raw Data:</h1>
-                            <h2><?= $data['rawDataName']; ?></h2>
+                            <h3>Detail Raw Data:</h3>
+                            <table class="table">
+                                <tr>
+                                    <th>Raw Data Name</th>
+                                    <th>Jumlah Area</th>
+                                    <th>Range Jarak</th>
+                                    <th>Total truk</th>
+                                    <th>durasi</th>
+                                    <th>persen</th>
+                                    </th>
+                                    <tbody>
+                                        <?php
+
+                                        while ($data = mysqli_fetch_assoc($ambilSemuaData)) {
+                                        ?>
+                                            <tr>
+                                                <td><?= $data['rawDataName']; ?></td>
+                                                <td><?= $data['jumlahArea']; ?></td>
+                                                <td><?php
+                                                    $jsonString = $data['rangeJarak'];
+                                                    $decodedData = json_decode($jsonString, true);
+
+                                                    $index = 0;
+                                                    $awal = 0;
+                                                    if (is_array($decodedData)) {
+                                                        foreach ($decodedData as $value) {
+                                                            echo "<p>Area $index: $awal - $value</p>";
+                                                            $index++;
+                                                            $awal = $value += 1;
+                                                        }
+                                                    }
+                                                    ?></td>
+                                                <td><?= $data['totalTruk']; ?></td>
+                                                <td><?= $data['durasi']; ?></td>
+                                                <td><?php
+                                                    $jsonString = $data['persentaseTruk'];
+                                                    $decodedData = json_decode($jsonString, true);
+
+                                                    $index = 0;
+                                                    if (is_array($decodedData)) {
+                                                        foreach ($decodedData as $value) {
+
+                                                            echo "<p>Area $index: $value</p>";
+                                                            $index++;
+                                                        }
+                                                    }
+                                                    ?></td>
+                                            </tr>
+                                    </tbody>
+                            </table>
 
 
-                            <h1>Jumlah Area: </h1>
-                            <h2><?= $data['jumlahArea']; ?></h2>
 
-                            <h1>Range Jarak:</h1>
+
+                            <h3 style='margin-top: 50px'>Detail Truck:</h3>
+
                             <?php
-                            $jsonString = $data['rangeJarak'];
-                            $decodedData = json_decode($jsonString, true);
+                                            $jsonString = $data['detailTruk'];
+                                            $truckDetails = json_decode($jsonString, true);
 
-                            $index = 0;
-                            $awal = 0;
-                            if (is_array($decodedData)) {
-                                foreach ($decodedData as $value) {
-                                    echo "<h2>Area $index: $awal - $value</h2>";
-                                    $index++;
-                                    $awal = $value += 1;
-                                }
-                            }
+                                            echo '<table class="table" id="truckDetailsTable">';
+                                            echo '<thead>';
+                                            echo '<tr>';
+                                            echo '<th>Truck Number</th>';
+                                            echo '<th>Index Area</th>';
+                                            echo '<th>Jarak</th>';
+                                            echo '<th>Durasi Waktu Perjalanan</th>';
+                                            echo '<th>Waktu Berangkat</th>';
+                                            echo '<th>Waktu Delay</th>';
+                                            echo '<th>Waktu Sampai</th>';
+                                            echo '</tr>';
+                                            echo '</thead>';
+                                            echo '<tbody>';
+
+                                            foreach ($truckDetails as $truckNumber => $truckData) {
+                                                echo '<tr>';
+                                                echo "<td>Truck $truckNumber</td>";
+                                                echo "<td>{$truckData[0]}</td>";
+                                                echo "<td>{$truckData[1]}</td>";
+                                                echo "<td>{$truckData[2]}</td>";
+                                                echo "<td>{$truckData[3]}</td>";
+                                                echo "<td>{$truckData[4]}</td>";
+                                                echo "<td>{$truckData[5]}</td>";
+                                                echo '</tr>';
+                                            }
+
+                                            echo '</tbody>';
+                                            echo '</table>';
                             ?>
 
-                            <h1>Total Jumlah Truck:</h1>
-                            <h2><?= $data['totalTruk']; ?></h2>
-
-                            <h1>Durasi waktu Simulasi:</h1>
-                            <h2><?= $data['durasi']; ?></h2>
 
 
-                            <h1>Jumlah Truck:</h1>
-                            <?php
-                            $jsonString = $data['persentaseTruk'];
-                            $decodedData = json_decode($jsonString, true);
-
-                            $index = 0;
-                            if (is_array($decodedData)) {
-                                foreach ($decodedData as $value) {
-
-                                    echo "<h2>Area $index: $value</h2>";
-                                    $index++;
-                                }
-                            }
-                            ?>
-
-
-                            <h1 style='margin-top: 50px'>Detail Truck:</h1>
-
-                            <?php
-                            $jsonString = $data['detailTruk'];
-                            $truckDetails = json_decode($jsonString, true);
-
-                            echo '<table class="table" id="truckDetailsTable">';
-                            echo '<thead>';
-                            echo '<tr>';
-                            echo '<th>Truck Number</th>';
-                            echo '<th>Index Area</th>';
-                            echo '<th>Jarak</th>';
-                            echo '<th>Durasi Waktu Perjalanan</th>';
-                            echo '<th>Waktu Berangkat</th>';
-                            echo '<th>Waktu Delay</th>';
-                            echo '<th>Waktu Sampai</th>';
-                            echo '</tr>';
-                            echo '</thead>';
-                            echo '<tbody>';
-
-                            foreach ($truckDetails as $truckNumber => $truckData) {
-                                echo '<tr>';
-                                echo "<td>Truck $truckNumber</td>";
-                                echo "<td>{$truckData[0]}</td>";
-                                echo "<td>{$truckData[1]}</td>";
-                                echo "<td>{$truckData[2]}</td>";
-                                echo "<td>{$truckData[3]}</td>";
-                                echo "<td>{$truckData[4]}</td>";
-                                echo "<td>{$truckData[5]}</td>";
-                                echo '</tr>';
-                            }
-
-                            echo '</tbody>';
-                            echo '</table>';
-                            ?>
+                <?php }
+                                    }
+                                } ?>
+                <?php
 
 
 
 
-                    <?php
-                        }
-                    } else {
-                    }
+                ?>
 
-
-
-                    ?>
                 </div>
             </div>
         </div>

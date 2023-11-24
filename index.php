@@ -532,7 +532,7 @@ require "ok2.php";
                     const jumlahArea = document.getElementById('areaAmount').value;
                     let newPageContent = `
                     <p>
-                        Please specify the percentage, starting distance, and ending distance you would like to use for the simulation.
+                        Please specify the percentage, area distance, and truck load distributions you would like to use for the simulation.
                     </p>
                     `;
                     for (let i = 1; i <= jumlahArea; i++) {
@@ -769,44 +769,44 @@ require "ok2.php";
 
                 // formBackBtn.classList.remove('active')
                 formSubmitBtn.textContent = 'Submit'
-            } else if (stepMenuThree.className == 'formbold-step-menu3 active') {
-                // document.querySelector("form").submit()
-                // formBackBtn.classList.remove('active')
+            } else if (stepMenuThree.className == 'formbold-step-menu3') {
+                document.querySelector("form").submit()
+                formBackBtn.classList.remove('active')
 
-                // formBackBtn.addEventListener("click", function(event) {
-                //     console.log("back 2")
-                //     event.preventDefault()
+                formBackBtn.addEventListener("click", function(event) {
+                    console.log("back 2")
+                    event.preventDefault()
 
-                //     console.log("-------------")
-                //     console.log(stepMenuOne.className);
-                //     console.log(stepMenuTwo.className);
-                //     console.log(stepMenuThree.className);
+                    console.log("-------------")
+                    console.log(stepMenuOne.className);
+                    console.log(stepMenuTwo.className);
+                    console.log(stepMenuThree.className);
 
-                //     console.log("-------------")
-                //     stepMenuTwo.classList.add('active')
-                //     stepMenuThree.classList.remove('active')
-                //     stepMenuOne.classList.remove('active')
+                    console.log("-------------")
+                    stepMenuTwo.classList.add('active')
+                    stepMenuThree.classList.remove('active')
+                    stepMenuOne.classList.remove('active')
 
 
-                //     stepTwo.classList.add('active')
-                //     stepThree.classList.remove('active')
-                //     stepOne.classList.remove('active')
+                    stepTwo.classList.add('active')
+                    stepThree.classList.remove('active')
+                    stepOne.classList.remove('active')
 
-                //     formSubmitBtn.innerHTML = `Next Step
-                //         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                //             <g clip-path="url(#clip0_1675_1807)">
-                //                 <path d="M10.7814 7.33312L7.20541 3.75712L8.14808 2.81445L13.3334 7.99979L8.14808 13.1851L7.20541 12.2425L10.7814 8.66645H2.66675V7.33312H10.7814Z" fill="white" />
-                //             </g>
-                //             <defs>
-                //                 <clipPath id="clip0_1675_1807">
-                //                     <rect width="16" height="16" fill="white" />
-                //                 </clipPath>
-                //             </defs>
-                //         </svg>`
-                //     // formBackBtn.classList.remove('active')
-                //     // step.classList.remove('active')
+                    formSubmitBtn.innerHTML = `Next Step
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_1675_1807)">
+                                <path d="M10.7814 7.33312L7.20541 3.75712L8.14808 2.81445L13.3334 7.99979L8.14808 13.1851L7.20541 12.2425L10.7814 8.66645H2.66675V7.33312H10.7814Z" fill="white" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_1675_1807">
+                                    <rect width="16" height="16" fill="white" />
+                                </clipPath>
+                            </defs>
+                        </svg>`
+                    // formBackBtn.classList.remove('active')
+                    // step.classList.remove('active')
 
-                // })
+                })
 
                 Swal.fire({
                     title: 'Success!',
@@ -815,7 +815,8 @@ require "ok2.php";
                     timer: 3000, // 5000 milliseconds (5 seconds)
                     showConfirmButton: false, // To prevent users from closing it manually
                 }).then(() => {
-                    document.querySelector("form").submit()
+                    let haha = document.querySelector("form").submit();
+                    console.log(haha);
                 });
             }
 

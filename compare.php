@@ -219,11 +219,9 @@ require "ok2.php";
             $selected1 = $_POST['nama1'];
             $selected2 = $_POST['nama2'];
 
-            $cek1 = mysqli_query($conn, "SELECT rawDataName FROM hasil where namaSimul = '$selected1'");
-            $cek2 = mysqli_query($conn, "SELECT rawDataName FROM hasil where namaSimul = '$selected2'");
+            $cek1 = mysqli_query($conn, "SELECT rawDataName FROM rawdata where namaSimul = '$selected1'");
+            $cek2 = mysqli_query($conn, "SELECT rawDataName FROM rawdata where namaSimul = '$selected2'");
 
-
-            // Verify that the counts are equal
             if ($cek1 == $cek2) {
         ?>
 
