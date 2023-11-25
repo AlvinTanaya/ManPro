@@ -72,7 +72,7 @@ if(isset($_POST["simulationName"])){
 }else{
     echo  '<script>
         alert("GAGAL, FORM BELUM TERISI SEMUA");
-        window.location.href="index.php";
+        window.location.href="simul.php";
         </script>
     ';
 }
