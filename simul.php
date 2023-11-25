@@ -369,7 +369,7 @@ require "ok2.php";
         <!-- Author: FormBold Team -->
         <!-- Learn More: https://formbold.com -->
         <div class="formbold-form-wrapper">
-            <form action="insert_data.php" method="POST" id="formLayout">
+            <form action="insert_simul.php" method="POST" id="formLayout">
                 <div class="formbold-steps">
                     <ul>
                         <li class="formbold-step-menu1 active">

@@ -692,19 +692,19 @@ require "ok2.php";
                             </div>
 
                             <div>
-                                <label for="waktuLoading${countTruckName}" class="formbold-form-label"> Truck Loading Time </  label>
+                                <label for="waktuLoading${countTruckName}" class="formbold-form-label"> Truck Loading Time </label>
                                 <input class="formbold-form-input" name="waktuLoading${countTruckName}" value="${ranWaktuLoad}" readonly>
                             </div>
                             <div>
-                                <label for="waktuBerangkat${countTruckName}" class="formbold-form-label"> Truck Departure Time  </  label>
+                                <label for="waktuBerangkat${countTruckName}" class="formbold-form-label"> Truck Departure Time  </label>
                                 <input class="formbold-form-input" name="waktuBerangkat${countTruckName}" value="${waktuPergi}" readonly>
                             </div>
                             <div>
-                                <label for="waktuDelayTruck${countTruckName}" class="formbold-form-label"> Truck Delay </  label>
+                                <label for="waktuDelayTruck${countTruckName}" class="formbold-form-label"> Truck Delay </label>
                                 <input class="formbold-form-input" name="waktuDelayTruck${countTruckName}" value="${waktuDelay}" readonly>
                             </div>
                             <div>
-                                <label for="waktuSampaiTruck${countTruckName}" class="formbold-form-label"> Truck Arrival Time </  label>
+                                <label for="waktuSampaiTruck${countTruckName}" class="formbold-form-label"> Truck Arrival Time </label>
                                 <input class="formbold-form-input" name="waktuSampaiTruck${countTruckName}" value="${waktuSampaiTruck}" readonly>
                             </div>
                            
@@ -769,8 +769,8 @@ require "ok2.php";
 
                 // formBackBtn.classList.remove('active')
                 formSubmitBtn.textContent = 'Submit'
-            } else if (stepMenuThree.className == 'formbold-step-menu3') {
-                document.querySelector("form").submit()
+            } else if (stepMenuThree.className == 'formbold-step-menu3 active') {
+                // document.querySelector("form").submit()
                 formBackBtn.classList.remove('active')
 
                 formBackBtn.addEventListener("click", function(event) {
