@@ -112,13 +112,13 @@ require "ok2.php";
 
 
     .custom-border {
-        border: 1px solid silver;
+        border: 1px solid black;
         border-bottom: 0;
         padding-right: 10px;
     }
 
-    h2 {
-        border-bottom: 1px solid grey;
+    p {
+        border-bottom: 1px solid black;
     }
 
     .card {
@@ -219,8 +219,8 @@ require "ok2.php";
             $selected1 = $_POST['nama1'];
             $selected2 = $_POST['nama2'];
 
-            $cek1 = mysqli_query($conn, "SELECT rawDataName FROM rawdata where namaSimul = '$selected1'");
-            $cek2 = mysqli_query($conn, "SELECT rawDataName FROM rawdata where namaSimul = '$selected2'");
+            $cek1 = mysqli_query($conn, "SELECT rawDataName FROM hasil where namaSimul = '$selected1'");
+            $cek2 = mysqli_query($conn, "SELECT rawDataName FROM hasil where namaSimul = '$selected2'");
 
             if ($cek1 == $cek2) {
         ?>
@@ -249,70 +249,70 @@ require "ok2.php";
 
                         ?>
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">Nama Simulasi</h2>
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">Nama Simulasi</p>
 
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             <?php
                             for ($i = 1; $i <= $loop; $i++) {
                                 echo 'Gudang ' . $i . "<br>";
                             }
                             ?>
-                        </h2>
+                        </p>
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             <?php
                             for ($i = 1; $i <= $loop; $i++) {
                                 echo 'Sum Jumlah Truck Gudang ' . $i . "<br>";
                             }
                             ?>
-                        </h2>
+                        </p>
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             <?php
                             for ($i = 1; $i <= $loop; $i++) {
                                 echo 'Rata-rata Jumlah Truck Gudang ' . $i . "<br>";
                             }
                             ?>
-                        </h2>
+                        </p>
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             Minimum jumlah Truck Pada Gudang
-                        </h2>
+                        </p>
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             Maximum jumlah Truck Pada Gudang
-                        </h2>
+                        </p>
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             <?php
                             for ($i = 1; $i <= $loop; $i++) {
                                 echo 'Waktu Operasi Gudang ' . $i . "<br>";
                             }
                             ?>
-                        </h2>
+                        </p>
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             Sum Waktu Operasi Gudang
-                        </h2>
+                        </p>
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             Rata-rata Waktu Operasi Gudang
-                        </h2>
+                        </p>
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             Minimum Waktu Operasi Gudang
-                        </h2>
+                        </p>
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             Maximum Waktu Operasi Gudang
-                        </h2>
+                        </p>
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             Standard Deviasi Waktu Operasi Gudang
-                        </h2>
+                        </p>
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             <?php
                             $ambilDataTruck = mysqli_query($conn, "SELECT rawData.totalTruk FROM hasil INNER JOIN rawData ON hasil.rawDataName = rawData.rawDataName WHERE hasil.namaSimul = '$selected1'");
 
@@ -326,27 +326,27 @@ require "ok2.php";
 
 
                             ?>
-                        </h2>
+                        </p>
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             Sum Waktu Antri Truck
-                        </h2>
+                        </p>
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             Rata-rata Waktu Antri Truck
-                        </h2>
+                        </p>
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             Minimum Waktu Antri Truck
-                        </h2>
+                        </p>
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             Maximum Waktu Antri Truck
-                        </h2>
+                        </p>
 
-                        <h2 class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                             Standard Deviasi Waktu Antri Truck
-                        </h2>
+                        </p>
 
                     </div>
 
@@ -355,11 +355,11 @@ require "ok2.php";
                         $ambilData1 = mysqli_query($conn, "SELECT * FROM hasil where namaSimul = '$selected1'");
                         while ($data1 = mysqli_fetch_assoc($ambilData1)) {
                         ?>
-                            <h2 class="m-0 pb-2" id="namaSimulasi1" style="display: flex; align-items: center; justify-content: center;">
+                            <p class="m-0 pb-2" id="namaSimulasi1" style="display: flex; align-items: center; justify-content: center;">
                                 <?= $data1['namaSimul']; ?>
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="gudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="gudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataIsiGudang1 = json_decode($data1['isiGudang']);
                                 foreach ($dataIsiGudang1 as $subarray) {
@@ -373,9 +373,9 @@ require "ok2.php";
                                     echo $output . "<br>";
                                 }
                                 ?>
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="sumGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="sumGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataIsiGudang1 = json_decode($data1['isiGudang']);
                                 $sumTruck1 = [];
@@ -389,9 +389,9 @@ require "ok2.php";
                                 }
                                 ?>
 
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="rataGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="rataGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataIsiGudang1 = json_decode($data1['isiGudang']);
                                 $total = 0;
@@ -414,12 +414,9 @@ require "ok2.php";
                                 }
                                 ?>
 
-                            </h2>
+                            </p>
 
-
-
-
-                            <h2 class="m-0 pb-2" id="minGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="minGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataIsiGudang1 = json_decode($data1['isiGudang']);
                                 $cek = 0;
@@ -436,9 +433,9 @@ require "ok2.php";
                                 echo $cek . "<br>";
                                 ?>
 
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="maxGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="maxGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataIsiGudang1 = json_decode($data1['isiGudang']);
                                 $cek = 0;
@@ -455,53 +452,53 @@ require "ok2.php";
                                 echo $cek . "<br>";
                                 ?>
 
-                            </h2>
+                            </p>
 
 
-                            <h2 class="m-0 pb-2" id="waktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="waktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang']);
                                 for ($i = 0; $i < count($dataOperasiGudang1); $i++) {
                                     echo $dataOperasiGudang1[$i] . "<br>";
                                 }
                                 ?>
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="sumWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="sumWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang']);
                                 $sum = array_sum($dataOperasiGudang1);
                                 echo $sum . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="rataWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="rataWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang']);
                                 $rataRata2 = array_sum($dataOperasiGudang1) / count($dataOperasiGudang1);
                                 echo $rataRata2 . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
 
 
-                            <h2 class="m-0 pb-2" id="minWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="minWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang']);
                                 $min = min($dataOperasiGudang1);
                                 echo $min . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="maxWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="maxWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang']);
                                 $max = max($dataOperasiGudang1);
                                 echo $max . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="stdevWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="stdevWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang'], true);
 
@@ -518,59 +515,54 @@ require "ok2.php";
                                 echo $standardDeviasi1 . "<br>";
                                 ?>
 
-                            </h2>
+                            </p>
 
 
 
-                            <h2 class="m-0 pb-2" id="waktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
+                            <p class="m-0 pb-2" id="waktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
                                 <?php
                                 $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk']);
                                 for ($i = 0; $i < count($dataWaktuAntriTruck1); $i++) {
                                     echo  $dataWaktuAntriTruck1[$i] . "<br>";
                                 }
                                 ?>
-                            </h2>
+                            </p>
 
-
-
-                            <h2 class="m-0 pb-2" id="sumWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
+                            <p class="m-0 pb-2" id="sumWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
                                 <?php
                                 $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk']);
                                 $sumValue = array_sum($dataWaktuAntriTruck1);
                                 echo $sumValue . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
 
-                            <h2 class="m-0 pb-2" id="rataWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
+                            <p class="m-0 pb-2" id="rataWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
                                 <?php
                                 $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk']);
                                 $rataRata3 = array_sum($dataWaktuAntriTruck1) / count($dataWaktuAntriTruck1);
                                 echo $rataRata3 . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="minWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
+                            <p class="m-0 pb-2" id="minWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
                                 <?php
                                 $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk']);
                                 $minValue = min($dataWaktuAntriTruck1);
                                 echo $minValue . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
 
-                            <h2 class="m-0 pb-2" id="maxWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
+                            <p class="m-0 pb-2" id="maxWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
                                 <?php
                                 $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk']);
                                 $maxValue = max($dataWaktuAntriTruck1);
                                 echo $maxValue . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
-
-
-
-                            <h2 class="m-0 pb-2" id="stdevWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
+                            <p class="m-0 pb-2" id="stdevWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
                                 <?php
                                 $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk'], true);
 
@@ -586,7 +578,7 @@ require "ok2.php";
 
                                 echo $stdevValue2 . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
 
                         <?php
@@ -600,11 +592,11 @@ require "ok2.php";
                         $ambilData2 = mysqli_query($conn, "SELECT * FROM hasil where namaSimul = '$selected2'");
                         while ($data2 = mysqli_fetch_assoc($ambilData2)) {
                         ?>
-                            <h2 class="m-0 pb-2" id="namaSimulasi2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="namaSimulasi2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?= $data2['namaSimul']; ?>
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="gudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="gudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
 
 
                                 <?php
@@ -620,9 +612,9 @@ require "ok2.php";
                                     echo $output . "<br>";
                                 }
                                 ?>
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="SumGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="SumGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataIsiGudang2 = json_decode($data2['isiGudang']);
                                 $sumTruck2 = [];
@@ -635,9 +627,9 @@ require "ok2.php";
                                     echo $count . "<br>";
                                 }
                                 ?>
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="rataGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="rataGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataIsiGudang2 = json_decode($data2['isiGudang']);
                                 $total = 0;
@@ -659,11 +651,11 @@ require "ok2.php";
                                     echo $average2 . "<br>";
                                 }
                                 ?>
-                            </h2>
+                            </p>
 
 
 
-                            <h2 class="m-0 pb-2" id="minGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="minGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataIsiGudang2 = json_decode($data2['isiGudang']);
                                 $cek = 0;
@@ -680,9 +672,9 @@ require "ok2.php";
                                 echo $cek . "<br>";
                                 ?>
 
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="maxGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="maxGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataIsiGudang2 = json_decode($data2['isiGudang']);
                                 $cek = 0;
@@ -699,52 +691,52 @@ require "ok2.php";
                                 echo $cek . "<br>";
                                 ?>
 
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="waktuOperasiGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="waktuOperasiGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataWaktuOperasiGudang2 = json_decode($data2['waktuOperasiGudang']);
                                 for ($i = 0; $i < count($dataWaktuOperasiGudang2); $i++) {
                                     echo $dataWaktuOperasiGudang2[$i] . "<br>";
                                 }
                                 ?>
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="sumWaktuOperasiGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="sumWaktuOperasiGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataOperasiGudang2 = json_decode($data2['waktuOperasiGudang']);
                                 $sum = array_sum($dataOperasiGudang2);
                                 echo $sum . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="rataWaktuOperasiGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="rataWaktuOperasiGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataOperasiGudang2 = json_decode($data2['waktuOperasiGudang']);
                                 $rataRata5 = array_sum($dataOperasiGudang2) / count($dataOperasiGudang2);
                                 echo $rataRata5 . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
 
 
-                            <h2 class="m-0 pb-2" id="minWaktuOperasiGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="minWaktuOperasiGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataOperasiGudang2 = json_decode($data2['waktuOperasiGudang']);
                                 $min = min($dataOperasiGudang2);
                                 echo $min . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="maxWaktuOperasiGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="maxWaktuOperasiGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataOperasiGudang2 = json_decode($data2['waktuOperasiGudang']);
                                 $max = max($dataOperasiGudang2);
                                 echo $max . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="stdevWaktuOperasiGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="stdevWaktuOperasiGudang2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataOperasiGudang2 = json_decode($data2['waktuOperasiGudang'], true);
 
@@ -760,58 +752,58 @@ require "ok2.php";
 
                                 echo $standardDeviasi3 . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
 
-                            <h2 class="m-0 pb-2" id="waktuAntriTruk2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <p class="m-0 pb-2" id="waktuAntriTruk2" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                                 <?php
                                 $dataWaktuAntriTruck2 = json_decode($data2['waktuAntriTruk']);
                                 for ($i = 0; $i < count($dataWaktuAntriTruck2); $i++) {
                                     echo $dataWaktuAntriTruck2[$i] . "<br>";
                                 }
                                 ?>
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="sumWaktuAntriTruk2" style="display: flex; align-items: center; justify-content: center;">
+                            <p class="m-0 pb-2" id="sumWaktuAntriTruk2" style="display: flex; align-items: center; justify-content: center;">
                                 <?php
                                 $dataWaktuAntriTruck2 = json_decode($data2['waktuAntriTruk']);
                                 $sumValue = array_sum($dataWaktuAntriTruck2);
                                 echo $sumValue . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
 
-                            <h2 class="m-0 pb-2" id="rataWaktuAntriTruk2" style="display: flex; align-items: center; justify-content: center;">
+                            <p class="m-0 pb-2" id="rataWaktuAntriTruk2" style="display: flex; align-items: center; justify-content: center;">
                                 <?php
                                 $dataWaktuAntriTruck2 = json_decode($data2['waktuAntriTruk']);
                                 $rataRata6 = array_sum($dataWaktuAntriTruck2) / count($dataWaktuAntriTruck2);
                                 echo $rataRata6 . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
 
 
-                            <h2 class="m-0 pb-2" id="minWaktuAntriTruk2" style="display: flex; align-items: center; justify-content: center;">
+                            <p class="m-0 pb-2" id="minWaktuAntriTruk2" style="display: flex; align-items: center; justify-content: center;">
                                 <?php
                                 $dataWaktuAntriTruck2 = json_decode($data2['waktuAntriTruk']);
                                 $minValue = min($dataWaktuAntriTruck2);
                                 echo $minValue . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
-                            <h2 class="m-0 pb-2" id="maxWaktuAntriTruk2" style="display: flex; align-items: center; justify-content: center;">
+                            <p class="m-0 pb-2" id="maxWaktuAntriTruk2" style="display: flex; align-items: center; justify-content: center;">
                                 <?php
                                 $dataWaktuAntriTruck2 = json_decode($data2['waktuAntriTruk']);
                                 $maxValue = max($dataWaktuAntriTruck2);
                                 echo $maxValue . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
 
 
 
 
-                            <h2 class="m-0 pb-2" id="stdevWaktuAntriTruk2" style="display: flex; align-items: center; justify-content: center;">
+                            <p class="m-0 pb-2" id="stdevWaktuAntriTruk2" style="display: flex; align-items: center; justify-content: center;">
                                 <?php
                                 $dataWaktuAntriTruck2 = json_decode($data2['waktuAntriTruk'], true);
 
@@ -827,7 +819,7 @@ require "ok2.php";
 
                                 echo $stdevValue4 . "<br>";
                                 ?>
-                            </h2>
+                            </p>
 
 
                         <?php
@@ -844,64 +836,63 @@ require "ok2.php";
 
                     </div>
                     <div class="col-md-8">
-                        <h1 class="mb-5 mt-5">Waktu Operasi Gudang</h1>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Data Waktu Operasi Gudang</h5>
+                                <p class="card-title"> Waktu Operasi Gudang</p>
                                 <canvas id="myChart1" style="width: 100%;"></canvas>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Rata-rata Waktu Operasi Gudang</h5>
+                                <p class="card-title">Rata-rata Waktu Operasi Gudang</p>
                                 <canvas id="myChart2" style="width: 100%;"></canvas>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Stdev Waktu Operasi Gudang</h5>
+                                <p class="card-title">Stdev Waktu Operasi Gudang</p>
                                 <canvas id="myChart3" style="width: 100%;"></canvas>
                             </div>
                         </div>
 
-                        <h1 class="mb-5 mt-5">Waktu Antri Truck</h1>
+                        <p class="mb-5 mt-5">Waktu Antri Truck</p>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Waktu Antri Truck</h5>
+                                <p class="card-title">Waktu Antri Truck</p>
                                 <canvas id="myChart4" style="width:100%;"></canvas>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Rata-rata Waktu Antri Truck</h5>
+                                <p class="card-title">Rata-rata Waktu Antri Truck</p>
                                 <canvas id="myChart5" style="width:100%;"></canvas>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Stdev Waktu Antri Truck</h5>
+                                <p class="card-title">Stdev Waktu Antri Truck</p>
                                 <canvas id="myChart6" style="width:100%;"></canvas>
                             </div>
                         </div>
 
 
-                        <h1 class="mb-5 mt-5">Truck per Gudang</h1>
+                        <p class="mb-5 mt-5">Truck per Gudang</p>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Truck per Gudang</h5>
+                                <p class="card-title">Truck per Gudang</p>
                                 <canvas id="myChart7" style="width:100%;"></canvas>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Rata-rata Truck per Gudang</h5>
+                                <p class="card-title">Rata-rata Truck per Gudang</p>
                                 <canvas id="myChart8" style="width:100%;"></canvas>
                             </div>
                         </div>
 
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Sum Truck per Gudang</h5>
+                                <p class="card-title">Sum Truck per Gudang</p>
                                 <canvas id="myChart9" style="width:100%;"></canvas>
                             </div>
                         </div>
