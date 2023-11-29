@@ -20,7 +20,7 @@ if (isset($_POST["rawDataName"])) {
     $detailTruck = [];
     for ($i = 1; $i <= $jumlahArea; $i++) {
         $rangeJarak[$i] = $_POST['jarak' . $i];
-        $truckLoads[$i] = $_POST['truckLoadDistributions' . $i];
+        $truckLoads[$i] = intval($_POST['loadValue' . $i]);
     }
     for($j = 1; $j <= $jumlahTruck; $j++){
         $detailTruck[$j]= [$_POST['viewAreaIndex'.$j], $_POST['truckDistance' . $j], $_POST['waktuLoading' . $j], $_POST['waktuBerangkat' . $j], $_POST['waktuDelayTruck' . $j], $_POST['waktuSampaiTruck' . $j]];

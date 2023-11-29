@@ -529,6 +529,75 @@ require "ok2.php";
 
         })
 
+        function tambah(idElemen){
+            let area = document.getElementById('areaAmount').value;
+            let truckHasInput = 0
+            const totalTruck = document.getElementById('totalTruck').value;
+            for(let i = 1; i <= area; i++){
+                truckHasInput += Number(document.getElementById(`loadValue${i}`).value);
+                console.log(truckHasInput)
+            }
+            console.log( Number(document.getElementById(`loadValue${idElemen}`).value))
+            if(truckHasInput < totalTruck){
+                console.log("aman")
+            
+                const valNow = Number(document.getElementById(`inputLoadVal${idElemen}`).value);
+                let rilVal = Number(document.getElementById(`loadValue${idElemen}`).value);
+                const tampil = document.getElementById(`inputTruckLoadDistributions${idElemen}`);
+                let oneTruckVal = parseFloat(100/totalTruck);
+                if (rilVal > 0){
+                    rilVal +=1;
+                    let hasil = rilVal * oneTruckVal;
+                    const inputElement = document.getElementById(`inputLoadVal${idElemen}`);
+                    const inputNow = document.getElementById(`loadValue${idElemen}`);
+                    inputNow.value = rilVal.toString();
+                    inputElement.value  = hasil.toString();
+                    tampil.value = hasil.toString()+"%"
+                    // valNow.value = hasil.toString();
+                    console.log("berhasil 1")
+                }else{
+                    rilVal +=1;
+                    const inputNow = document.getElementById(`loadValue${idElemen}`);
+                    inputNow.value = rilVal.toString();
+                    let hasil =oneTruckVal;
+                    const inputElement = document.getElementById(`inputLoadVal${idElemen}`);
+                    inputElement.value  = hasil.toString();
+                    tampil.value = hasil.toString()+"%"
+                    // valNow.value = hasil.toString();
+                    console.log("berhasil 2")
+                }
+            }
+        }
+
+        function kurang(idElemen){
+            const valNow = Number(document.getElementById(`inputLoadVal${idElemen}`).value);
+            let rilVal = Number(document.getElementById(`loadValue${idElemen}`).value);
+            const totalTruck = document.getElementById('totalTruck').value;
+            const tampil = document.getElementById(`inputTruckLoadDistributions${idElemen}`);
+            let oneTruckVal = parseFloat(100/totalTruck);
+            if (rilVal > 0){
+                rilVal -=1;
+                let hasil = rilVal * oneTruckVal;
+                const inputElement = document.getElementById(`inputLoadVal${idElemen}`);
+                const inputNow = document.getElementById(`loadValue${idElemen}`);
+                inputNow.value = rilVal.toString();
+                inputElement.value  = hasil.toString();
+                tampil.value = hasil.toString()+"%"
+                // valNow.value = hasil.toString();
+                console.log("berhasil 1")
+            }else{
+                rilVal =0;
+                const inputNow = document.getElementById(`loadValue${idElemen}`);
+                inputNow.value = rilVal.toString();
+                let hasil = 0;
+                const inputElement = document.getElementById(`inputLoadVal${idElemen}`);
+                inputElement.value  = hasil.toString();
+                tampil.value = hasil.toString()+"%"
+                // valNow.value = hasil.toString();
+                console.log("berhasil 2")
+            }
+        }
+
         function submitFormData() {
             // formSubmitBtn.addEventListener("click", function(event){ 
             event.preventDefault()
@@ -575,7 +644,13 @@ require "ok2.php";
                                     </div>
                                     <div>
                                         <label for="truckLoadDistributions${i}" class="formbold-form-label">Truck Percentage <span style="color: red;">*</span></label>
-                                        <input name="truckLoadDistributions${i}" type="number" class="formbold-form-input" id="inputTruckLoadDistributions${i}" required>
+                                        <input name="truckLoadDistributions${i}" type="text" class="formbold-form-input" id="inputTruckLoadDistributions${i}" value="0%" readonly>
+                                        <input type="hidden" class="hidden-input" id="inputLoadVal${i}" value="0">
+                                        <input type="hidden" class="hidden-input" name="loadValue${i}" id="loadValue${i}" value="0">
+                                    </div>
+                                    <div>
+                                        <button class="formbold-btn" style="margin-bottom: 5px; margin-top: 20px;" type="button" onclick="tambah(${i})">▲</button>
+                                        <button class="formbold-btn" type="button" onclick="kurang(${i})">▼</button>
                                     </div>
                                 </div>
                             `;
@@ -615,185 +690,187 @@ require "ok2.php";
             } else if (stepMenuTwo.className == 'formbold-step-menu2 active') {
                 event.preventDefault()
 
-
                 const jumlahArea = document.getElementById('areaAmount').value;
                 const totalTruck = document.getElementById('totalTruck').value;
                 const durasiSimul = document.getElementById('duration').value;
                 const rangeLoad = document.getElementById('rangeTruckLoadingTime').value;
                 const rangeDelay = document.getElementById('rangeDelay').value;
 
-
-
-                let totalInputTruck = 0;
-                for(let k=1; k <= jumlahArea; k++){
-
+                let kosong = false;
+                for(let i = 1; i <= jumlahArea; i++){
+                    if(document.getElementById(`inputJarak${i}`).value.length == 0){
+                        kosong = true;
+                        console.log(kosong)
+                    }
                 }
 
+                if(kosong == false){
+                    let countTruckName = 1;
 
-                let countTruckName = 1;
-
-                let newPageContent = `
-                    <div class="formbold-form-confirm">
-                        <p>
-                            Are you certain you want to submit these data?
-                        </p>
-                    </div>
-                `;
-                for (let i = 1; i <= jumlahArea; i++) {
-                    const numberOfDistributions = document.getElementById(`inputTruckLoadDistributions${i}`).value;
-                    let minDistance = 1;
-                    if (i > 1){
-                        minDistance = document.getElementById(`inputJarak${i-1}`).value;
-                    }
-                    let maxDistance = document.getElementById(`inputJarak${i}`).value;
-                    
-                    for (let j = 1; j <= numberOfDistributions; j++){
-                        //random Area Distance
-                        let randomValue = parseFloat((Math.random()*(maxDistance-minDistance+1)).toFixed(1));
-                        let ranWaktuLoad = Math.floor((Math.random()*rangeLoad)+1)
-                        //Random Delay Truck
-                        let ranWaktuDelayH = Math.floor((Math.random()*rangeDelay))
-                        let ranWaktuDelayM = Math.floor(Math.random()*(60))
-                        let ranWaktuDelayD = Math.floor(Math.random()*(60))
-                        let waktuDelay = ranWaktuDelayH.toString()+':'+ranWaktuDelayM.toString()+':'+ranWaktuDelayD.toString()
-                        //Random waktu Berangkat truck
-                        let ranPH = Math.floor(Math.random()*(durasiSimul-1+1)+1)
-                        let ranPM = Math.floor(Math.random()*(60))
-                        let ranPD = Math.floor(Math.random()*(60))
-                        let waktuPergi = ranPH.toString()+':'+ranPM.toString()+':'+ranPD.toString()
+                    let newPageContent = `
+                        <div class="formbold-form-confirm">
+                            <p>
+                                Are you certain you want to submit these data?
+                            </p>
+                        </div>
+                    `;
+                    for (let i = 1; i <= jumlahArea; i++) {
+                        const numberOfDistributions = Number(document.getElementById(`loadValue${i}`).value);
+                        let minDistance = 1;
+                        if (i > 1){
+                            minDistance = document.getElementById(`inputJarak${i-1}`).value;
+                        }
+                        let maxDistance = document.getElementById(`inputJarak${i}`).value;
                         
-                       
-                        if(i>1){
-                            console.log(randomValue);
-                            randomValue+=parseFloat(minDistance)+1;
-                            if(randomValue >=5){
-                                randomValue-=1;
+                        for (let j = 1; j <= numberOfDistributions; j++){
+                            //random Area Distance
+                            let randomValue = parseFloat((Math.random()*(maxDistance-minDistance+1)).toFixed(1));
+                            let ranWaktuLoad = Math.floor((Math.random()*rangeLoad)+1)
+                            //Random Delay Truck
+                            let ranWaktuDelayH = Math.floor((Math.random()*rangeDelay))
+                            let ranWaktuDelayM = Math.floor(Math.random()*(60))
+                            let ranWaktuDelayD = Math.floor(Math.random()*(60))
+                            let waktuDelay = ranWaktuDelayH.toString()+':'+ranWaktuDelayM.toString()+':'+ranWaktuDelayD.toString()
+                            //Random waktu Berangkat truck
+                            let ranPH = Math.floor(Math.random()*(durasiSimul-1+1)+1)
+                            let ranPM = Math.floor(Math.random()*(60))
+                            let ranPD = Math.floor(Math.random()*(60))
+                            let waktuPergi = ranPH.toString()+':'+ranPM.toString()+':'+ranPD.toString()
+                            
+                        
+                            if(i>1){
+                                console.log(randomValue);
+                                randomValue+=parseFloat(minDistance)+1;
+                                if(randomValue >=5){
+                                    randomValue-=1;
+                                }
+                                console.log(randomValue);
+                            }else{
+                                randomValue+=parseFloat(minDistance);
                             }
-                            console.log(randomValue);
-                        }else{
-                            randomValue+=parseFloat(minDistance);
-                        }
 
-                        //Perhitungan truck sampai
-                        let jarakXD = (randomValue*10)*1.2
-                        let waktuAkhirH = parseInt(jarakXD/60)
-                        let waktuAkhirM = parseInt(jarakXD-(waktuAkhirH*60))
-                        let waktuAkhirD = 0
+                            //Perhitungan truck sampai
+                            let jarakXD = (randomValue*10)*1.2
+                            let waktuAkhirH = parseInt(jarakXD/60)
+                            let waktuAkhirM = parseInt(jarakXD-(waktuAkhirH*60))
+                            let waktuAkhirD = 0
 
-                        waktuAkhirD = ranPD + ranWaktuDelayD
-                        if(waktuAkhirD >=60){
-                            waktuAkhirD-=60
-                            waktuAkhirM+=1
-                        }
+                            waktuAkhirD = ranPD + ranWaktuDelayD
+                            if(waktuAkhirD >=60){
+                                waktuAkhirD-=60
+                                waktuAkhirM+=1
+                            }
 
-                        waktuAkhirM+= ranPM + ranWaktuDelayM
-                        while(waktuAkhirM >=60){
-                            waktuAkhirM-=60
-                            waktuAkhirH+=1
-                        }
+                            waktuAkhirM+= ranPM + ranWaktuDelayM
+                            while(waktuAkhirM >=60){
+                                waktuAkhirM-=60
+                                waktuAkhirH+=1
+                            }
 
-                        waktuAkhirH+= ranPH + ranWaktuDelayH
+                            waktuAkhirH+= ranPH + ranWaktuDelayH
 
-                        waktuSampaiTruck = waktuAkhirH.toString()+":"+waktuAkhirM.toString()+":"+waktuAkhirD
+                            waktuSampaiTruck = waktuAkhirH.toString()+":"+waktuAkhirM.toString()+":"+waktuAkhirD
 
-                        console.log("Jam: "+waktuAkhirH)
-                        console.log("Menit: "+waktuAkhirM)
-                        console.log("Detik: "+waktuAkhirD)
-                        newPageContent += `
-                    
-                        <div  class="formbold-input-flex">
-                            <div>
-                                <label for="viewAreaIndex${countTruckName}" class="formbold-form-label"> Truck Index Area </label>
-                                <input class="formbold-form-input" name="viewAreaIndex${countTruckName}" value="${i-1}" readonly>
-                            </div>
-                            <div>
-                                <label for="truckName${countTruckName}" class="formbold-form-label"> Truck Name </label>
-                                <input class="formbold-form-input" name="truckName${countTruckName}" value="Truck ${countTruckName}" readonly>
-                            </div>
-                            <div>
-                                <label for="truckDistance${countTruckName}" class="formbold-form-label"> Truck Distance </label>
-                                <input class="formbold-form-input" name="truckDistance${countTruckName}" value="${randomValue}" readonly>
-                            </div>
-
-                            <div>
-                                <label for="waktuLoading${countTruckName}" class="formbold-form-label"> Truck Loading Time </label>
-                                <input class="formbold-form-input" name="waktuLoading${countTruckName}" value="${ranWaktuLoad}" readonly>
-                            </div>
-                            <div>
-                                <label for="waktuBerangkat${countTruckName}" class="formbold-form-label"> Truck Departure Time  </label>
-                                <input class="formbold-form-input" name="waktuBerangkat${countTruckName}" value="${waktuPergi}" readonly>
-                            </div>
-                            <div>
-                                <label for="waktuDelayTruck${countTruckName}" class="formbold-form-label"> Truck Delay </label>
-                                <input class="formbold-form-input" name="waktuDelayTruck${countTruckName}" value="${waktuDelay}" readonly>
-                            </div>
-                            <div>
-                                <label for="waktuSampaiTruck${countTruckName}" class="formbold-form-label"> Truck Arrival Time </label>
-                                <input class="formbold-form-input" name="waktuSampaiTruck${countTruckName}" value="${waktuSampaiTruck}" readonly>
-                            </div>
-                           
-                                
-                        `;
-                        
+                            console.log("Jam: "+waktuAkhirH)
+                            console.log("Menit: "+waktuAkhirM)
+                            console.log("Detik: "+waktuAkhirD)
                             newPageContent += `
-                            </div>
-                        `;
-                        countTruckName+=1;
+                        
+                            <div  class="formbold-input-flex">
+                                <div>
+                                    <label for="viewAreaIndex${countTruckName}" class="formbold-form-label"> Truck Index Area </label>
+                                    <input class="formbold-form-input" name="viewAreaIndex${countTruckName}" value="${i-1}" readonly>
+                                </div>
+                                <div>
+                                    <label for="truckName${countTruckName}" class="formbold-form-label"> Truck Name </label>
+                                    <input class="formbold-form-input" name="truckName${countTruckName}" value="Truck ${countTruckName}" readonly>
+                                </div>
+                                <div>
+                                    <label for="truckDistance${countTruckName}" class="formbold-form-label"> Truck Distance </label>
+                                    <input class="formbold-form-input" name="truckDistance${countTruckName}" value="${randomValue}" readonly>
+                                </div>
+
+                                <div>
+                                    <label for="waktuLoading${countTruckName}" class="formbold-form-label"> Truck Loading Time </label>
+                                    <input class="formbold-form-input" name="waktuLoading${countTruckName}" value="${ranWaktuLoad}" readonly>
+                                </div>
+                                <div>
+                                    <label for="waktuBerangkat${countTruckName}" class="formbold-form-label"> Truck Departure Time  </label>
+                                    <input class="formbold-form-input" name="waktuBerangkat${countTruckName}" value="${waktuPergi}" readonly>
+                                </div>
+                                <div>
+                                    <label for="waktuDelayTruck${countTruckName}" class="formbold-form-label"> Truck Delay </label>
+                                    <input class="formbold-form-input" name="waktuDelayTruck${countTruckName}" value="${waktuDelay}" readonly>
+                                </div>
+                                <div>
+                                    <label for="waktuSampaiTruck${countTruckName}" class="formbold-form-label"> Truck Arrival Time </label>
+                                    <input class="formbold-form-input" name="waktuSampaiTruck${countTruckName}" value="${waktuSampaiTruck}" readonly>
+                                </div>
+                            
+                                    
+                            `;
+                            
+                                newPageContent += `
+                                </div>
+                            `;
+                            countTruckName+=1;
+                        }
                     }
+                    stepThree.innerHTML = newPageContent;
+                    stepMenuTwo.classList.remove('active')
+                    stepMenuThree.classList.add('active')
+
+                    stepTwo.classList.remove('active')
+                    stepThree.classList.add('active')
+
+                    formBackBtn.classList.add('active')
+                    backBtn.setAttribute("identify", "btn2")
+
+                    console.log("-------------")
+                    console.log(stepMenuOne.className);
+                    console.log(stepMenuTwo.className);
+                    console.log(stepMenuThree.className);
+
+                    console.log("-------------")
+
+
+                    // formBackBtn.addEventListener("click", function(event) {
+                    //     console.log("back 2")
+                    //     event.preventDefault()
+
+                    //     console.log("-------------")
+                    //     console.log(stepMenuOne.className);
+                    //     console.log(stepMenuTwo.className);
+                    //     console.log(stepMenuThree.className);
+
+                    //     console.log("-------------")
+                    //     stepMenuTwo.classList.add('active')
+                    //     stepMenuThree.classList.remove('active')
+
+                    //     stepTwo.classList.add('active')
+                    //     stepThree.classList.remove('active')
+
+                    //     formSubmitBtn.innerHTML = `Next Step
+                    //         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    //             <g clip-path="url(#clip0_1675_1807)">
+                    //                 <path d="M10.7814 7.33312L7.20541 3.75712L8.14808 2.81445L13.3334 7.99979L8.14808 13.1851L7.20541 12.2425L10.7814 8.66645H2.66675V7.33312H10.7814Z" fill="white" />
+                    //             </g>
+                    //             <defs>
+                    //                 <clipPath id="clip0_1675_1807">
+                    //                     <rect width="16" height="16" fill="white" />
+                    //                 </clipPath>
+                    //             </defs>
+                    //         </svg>`
+                    //     // formBackBtn.classList.remove('active')
+                    //     // step.classList.remove('active')
+
+                    // })
+
+                    // formBackBtn.classList.remove('active')
+                    formSubmitBtn.textContent = 'Submit'
                 }
-                stepThree.innerHTML = newPageContent;
-                stepMenuTwo.classList.remove('active')
-                stepMenuThree.classList.add('active')
-
-                stepTwo.classList.remove('active')
-                stepThree.classList.add('active')
-
-                formBackBtn.classList.add('active')
-                backBtn.setAttribute("identify", "btn2")
-
-                console.log("-------------")
-                console.log(stepMenuOne.className);
-                console.log(stepMenuTwo.className);
-                console.log(stepMenuThree.className);
-
-                console.log("-------------")
-
-
-                // formBackBtn.addEventListener("click", function(event) {
-                //     console.log("back 2")
-                //     event.preventDefault()
-
-                //     console.log("-------------")
-                //     console.log(stepMenuOne.className);
-                //     console.log(stepMenuTwo.className);
-                //     console.log(stepMenuThree.className);
-
-                //     console.log("-------------")
-                //     stepMenuTwo.classList.add('active')
-                //     stepMenuThree.classList.remove('active')
-
-                //     stepTwo.classList.add('active')
-                //     stepThree.classList.remove('active')
-
-                //     formSubmitBtn.innerHTML = `Next Step
-                //         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                //             <g clip-path="url(#clip0_1675_1807)">
-                //                 <path d="M10.7814 7.33312L7.20541 3.75712L8.14808 2.81445L13.3334 7.99979L8.14808 13.1851L7.20541 12.2425L10.7814 8.66645H2.66675V7.33312H10.7814Z" fill="white" />
-                //             </g>
-                //             <defs>
-                //                 <clipPath id="clip0_1675_1807">
-                //                     <rect width="16" height="16" fill="white" />
-                //                 </clipPath>
-                //             </defs>
-                //         </svg>`
-                //     // formBackBtn.classList.remove('active')
-                //     // step.classList.remove('active')
-
-                // })
-
-                // formBackBtn.classList.remove('active')
-                formSubmitBtn.textContent = 'Submit'
             } else if (stepMenuThree.className == 'formbold-step-menu3 active') {
+                
                 // document.querySelector("form").submit()
                 formBackBtn.classList.remove('active')
 
