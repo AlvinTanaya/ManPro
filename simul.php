@@ -513,124 +513,89 @@ require "ok2.php";
             // stepTwo.innerHTML = newPageContent;
 
             const optionData = document.getElementById('RawDataName').value;
+            const namasimul = document.getElementById('simulationName').value;
             // console.log(optionData);
             var xhr = new XMLHttpRequest();
+            var xhr2 = new XMLHttpRequest();
             xhr.open('POST', 'takeData.php', true);
+            xhr2.open('POST', 'cekRawData.php',true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             var data = 'optionData=' + encodeURIComponent(optionData);
-
+            var datanamasimul = 'namasimul=' +encodeURIComponent(namasimul);
             // Send the request
             var jumarea = 0
             xhr.send(data);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    // Handle the response from PHP if needed
-                    jumarea = xhr.responseText;
-                    console.log(jumarea);
-                    const jumlahGudang = document.getElementById("warehouseAmount").value;
+            xhr2.send(datanamasimul);
+            xhr2.onreadystatechange = function() {
+                if (xhr2.readyState == 4 && xhr2.status == 200) {
+                    if(xhr2.responseText == 0){
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState == 4 && xhr.status == 200) {
+                                // Handle the response from PHP if needed
+                                jumarea = xhr.responseText;
+                                console.log(jumarea);
+                                const jumlahGudang = document.getElementById("warehouseAmount").value;
 
-                    let newPageContent = `
-                    `;
-                    for (let i = 1; i <= jumlahGudang; i++) {
-                        newPageContent += `
-                        <div>
-                                <label class="formbold-form-label"> Warehouse Specificity ${i} </label>
-                        `;
-                        for (let j = 1; j <= jumarea; j++) {
-                            // Concatenate the content for each input
-                            newPageContent += `
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="${i}warehouseSpecifity${j}" id="${i}warehouseSpecifity${j}">
-                                    <label class="form-check-label" for="${i}warehouseSpecifity${j}">Area ${j}</label>
-                                </div>
-                        `;
-                        }
-                        newPageContent += `
-                        </div>
-                    `;
+                                let newPageContent = `
+                                `;
+                                for (let i = 1; i <= jumlahGudang; i++) {
+                                    newPageContent += `
+                                    <div>
+                                            <label class="formbold-form-label"> Warehouse Specificity ${i} </label>
+                                    `;
+                                    for (let j = 1; j <= jumarea; j++) {
+                                        // Concatenate the content for each input
+                                        newPageContent += `
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="${i}warehouseSpecifity${j}" id="${i}warehouseSpecifity${j}">
+                                                <label class="form-check-label" for="${i}warehouseSpecifity${j}">Area ${j}</label>
+                                            </div>
+                                    `;
+                                    }
+                                    newPageContent += `
+                                    </div>
+                                `;
+                                }
+                                stepTwo.innerHTML = newPageContent;
+                                stepMenuOne.classList.remove('active')
+                                stepMenuTwo.classList.add('active')
+
+                                stepOne.classList.remove('active')
+                                stepTwo.classList.add('active')
+
+                                formBackBtn.classList.add('active')
+                                formBackBtn.addEventListener("click", function(event) {
+                                    event.preventDefault()
+
+                                    stepMenuOne.classList.add('active')
+                                    stepMenuTwo.classList.remove('active')
+
+                                    stepOne.classList.add('active')
+                                    stepTwo.classList.remove('active')
+
+                                    formBackBtn.classList.remove('active')
+
+                                })
+                            }
+                        };
+                
+
+                        
                     }
-                    stepTwo.innerHTML = newPageContent;
                 }
-            };
-            // const jumlahArea = <?php
-            //                         $jumarea = mysqli_query($conn, "Select * from rawdata");
-            //                         $idarea = ?> optionData<?php;
-            //                         echo $idarea;
-            //                         while ($c =  mysqli_fetch_array($jumarea)){
-            //                             echo $c['jumlahArea'];
-            //                         }
-            //                     ?>;
-            // console.log(jumlahArea);
-            // const jumlahGudang = document.getElementById("warehouseAmount").value;
-
-            // let newPageContent = `
-            // `;
-            // for (let i = 1; i <= jumlahGudang; i++) {
-            //     newPageContent += `
-            //     <div>
-            //             <label class="formbold-form-label"> Warehouse Specificity ${i} </label>
-            //     `;
-            //     for (let j = 1; j <= jumlahArea; j++) {
-            //         // Concatenate the content for each input
-            //         newPageContent += `
-            //             <div class="form-check">
-            //                 <input class="form-check-input" type="checkbox" name="${i}warehouseSpecifity${j}" id="${i}warehouseSpecifity${j}">
-            //                 <label class="form-check-label" for="${i}warehouseSpecifity${j}">Area ${j}</label>
-            //             </div>
-            //     `;
-            //     }
-            //     newPageContent += `
-            //     </div>
-            // `;
-            // }
-            // stepTwo.innerHTML = newPageContent;
-
-            stepMenuOne.classList.remove('active')
-            stepMenuTwo.classList.add('active')
-
-            stepOne.classList.remove('active')
-            stepTwo.classList.add('active')
-
-            formBackBtn.classList.add('active')
-            formBackBtn.addEventListener("click", function(event) {
-                event.preventDefault()
-
-                stepMenuOne.classList.add('active')
-                stepMenuTwo.classList.remove('active')
-
-                stepOne.classList.add('active')
-                stepTwo.classList.remove('active')
-
-                formBackBtn.classList.remove('active')
-
-            })
+            }
 
         } else if (stepMenuTwo.className == 'formbold-step-menu2 active') {
             event.preventDefault()
-            // const jumlahArea = document.getElementById('areaAmount').value;
-            // const jumlahGudang = document.getElementById("warehouseAmount").value;
-
-            // let newPageContent = `
-            // `;
-            // for (let i = 1; i <= jumlahGudang; i++) {
-            //     newPageContent += `
-            //     <div>
-            //             <label class="formbold-form-label"> Warehouse Specificity ${i} </label>
-            //     `;
-            //     for (let j = 1; j <= jumlahArea; j++) {
-            //         // Concatenate the content for each input
-            //         newPageContent += `
-            //             <div class="form-check">
-            //                 <input class="form-check-input" type="checkbox" name="${i}warehouseSpecifity${j}" id="${i}warehouseSpecifity${j}">
-            //                 <label class="form-check-label" for="${i}warehouseSpecifity${j}">Area ${j}</label>
-            //             </div>
-            //     `;
-            //     }
-            //     newPageContent += `
-            //     </div>
-            // `;
-            // }
-            // stepThree.innerHTML = newPageContent;
+            let newPageContent = `
+                    <div class="formbold-form-confirm">
+                        <p>
+                            Are you certain you want to submit these data?
+                        </p>
+                    </div>
+                `;
+            stepThree.innerHTML = newPageContent
 
             stepMenuTwo.classList.remove('active')
             stepMenuThree.classList.add('active')

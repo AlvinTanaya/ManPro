@@ -155,6 +155,7 @@ require "ok2.php";
             display: flex;
             gap: 20px;
             margin-bottom: 22px;
+            margin-top:22px;
         }
 
         .formbold-input-flex>div {
@@ -351,6 +352,8 @@ require "ok2.php";
                             <label for="rawDataName" class="formbold-form-label"> Raw Data Name <span style="color: red;">*</span></label>
                             <input type="text" name="rawDataName" placeholder="RawData One" id="rawDataName" class="formbold-form-input" required />
                         </div>
+                        <div id="warningName">
+                        </div>
                     </div>
 
                     <div class="formbold-input-flex">
@@ -488,6 +491,8 @@ require "ok2.php";
                 stepTwo.classList.remove('active')
                 backBtn.setAttribute("identify", "")
                 formBackBtn.classList.remove('active')
+                const warning = document.getElementById("labelWarning")
+                warning.remove(warning)
             } else if(identify == "btn2") {
                 console.log("back 2")
                 event.preventDefault()
@@ -524,55 +529,76 @@ require "ok2.php";
             console.log(stepMenuThree.className);
             if (stepMenuOne.className == 'formbold-step-menu1 active') {
                 event.preventDefault()
-                let namadata = document.getElementById('rawDataName').value;
+                const namadata = document.getElementById('rawDataName').value;
                 let area = document.getElementById('areaAmount').value;
                 let totaltruck = document.getElementById('totalTruck').value;
                 let duration = document.getElementById('duration').value;
-                if (namadata.length > 0  && area.length > 0  && totaltruck.length > 0  && duration.length > 0 ){
-                    const jumlahArea = document.getElementById('areaAmount').value;
-                    let newPageContent = `
-                    <p>
-                        Please specify the percentage, area distance, and truck load distributions you would like to use for the simulation.
-                    </p>
-                    `;
-                    for (let i = 1; i <= jumlahArea; i++) {
-                        // Concatenate the content for each input
-                        newPageContent += `
-                        <div class="formbold-input-flex">
-                            <div>
-                                <label for="indexArea${i}" class="formbold-form-label">Index Area </label>
-                                <input name="indexArea${i}" class="formbold-form-input" id="inputIndexArea${i}" value="${i-1}" readonly>
-                            </div>
-                            <div>
-                                <label for="jarak${i}" class="formbold-form-label">Area Distance <span style="color: red;">*</span></label>
-                                <input name="jarak${i}" type="number" class="formbold-form-input" id="inputJarak${i}" required>
-                            </div>
-                            <div>
-                                <label for="truckLoadDistributions${i}" class="formbold-form-label">Truck Load Distributions <span style="color: red;">*</span></label>
-                                <input name="truckLoadDistributions${i}" type="number" class="formbold-form-input" id="inputTruckLoadDistributions${i}" required>
-                            </div>
-                        </div>
-                    `;
+
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'cekRawData.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                var data = 'namadata=' + encodeURIComponent(namadata);
+                xhr.send(data);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        console.log(xhr.responseText);
+                        if (namadata.length > 0  && area.length > 0  && totaltruck.length > 0  && duration.length > 0 && xhr.responseText == 0){
+                            const jumlahArea = document.getElementById('areaAmount').value;
+                            let newPageContent = `
+                            <p>
+                                Please specify the percentage, area distance, and truck load distributions you would like to use for the simulation.
+                            </p>
+                            `;
+                            for (let i = 1; i <= jumlahArea; i++) {
+                                // Concatenate the content for each input
+                                newPageContent += `
+                                <div class="formbold-input-flex">
+                                    <div>
+                                        <label for="indexArea${i}" class="formbold-form-label">Index Area </label>
+                                        <input name="indexArea${i}" class="formbold-form-input" id="inputIndexArea${i}" value="${i-1}" readonly>
+                                    </div>
+                                    <div>
+                                        <label for="jarak${i}" class="formbold-form-label">Area Distance <span style="color: red;">*</span></label>
+                                        <input name="jarak${i}" type="number" class="formbold-form-input" id="inputJarak${i}" required>
+                                    </div>
+                                    <div>
+                                        <label for="truckLoadDistributions${i}" class="formbold-form-label">Truck Load Distributions <span style="color: red;">*</span></label>
+                                        <input name="truckLoadDistributions${i}" type="number" class="formbold-form-input" id="inputTruckLoadDistributions${i}" required>
+                                    </div>
+                                </div>
+                            `;
+                            }
+                            stepTwo.innerHTML = newPageContent;
+
+                            stepMenuOne.classList.remove('active')
+                            stepMenuTwo.classList.add('active')
+
+                            stepOne.classList.remove('active')
+                            stepTwo.classList.add('active')
+
+                            formBackBtn.classList.add('active')
+                            backBtn.setAttribute("identify", "btn1")
+
+
+                            console.log("-------------")
+                            console.log(stepMenuOne.className);
+                            console.log(stepMenuTwo.className);
+                            console.log(stepMenuThree.className);
+
+                            console.log("-------------")
+                        }else if( xhr.responseText > 0){
+                            const warning = document.getElementById("warningName")
+                            let newPageContent = `
+                            <label for="rawDataName" id="labelWarning" class="formbold-form-label" style="color: red;"> Nama Sudah Ada, Silahkan Coba Nama Lain <span style="color: red;">*</span></label> 
+                            `;
+                            warning.innerHTML = newPageContent;
+                        }       
                     }
-                    stepTwo.innerHTML = newPageContent;
-
-                    stepMenuOne.classList.remove('active')
-                    stepMenuTwo.classList.add('active')
-
-                    stepOne.classList.remove('active')
-                    stepTwo.classList.add('active')
-
-                    formBackBtn.classList.add('active')
-                    backBtn.setAttribute("identify", "btn1")
+                };
 
 
-                    console.log("-------------")
-                    console.log(stepMenuOne.className);
-                    console.log(stepMenuTwo.className);
-                    console.log(stepMenuThree.className);
-
-                    console.log("-------------")
-                }
+                
 
 
             } else if (stepMenuTwo.className == 'formbold-step-menu2 active') {
@@ -606,6 +632,12 @@ require "ok2.php";
                 const jumlahArea = document.getElementById('areaAmount').value;
                 const totalTruck = document.getElementById('totalTruck').value;
                 const durasiSimul = document.getElementById('duration').value;
+                let totalInputTruck = 0;
+                for(let k=1; k <= jumlahArea; k++){
+
+                }
+
+
                 let countTruckName = 1;
 
                 let newPageContent = `
