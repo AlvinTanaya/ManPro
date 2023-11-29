@@ -587,13 +587,6 @@ require "ok2.php";
             }
 
         } else if (stepMenuTwo.className == 'formbold-step-menu2 active') {
-            let newPageContent = `
-                    <div class="formbold-form-confirm">
-                        <p>
-                            Are you certain you want to submit these data?
-                        </p>
-                    </div>
-                `;
             event.preventDefault()
             let newPageContent = `
                     <div class="formbold-form-confirm">
