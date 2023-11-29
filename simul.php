@@ -394,6 +394,8 @@ require "ok2.php";
                             <label for="SimulationName" class="formbold-form-label"> Simulation Name <span style="color: red;">*</span></label>
                             <input type="text" name="simulationName" placeholder="Simulation One" id="simulationName" class="formbold-form-input" required />
                         </div>
+                        <div id="warningName">
+                        </div>
 
                         <div>
                             <label for="RawDataName" class="formbold-form-label"> Raw Data Name <span style="color: red;">*</span></label>
@@ -514,6 +516,7 @@ require "ok2.php";
 
             const optionData = document.getElementById('RawDataName').value;
             const namasimul = document.getElementById('simulationName').value;
+            const warehouseAmount = document.getElementById('warehouseAmount').value;
             // console.log(optionData);
             var xhr = new XMLHttpRequest();
             var xhr2 = new XMLHttpRequest();
@@ -529,7 +532,7 @@ require "ok2.php";
             xhr2.send(datanamasimul);
             xhr2.onreadystatechange = function() {
                 if (xhr2.readyState == 4 && xhr2.status == 200) {
-                    if(xhr2.responseText == 0){
+                    if(namasimul.length > 0 && warehouseAmount.length > 0 && xhr2.responseText == 0){
                         xhr.onreadystatechange = function() {
                             if (xhr.readyState == 4 && xhr.status == 200) {
                                 // Handle the response from PHP if needed
@@ -575,14 +578,19 @@ require "ok2.php";
                                     stepTwo.classList.remove('active')
 
                                     formBackBtn.classList.remove('active')
+                                    const warning = document.getElementById("labelWarning")
+                                    warning.remove(warning)
 
                                 })
                             }
-                        };
-                
-
-                        
-                    }
+                        };                        
+                    }else if( xhr.responseText > 0){
+                            const warning = document.getElementById("warningName")
+                            let newPageContent = `
+                            <label for="rawDataName" id="labelWarning" class="formbold-form-label" style="color: red;"> Nama Sudah Ada, Silahkan Coba Nama Lain <span style="color: red;">*</span></label> 
+                            `;
+                            warning.innerHTML = newPageContent;
+                        }       
                 }
             }
 

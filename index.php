@@ -154,8 +154,6 @@ require "ok2.php";
         .formbold-input-flex {
             display: flex;
             gap: 20px;
-            margin-bottom: 22px;
-            margin-top:22px;
         }
 
         .formbold-input-flex>div {
@@ -369,7 +367,17 @@ require "ok2.php";
                     <div>
                         <div>
                             <label for="duration" class="formbold-form-label"> Duration(hours) <span style="color: red;">*</span></label>
-                            <input type="duration" name="duration" id="duration" placeholder="24 hours" class="formbold-form-input" required />
+                            <input type="number" name="duration" id="duration" placeholder="24 hours" class="formbold-form-input" required />
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label for="rangeTruckLoadingTime" class="formbold-form-label"> Range Truck Loading Time(hours) <span style="color: red;">*</span></label>
+                            <input type="number" name="rangeTruckLoadingTime" id="rangeTruckLoadingTime" placeholder="2 hours" class="formbold-form-input" required />
+                        </div>
+                        <div>
+                            <label for="rangeDelay" class="formbold-form-label"> Range Truck Delay(hours) <span style="color: red;">*</span></label>
+                            <input type="number" name="rangeDelay" id="rangeDelay" placeholder="2 hours" class="formbold-form-input" required />
                         </div>
                     </div>
                     <!-- <div>
@@ -533,6 +541,9 @@ require "ok2.php";
                 let area = document.getElementById('areaAmount').value;
                 let totaltruck = document.getElementById('totalTruck').value;
                 let duration = document.getElementById('duration').value;
+                const rangeLoad = document.getElementById('rangeTruckLoadingTime').value;
+                const rangeDelay = document.getElementById('rangeDelay').value;
+
 
 
                 var xhr = new XMLHttpRequest();
@@ -543,7 +554,7 @@ require "ok2.php";
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         console.log(xhr.responseText);
-                        if (namadata.length > 0  && area.length > 0  && totaltruck.length > 0  && duration.length > 0 && xhr.responseText == 0){
+                        if (namadata.length > 0  && area.length > 0  && totaltruck.length > 0  && duration.length > 0 && rangeLoad.length > 0 && rangeDelay.length > 0 && xhr.responseText == 0){
                             const jumlahArea = document.getElementById('areaAmount').value;
                             let newPageContent = `
                             <p>
@@ -563,7 +574,7 @@ require "ok2.php";
                                         <input name="jarak${i}" type="number" class="formbold-form-input" id="inputJarak${i}" required>
                                     </div>
                                     <div>
-                                        <label for="truckLoadDistributions${i}" class="formbold-form-label">Truck Load Distributions <span style="color: red;">*</span></label>
+                                        <label for="truckLoadDistributions${i}" class="formbold-form-label">Truck Percentage <span style="color: red;">*</span></label>
                                         <input name="truckLoadDistributions${i}" type="number" class="formbold-form-input" id="inputTruckLoadDistributions${i}" required>
                                     </div>
                                 </div>
@@ -604,34 +615,15 @@ require "ok2.php";
             } else if (stepMenuTwo.className == 'formbold-step-menu2 active') {
                 event.preventDefault()
 
-                // const jumlahArea = document.getElementById('areaAmount').value;
-                // const jumlahGudang = document.getElementById("warehouseAmount").value;
-
-                // let newPageContent = `
-                // `;
-                // for (let i = 1; i <= jumlahGudang; i++) {
-                //     //     newPageContent += `
-                //     // <div>
-                //     //         <label class="formbold-form-label"> Warehouse Specificity ${i} </label>
-                //     // `;
-                //     for (let j = 1; j <= jumlahArea; j++) {
-                //         // Concatenate the content for each input
-                //         newPageContent += `
-                //             <div class="form-check">
-                //                 <input class="form-check-input" type="checkbox" name="${i}warehouseSpecifity${j}" id="${i}warehouseSpecifity${j}">
-                //                 <label class="form-check-label" for="${i}warehouseSpecifity${j}">Area ${j}</label>
-                //             </div>
-                //     `;
-                //     }
-                //     newPageContent += `
-                //     </div>
-                // `;
-                // }
-                // stepThree.innerHTML = newPageContent;
 
                 const jumlahArea = document.getElementById('areaAmount').value;
                 const totalTruck = document.getElementById('totalTruck').value;
                 const durasiSimul = document.getElementById('duration').value;
+                const rangeLoad = document.getElementById('rangeTruckLoadingTime').value;
+                const rangeDelay = document.getElementById('rangeDelay').value;
+
+
+
                 let totalInputTruck = 0;
                 for(let k=1; k <= jumlahArea; k++){
 
@@ -658,9 +650,9 @@ require "ok2.php";
                     for (let j = 1; j <= numberOfDistributions; j++){
                         //random Area Distance
                         let randomValue = parseFloat((Math.random()*(maxDistance-minDistance+1)).toFixed(1));
-                        let ranWaktuLoad = Math.floor((Math.random()*3)+1)
+                        let ranWaktuLoad = Math.floor((Math.random()*rangeLoad)+1)
                         //Random Delay Truck
-                        let ranWaktuDelayH = Math.floor((Math.random()*4))
+                        let ranWaktuDelayH = Math.floor((Math.random()*rangeDelay))
                         let ranWaktuDelayM = Math.floor(Math.random()*(60))
                         let ranWaktuDelayD = Math.floor(Math.random()*(60))
                         let waktuDelay = ranWaktuDelayH.toString()+':'+ranWaktuDelayM.toString()+':'+ranWaktuDelayD.toString()
