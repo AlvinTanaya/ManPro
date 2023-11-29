@@ -90,7 +90,7 @@ function newTruk($id, $i, $jarak, $waktuLoading, $durasiSimulasi, $limit, $limit
 // Yang diminta dari input
 $daftarJarak_limit = array(4, 10, 16, 25); // daftar jarak
 $totalTruk = 10; // total semua truk jumlahnya berapa
-$waktuLoading = 60; // limit buat random waktu loading dalam satuan menit
+$waktuLoading = array(60, 120); // limit buat random waktu loading dalam satuan menit
 $persentaseTruk = array(2, 1, 3, 4); // persentase truk per area
 $limitDelay = array(0, 180); // limit buat random delay truk
 $durasiSimulasi = 10; // durasi lama simulasi
@@ -174,7 +174,7 @@ while (TRUE){
 
             //$daftarTruk[] = new Truk($id, $i, $jarak, $waktuLoading, $durasiSimulasi, $limit, $limitDelay, $upperBound);
 
-            $returnFunc = newTruk($id, $i, $jarak, $waktuLoading, $durasiSimulasi, $limit, $limitDelay);
+            $returnFunc = newTruk($id, $i, $jarak, rand($waktuLoading[0], $waktuLoading[1]), $durasiSimulasi, $limit, $limitDelay);
             $temp_truk[] = $returnFunc[0];
             $all_truk[] = $returnFunc[0];
 
