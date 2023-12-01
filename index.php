@@ -367,20 +367,43 @@ require "ok2.php";
                     </div>
                     <div>
                         <div>
-                            <label for="duration" class="formbold-form-label"> Duration(hours) <span style="color: red;">*</span></label>
-                            <input type="number" name="duration" id="duration" placeholder="24 hours" class="formbold-form-input" required />
+                            <label for="minimalEntryPercentage" class="formbold-form-label">Minimal Entry Percentage<span style="color: red;">*</span></label>
+                            <input type="number" name="minimalEntryPercentage" id="minimalEntryPercentage" placeholder="10 %" class="formbold-form-input" required />
                         </div>
                     </div>
                     <div>
                         <div>
-                            <label for="rangeTruckLoadingTime" class="formbold-form-label"> Range Truck Loading Time(hours) <span style="color: red;">*</span></label>
-                            <input type="number" name="rangeTruckLoadingTime" id="rangeTruckLoadingTime" placeholder="2 hours" class="formbold-form-input" required />
-                        </div>
-                        <div>
-                            <label for="rangeDelay" class="formbold-form-label"> Range Truck Delay(hours) <span style="color: red;">*</span></label>
-                            <input type="number" name="rangeDelay" id="rangeDelay" placeholder="2 hours" class="formbold-form-input" required />
+                            <label for="duration" class="formbold-form-label"> Duration(hours) <span style="color: red;">*</span></label>
+                            <input type="number" name="duration" id="duration" placeholder="24 hours" class="formbold-form-input" required />
                         </div>
                     </div>
+                    <div class="formbold-input-flex">
+                        <div>
+                            <label for="rangeAwalTLT" class="formbold-form-label">Range Awal Truck Loading Time<span style="color: red;">*</span></label>
+                            <input type="number" name="rangeAwalTLT" id="rangeAwalTLT" placeholder="2 hours" class="formbold-form-input" required />
+                        </div>
+                        <div>
+                            <label for="rangeAkhirTLT" class="formbold-form-label">Range Akhir Truck Loading Time<span style="color: red;">*</span></label>
+                            <input type="number" name="rangeAkhirTLT" id="rangeAkhirTLT" placeholder="2 hours" class="formbold-form-input" required />
+                        </div>
+                    </div>
+                    <div id="warningTLT">
+                    </div>
+
+                    <div class="formbold-input-flex">
+                        <div>
+                            <label for="rangeAwalD" class="formbold-form-label">Range Awal Truck Delay<span style="color: red;">*</span></label>
+                            <input type="number" name="rangeAwalD" id="rangeAwalD" placeholder="2 hours" class="formbold-form-input" required />
+                        </div>
+                        <div>
+                            <label for="rangeAkhirD" class="formbold-form-label">Range Akhir Truck Delay<span style="color: red;">*</span></label>
+                            <input type="number" name="rangeAkhirD" id="rangeAkhirD" placeholder="2 hours" class="formbold-form-input" required />
+                        </div>
+                    </div>
+                    <div id="warningD">
+
+                    </div>
+                    
                     <!-- <div>
                         <div>
                             <label for="truckContent" class="formbold-form-label"> Warehouse Amount <span style="color: red;">*</span> </label>
@@ -614,10 +637,20 @@ require "ok2.php";
                 let area = document.getElementById('areaAmount').value;
                 let totaltruck = document.getElementById('totalTruck').value;
                 let duration = document.getElementById('duration').value;
-                const rangeLoad = document.getElementById('rangeTruckLoadingTime').value;
-                const rangeDelay = document.getElementById('rangeDelay').value;
+                const rangeAwalTLT = Number(document.getElementById('rangeAwalTLT').value);
+                const rangeAkhirTLT = Number(document.getElementById('rangeAkhirTLT').value);
+                const rangeAwalD = Number(document.getElementById('rangeAwalD').value);
+                const rangeAkhirD = Number(document.getElementById('rangeAkhirD').value);
 
-
+                let rangeTLT = false
+                let rangeD = false
+                if(rangeAwalTLT > rangeAkhirTLT){
+                    rangeTLT = true
+                }
+                
+                if(rangeAwalD > rangeAkhirD){
+                    rangeD = true
+                }
 
                 var xhr = new XMLHttpRequest();
                 xhr.open('POST', 'cekRawData.php', true);
@@ -627,7 +660,7 @@ require "ok2.php";
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         console.log(xhr.responseText);
-                        if (namadata.length > 0 && area.length > 0 && totaltruck.length > 0 && duration.length > 0 && rangeLoad.length > 0 && rangeDelay.length > 0 && xhr.responseText == 0) {
+                        if (namadata.length > 0 && area.length > 0 && totaltruck.length > 0 && duration.length > 0 && rangeTLT == false && rangeD == false > 0 && xhr.responseText == 0) {
                             const jumlahArea = document.getElementById('areaAmount').value;
                             let newPageContent = `
                             <p>
@@ -677,12 +710,24 @@ require "ok2.php";
                             console.log(stepMenuThree.className);
 
                             console.log("-------------")
-                        } else if (xhr.responseText > 0) {
+                        } if (xhr.responseText > 0) {
                             const warning = document.getElementById("warningName")
                             let newPageContent = `
                             <label for="rawDataName" id="labelWarning" class="formbold-form-label" style="color: red;"> Nama Sudah Ada, Silahkan Coba Nama Lain <span style="color: red;">*</span></label> 
                             `;
                             warning.innerHTML = newPageContent;
+                        } if(rangeTLT == true){
+                            const warningTLT = document.getElementById("warningTLT")
+                            let newPageContent = `
+                            <label for="rangeAwalTLT" id="labelWarningTLT" class="formbold-form-label" style="color: red;"> Range Awal Tidak Boleh Lebih Besar Dari Range Akhir <span style="color: red;">*</span></label> 
+                            `;
+                            warningTLT.innerHTML = newPageContent
+                        }if(rangeD == true){
+                            const warningD = document.getElementById("warningD")
+                            let newPageContent = `
+                            <label for="rangeAwalD" id="labelWarningD" class="formbold-form-label" style="color: red;"> Range Awal Tidak Boleh Lebih Besar Dari Range Akhir <span style="color: red;">*</span></label> 
+                            `;
+                            warningD.innerHTML = newPageContent
                         }
                     }
                 };
@@ -697,8 +742,10 @@ require "ok2.php";
                 const jumlahArea = document.getElementById('areaAmount').value;
                 const totalTruck = document.getElementById('totalTruck').value;
                 const durasiSimul = document.getElementById('duration').value;
-                const rangeLoad = document.getElementById('rangeTruckLoadingTime').value;
-                const rangeDelay = document.getElementById('rangeDelay').value;
+                const rangeAwalTLT = document.getElementById('rangeAwalTLT').value;
+                const rangeAkhirTLT = document.getElementById('rangeAkhirTLT').value;
+                const rangeAwalD = document.getElementById('rangeAwalD').value;
+                const rangeAkhirD = document.getElementById('rangeAkhirD').value;
 
                 let kosong = false;
                 for (let i = 1; i <= jumlahArea; i++) {
@@ -729,14 +776,14 @@ require "ok2.php";
                         for (let j = 1; j <= numberOfDistributions; j++) {
                             //random Area Distance
                             let randomValue = parseFloat((Math.random() * (maxDistance - minDistance + 1)).toFixed(1));
-                            let ranWaktuLoad = Math.floor((Math.random() * rangeLoad) + 1)
+                            let ranWaktuLoad = Math.floor((Math.random() * (Number(rangeAkhirTLT) - Number(rangeAwalTLT)+1)))+Number(rangeAwalTLT)
                             //Random Delay Truck
-                            let ranWaktuDelayH = Math.floor((Math.random() * rangeDelay))
+                            let ranWaktuDelayH = Math.floor((Math.random() * (Number(rangeAkhirD)-Number(rangeAwalD)+1)))+Number(rangeAwalD)
                             let ranWaktuDelayM = Math.floor(Math.random() * (60))
                             let ranWaktuDelayD = Math.floor(Math.random() * (60))
                             let waktuDelay = ranWaktuDelayH.toString() + ':' + ranWaktuDelayM.toString() + ':' + ranWaktuDelayD.toString()
                             //Random waktu Berangkat truck
-                            let ranPH = Math.floor(Math.random() * (durasiSimul - 1 + 1) + 1)
+                            let ranPH = Math.floor(Math.random() * (durasiSimul))
                             let ranPM = Math.floor(Math.random() * (60))
                             let ranPD = Math.floor(Math.random() * (60))
                             let waktuPergi = ranPH.toString() + ':' + ranPM.toString() + ':' + ranPD.toString()
