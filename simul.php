@@ -21,27 +21,7 @@ require "ok2.php";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
 </head>
 <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"> -->
-    <script>
-    var $jq = jQuery.noConflict();
-    $jq(document).ready(function() {
 
-        $jq("#index-tab").click(function() {
-            window.location.href = "index.php";
-        });
-
-        $jq("#data-tab").click(function() {
-            window.location.href = "raw_data.php";
-        });
-
-        $jq("#compare-tab").click(function() {
-            window.location.href = "compare.php";
-        });
-
-        $jq("#simul-tab").click(function() {
-            window.location.href = "simul.php";
-        });
-    });
-</script>
 <style>
     .nav_left {
         background-color: #d1e7dd;
@@ -354,10 +334,11 @@ require "ok2.php";
                 <div class="nav_left d-lg-flex align-items-center">
                     <nav>
                         <div class="nav d-block d-lg-flex nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link " id="index-tab" data-bs-toggle="tab" data-bs-target="#index" type="button" role="tab" aria-controls="home" aria-selected="false" style="color: black;">Input</button>
-                            <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" style="color: black;">Data</button>
-                            <button class="nav-link active" id="simul-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" style="color: black;">Simulation</button>
-                            <button class="nav-link" id="compare-tab" data-bs-toggle="tab" data-bs-target="#timing" type="button" role="tab" aria-controls="timing" aria-selected="false" style="color: black;">Compare</button>
+                            <button class="nav-link" id="index-tab" data-bs-toggle="tab" data-bs-target="#index" type="button" role="tab" aria-controls="home" aria-selected="false" onclick="redirectToIndex()" style="color: black;">Input</button>
+                            <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" onclick="redirectToData()" style="color: black;">Data</button>
+                            <button class="nav-link active" id="simul-tab" data-bs-toggle="tab" data-bs-target="#simul" type="button" role="tab" aria-controls="simul" aria-selected="false" onclick="redirectToSimul()" style="color: black;">Simulation</button>
+                            <button class="nav-link" id="hasil-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" onclick="redirectToHasil()" style="color: black;">Hasil</button>
+                            <button class="nav-link" id="timing-tab" data-bs-toggle="tab" data-bs-target="#timing" type="button" role="tab" aria-controls="timing" aria-selected="false" onclick="redirectToCompare()" style="color: black;">Compare</button>
                         </div>
                     </nav>
                 </div>
@@ -401,20 +382,20 @@ require "ok2.php";
                             <label for="RawDataName" class="formbold-form-label"> Raw Data Name <span style="color: red;">*</span></label>
                             <select name="RawDataName" placeholder="Choose Raw Data Name" id="RawDataName" class="formbold-form-input">
                                 <?php
-                                    include('ok2.php');
-                                    $namaRawData = mysqli_query($conn, "Select * from rawdata");
-                                    while($c = mysqli_fetch_array($namaRawData)){
+                                include('ok2.php');
+                                $namaRawData = mysqli_query($conn, "Select * from rawdata");
+                                while ($c = mysqli_fetch_array($namaRawData)) {
                                 ?>
-                                <option value ="<?php echo $c['id'] ?>"> <?php echo $c['rawDataName'] ?></option>
+                                    <option value="<?php echo $c['id'] ?>"> <?php echo $c['rawDataName'] ?></option>
                                 <?php } ?>
                             </select>
                         </div>
                         <div>
-                        <div>
-                            <label for="truckContent" class="formbold-form-label"> Warehouse Amount <span style="color: red;">*</span> </label>
-                            <input type="text" name="warehouseAmount" placeholder="4" id="warehouseAmount" class="formbold-form-input" required />
+                            <div>
+                                <label for="truckContent" class="formbold-form-label"> Warehouse Amount <span style="color: red;">*</span> </label>
+                                <input type="text" name="warehouseAmount" placeholder="4" id="warehouseAmount" class="formbold-form-input" required />
+                            </div>
                         </div>
-                    </div>
                     </div>
 
                 </div>
@@ -451,6 +432,7 @@ require "ok2.php";
     </div>
 </body>
 
+
 <script>
     function redirectToIndex() {
         // Redirect the user to raw_data.php
@@ -470,6 +452,11 @@ require "ok2.php";
     function redirectToSimul() {
         // Redirect the user to compare.php
         window.location.href = "simul.php";
+    }
+
+    function redirectToHasil() {
+        // Redirect the user to compare.php
+        window.location.href = "hasil.php";
     }
 
     const stepMenuOne = document.querySelector('.formbold-step-menu1')
@@ -521,18 +508,18 @@ require "ok2.php";
             var xhr = new XMLHttpRequest();
             var xhr2 = new XMLHttpRequest();
             xhr.open('POST', 'takeData.php', true);
-            xhr2.open('POST', 'cekRawData.php',true);
+            xhr2.open('POST', 'cekRawData.php', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             xhr2.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
             var data = 'optionData=' + encodeURIComponent(optionData);
-            var datanamasimul = 'namasimul=' +encodeURIComponent(namasimul);
+            var datanamasimul = 'namasimul=' + encodeURIComponent(namasimul);
             // Send the request
             var jumarea = 0
             xhr.send(data);
             xhr2.send(datanamasimul);
             xhr2.onreadystatechange = function() {
                 if (xhr2.readyState == 4 && xhr2.status == 200) {
-                    if(namasimul.length > 0 && warehouseAmount.length > 0 && xhr2.responseText == 0){
+                    if (namasimul.length > 0 && warehouseAmount.length > 0 && xhr2.responseText == 0) {
                         xhr.onreadystatechange = function() {
                             if (xhr.readyState == 4 && xhr.status == 200) {
                                 // Handle the response from PHP if needed
@@ -583,14 +570,14 @@ require "ok2.php";
 
                                 })
                             }
-                        };                        
-                    }else if( xhr.responseText > 0){
-                            const warning = document.getElementById("warningName")
-                            let newPageContent = `
+                        };
+                    } else if (xhr.responseText > 0) {
+                        const warning = document.getElementById("warningName")
+                        let newPageContent = `
                             <label for="rawDataName" id="labelWarning" class="formbold-form-label" style="color: red;"> Nama Sudah Ada, Silahkan Coba Nama Lain <span style="color: red;">*</span></label> 
                             `;
-                            warning.innerHTML = newPageContent;
-                        }       
+                        warning.innerHTML = newPageContent;
+                    }
                 }
             }
 
@@ -605,7 +592,7 @@ require "ok2.php";
                 `;
             stepThree.innerHTML = newPageContent
 
-           
+
 
             stepMenuTwo.classList.remove('active')
             stepMenuThree.classList.add('active')

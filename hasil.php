@@ -2,135 +2,27 @@
 require "ok2.php";
 
 ?>
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/dataTables.bootstrap5.min.css">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"> -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <style>
-        .page-item.active .page-link {
-            background-color: #28a745 !important;
-            color: white !important;
-            border: 1px solid black;
-        }
 
-        .page-link {
-            color: #28a745 !important;
-        }
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.6/css/dataTables.bootstrap5.min.css"> -->
 
-        .nav_left {
-            background-color: #d1e7dd;
-            border-top-left-radius: 48px;
-            border-bottom-left-radius: 48px;
-        }
-
-        .nav-tabs .nav-link.active {
-            background-color: transparent;
-            border-color: transparent;
-            border-top: 4px solid green;
-            color: green;
-            font-weight: bolder;
-        }
-
-        .nav-tabs .nav-link {
-            border: none;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-            margin: 0 30px 0 40px;
-        }
-
-        .nav-tabs {
-            border-bottom: none;
-        }
-
-        .nav-link {
-            padding: 1rem 0.5rem;
-            color: #fff;
-        }
-
-        .nav-link:focus,
-        .nav-link:hover {
-            color: gray;
-        }
-
-        .navbar-toggler {
-            border: 3px solid #f19159;
-        }
-
-        .navbar-toggler-icon {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(35, 76, 203, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-        }
-
-        .navbar-toggler:focus {
-            box-shadow: none;
-        }
-
-        /* .shadowed-square {
-            margin-top: 50px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-        } */
-
-        /* .container {
-            max-width: 800px;
-        } */
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-
-        .table tbody tr th {
-            text-align: left;
-            font-weight: bold;
-            background-color: #f0f0f0;
-            padding: 8px;
-        }
-
-        .table tbody tr td {
-            padding: 8px;
-        }
-
-        .table tbody tr:nth-child(odd) {
-            background-color: #f9f9f9;
-        }
-
-        .thead {
-            align-content: center;
-
-        }
-
-        h2 {
-            margin-bottom: 20px;
-        }
-    </style>
-
-    <title>Manpro Simulation Truck</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
     <script>
         $(document).ready(function() {
-            // $('#example').DataTable({
-            //     searching: false
-            // });
 
             $("#index-tab").click(function() {
                 window.location.href = "index.php";
@@ -148,9 +40,95 @@ require "ok2.php";
                 window.location.href = "simul.php";
             });
 
+            $("#hasil-tab").click(function() {
+                window.location.href = "hasil.php";
+            });
         });
     </script>
 </head>
+<style>
+    .nav_left {
+        background-color: #d1e7dd;
+        border-top-left-radius: 48px;
+        border-bottom-left-radius: 48px;
+    }
+
+    .nav-tabs .nav-link.active {
+        background-color: transparent;
+        border-color: transparent;
+        border-top: 4px solid green;
+        color: green;
+        font-weight: bolder;
+    }
+
+
+    .nav-tabs .nav-link {
+        border: none;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        margin: 0 30px 0 40px;
+    }
+
+    .nav-tabs {
+        border-bottom: none;
+    }
+
+    .nav-link {
+        padding: 1rem 0.5rem;
+        color: #fff;
+    }
+
+    .nav-link:focus,
+    .nav-link:hover {
+        color: gray;
+    }
+
+    .search_input {
+        width: 100%;
+        border-radius: 10px;
+        border: none;
+        line-height: initial;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        color: #f19159;
+    }
+
+    .search_input:focus-visible {
+        outline: none;
+    }
+
+    input.search_input::placeholder {
+        color: #cfd2ec;
+        vertical-align: middle;
+    }
+
+    .navbar-toggler {
+        border: 3px solid #f19159;
+    }
+
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(35, 76, 203, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: none;
+    }
+
+
+    .custom-border {
+        border: 1px solid black;
+        border-bottom: 0;
+        padding-right: 10px;
+    }
+
+    p {
+        border-bottom: 1px solid black;
+    }
+
+    .card {
+        margin-bottom: 10px;
+    }
+</style>
 
 <body>
     <nav class="navbar navbar-expand-lg bg-success py-3 ">
@@ -166,10 +144,11 @@ require "ok2.php";
                 <div class="nav_left d-lg-flex align-items-center">
                     <nav>
                         <div class="nav d-block d-lg-flex nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link" id="index-tab" data-bs-toggle="tab" data-bs-target="#index" type="button" role="tab" aria-controls="home" aria-selected="false" onclick="redirectToIndex()" style="color: black;">Input</button>
-                            <button class="nav-link active" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" onclick="redirectToData()" style="color: black;">Data</button>
-                            <button class="nav-link" id="simul-tab" data-bs-toggle="tab" data-bs-target="#simul" type="button" role="tab" aria-controls="data" aria-selected="false" onclick="redirectToData()" style="color: black;">Simulation</button>
-                            <button class="nav-link" id="compare-tab" data-bs-toggle="tab" data-bs-target="#timing" type="button" role="tab" aria-controls="timing" aria-selected="false" onclick="redirectToCompare()" style="color: black;">Compare</button>
+                            <button class="nav-link" id="index-tab" data-bs-toggle="tab" data-bs-target="#index" type="button" role="tab" aria-controls="home" aria-selected="false" style="color: black;">Input</button>
+                            <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" style="color: black;">Data</button>
+                            <button class="nav-link" id="simul-tab" data-bs-toggle="tab" data-bs-target="#simul" type="button" role="tab" aria-controls="data" aria-selected="false" style="color: black;">Simulation</button>
+                            <button class="nav-link active" id="hasil-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" style="color: black;">Hasil</button>
+                            <button class="nav-link" id="compare-tab" data-bs-toggle="tab" data-bs-target="#compare" type="button" role="tab" aria-controls="compare" aria-selected="false" style="color: black;">Compare</button>
                         </div>
                     </nav>
                 </div>
@@ -178,15 +157,16 @@ require "ok2.php";
     </nav>
 
 
-    <div class="container-fluid pt-3 pe-5 ps-5 pb-1">
-        <h1>Hasil</h1>
 
+
+    <div class="container-fluid pt-1 pe-5 ps-5 pb-1">
         <div class="row mt-4 mb-3">
-            <div class="col-md-4 mb-3">
-                <div class="rounded p-3 shadow">
+            <div class="col-md-7">
+                <div class="rounded pt-3">
                     <form method="post">
-                        <div style="display: flex; align-items: center;">
-                            <select class="form-select" aria-label="Simulation Name" name="simulationName">
+                        <div style="display: flex; align-items: center; padding-bottom:20px">
+                            <h1 style="margin-right: 20px; white-space: nowrap; flex-shrink: 1;">Hasil Simulasi</h1>
+                            <select class="form-select" aria-label="Simulation Name" name="nama1">
                                 <option value="" disabled selected>Choose Simulation Name</option>
                                 <?php
                                 $ambilSemuaNama = mysqli_query($conn, "SELECT namaSimul FROM hasil");
@@ -197,90 +177,197 @@ require "ok2.php";
                                 }
                                 ?>
                             </select>
-                            <input type="submit" name="submit" class="btn btn-success ms-3" value="Search">
+                            <input type="submit" name="submit" class="btn btn-success ms-3" value="Search" style="flex-shrink: 1;">
                         </div>
                     </form>
                 </div>
-
             </div>
-
-
         </div>
 
-        <div class="container-fluid p-0">
-            <div class="row mt-4">
-                <div class="col-md-6">
 
+
+        <?php
+        if (isset($_POST['submit']) && isset($_POST['nama1'])) {
+            $selected1 = $_POST['nama1'];
+        ?>
+            <div class="row mt-3 mb-3">
+                <div class="col-md-4 ps-0 pb-0 pt-2 pe-0 custom-border">
                     <?php
-                    if (isset($_POST['submit']) && isset($_POST['simulationName'])) {
-                        $selected = $_POST['simulationName'];
-                        $ambilSemuaData = mysqli_query($conn, "SELECT * FROM hasil where namaSimul = '$selected'");
-                        while ($data = mysqli_fetch_assoc($ambilSemuaData)) {
+                    $ambilData1 = mysqli_query($conn, "SELECT waktuOperasiGudang FROM hasil where namaSimul = '$selected1'");
+                    $data1 = mysqli_fetch_assoc($ambilData1);
+                    $data1 = json_decode($data1['waktuOperasiGudang']);
+                    $count1 = count($data1);
+                    $loop = $count1
                     ?>
-                            <h1>Nama Raw Data:</h1>
-                            <h2><?= $data['rawDataName']; ?></h2>
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">Nama Simulasi</p>
 
-                            <h1>Nama Simulasi:</h1>
-                            <h2><?= $data['namaSimul']; ?></h2>
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <?php
+                        for ($i = 1; $i <= $loop; $i++) {
+                            echo 'Gudang ' . $i . "<br>";
+                        }
+                        ?>
+                    </p>
 
-                            <h1>Isi Gudang:</h1>
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <?php
+                        for ($i = 1; $i <= $loop; $i++) {
+                            echo 'Sum Jumlah Truck Gudang ' . $i . "<br>";
+                        }
+                        ?>
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <?php
+                        for ($i = 1; $i <= $loop; $i++) {
+                            echo 'Rata-rata Jumlah Truck Gudang ' . $i . "<br>";
+                        }
+                        ?>
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        Minimum jumlah Truck Pada Gudang
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        Maximum jumlah Truck Pada Gudang
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <?php
+                        for ($i = 1; $i <= $loop; $i++) {
+                            echo 'Waktu Operasi Gudang ' . $i . "<br>";
+                        }
+                        ?>
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        Sum Waktu Operasi Gudang
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        Rata-rata Waktu Operasi Gudang
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        Minimum Waktu Operasi Gudang
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        Maximum Waktu Operasi Gudang
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        Standard Deviasi Waktu Operasi Gudang
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        <?php
+                        $ambilDataTruck = mysqli_query($conn, "SELECT rawData.totalTruk FROM hasil INNER JOIN rawData ON hasil.rawDataName = rawData.rawDataName WHERE hasil.namaSimul = '$selected1'");
+
+                        $dataTruck = mysqli_fetch_assoc($ambilDataTruck);
+
+                        $totalTruk = $dataTruck['totalTruk'];
+
+                        for ($i = 1; $i <= $totalTruk; $i++) {
+                            echo 'Waktu Antri Truck ' . $i . "<br>";
+                        }
+
+
+                        ?>
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        Sum Waktu Antri Truck
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        Rata-rata Waktu Antri Truck
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        Minimum Waktu Antri Truck
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        Maximum Waktu Antri Truck
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        Standard Deviasi Waktu Antri Truck
+                    </p>
+
+                </div>
+
+                <div class="col-md-8 ps-0 pb-0 pt-2 pe-0 custom-border">
+                    <?php
+                    $ambilData1 = mysqli_query($conn, "SELECT * FROM hasil where namaSimul = '$selected1'");
+                    while ($data1 = mysqli_fetch_assoc($ambilData1)) {
+                    ?>
+                        <p class="m-0 pb-2" id="namaSimulasi1" style="display: flex; align-items: center; justify-content: center;">
+                            <?= $data1['namaSimul']; ?>
+                        </p>
+
+                        <p class="m-0 pb-2" id="gudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                             <?php
-                            $dataGudang = json_decode($data['isiGudang']);
+                            $dataIsiGudang1 = json_decode($data1['isiGudang']);
+                            foreach ($dataIsiGudang1 as $subarray) {
 
-                            foreach ($dataGudang as $index => $gudang) {
-                                echo "Gudang " . ($index + 1) . ": ";
+                                $subarrayWithTruck = array_map(function ($item) {
+                                    return 'Truck ' . $item;
+                                }, $subarray);
 
-                                $truckStrings = array_map(function ($truckNumber) {
-                                    return "Truck " . $truckNumber;
-                                }, $gudang);
+                                $output = implode(', ', $subarrayWithTruck);
 
-                                echo implode(", ", $truckStrings) . "<br>";
+                                echo $output . "<br>";
                             }
                             ?>
+                        </p>
 
-                            <h1>Sum Jumlah Truck per Gudang:</h1>
+                        <p class="m-0 pb-2" id="sumGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                             <?php
-                            $dataIsiGudang = json_decode($data['isiGudang']);
-                            $sumTruck = [];
-                            $index = 0;
-                            foreach ($dataIsiGudang as $subarray) {
+                            $dataIsiGudang1 = json_decode($data1['isiGudang']);
+                            $sumTruck1 = [];
+                            foreach ($dataIsiGudang1 as $subarray) {
                                 $count = 0;
                                 foreach ($subarray as $value) {
                                     $count++;
                                 }
-                                $index++;
-                                $sumTruck[] = $count;
-                                echo "Gudang " . $index . ":" . $count . "<br>";
+                                $sumTruck1[] = $count;
+                                echo $count . "<br>";
                             }
                             ?>
 
-                            <h1>Rata-rata Jumlah Truck per Gudang:</h1>
-                            <?php
-                            $dataIsiGudang = json_decode($data['isiGudang']);
-                            $total = 0;
-                            $rataTruck = [];
+                        </p>
 
-                            foreach ($dataIsiGudang as $subarray) {
+                        <p class="m-0 pb-2" id="rataGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <?php
+                            $dataIsiGudang1 = json_decode($data1['isiGudang']);
+                            $total = 0;
+                            $rataTruck1 = [];
+
+                            foreach ($dataIsiGudang1 as $subarray) {
                                 foreach ($subarray as $value) {
                                     $total++;
                                 }
                             }
-                            $index = 0;
-                            foreach ($dataIsiGudang as $subarray) {
+
+                            foreach ($dataIsiGudang1 as $subarray) {
                                 $count = 0;
                                 foreach ($subarray as $value) {
                                     $count++;
                                 }
-                                $index++;
-                                $average = $count / $total;
-                                $rataTruck1[] = $average;
-                                echo "Gudang " . $index . ":" . $average . "<br>";
+                                $average1 = $count / $total;
+                                $rataTruck1[] = $average1;
+                                echo $average1 . "<br>";
                             }
                             ?>
 
-                            <h1>Min Jumlah Truck per Gudang:</h1>
+                        </p>
+
+                        <p class="m-0 pb-2" id="minGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                             <?php
-                            $dataIsiGudang1 = json_decode($data['isiGudang']);
+                            $dataIsiGudang1 = json_decode($data1['isiGudang']);
                             $cek = 0;
                             foreach ($dataIsiGudang1 as $subarray) {
                                 $count = 0;
@@ -295,9 +382,11 @@ require "ok2.php";
                             echo $cek . "<br>";
                             ?>
 
-                            <h1>Max Jumlah Truck per Gudang:</h1>
+                        </p>
+
+                        <p class="m-0 pb-2" id="maxGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                             <?php
-                            $dataIsiGudang1 = json_decode($data['isiGudang']);
+                            $dataIsiGudang1 = json_decode($data1['isiGudang']);
                             $cek = 0;
                             foreach ($dataIsiGudang1 as $subarray) {
                                 $count = 0;
@@ -312,48 +401,55 @@ require "ok2.php";
                             echo $cek . "<br>";
                             ?>
 
+                        </p>
 
 
-                            <h1>Waktu Operasi Gudang:</h1>
+                        <p class="m-0 pb-2" id="waktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                             <?php
-                            $waktuOperasiArray = json_decode($data['waktuOperasiGudang']);
-
-                            foreach ($waktuOperasiArray as $index => $waktuOperasi) {
-                                echo "Waktu Operasi Gudang " . ($index + 1) . ": " . $waktuOperasi . "<br>";
+                            $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang']);
+                            for ($i = 0; $i < count($dataOperasiGudang1); $i++) {
+                                echo $dataOperasiGudang1[$i] . "<br>";
                             }
                             ?>
+                        </p>
 
-                            <h1>Sum Jumlah Waktu Operasi Gudang:</h1>
+                        <p class="m-0 pb-2" id="sumWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                             <?php
-                            $dataOperasiGudang1 = json_decode($data['waktuOperasiGudang']);
+                            $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang']);
                             $sum = array_sum($dataOperasiGudang1);
                             echo $sum . "<br>";
                             ?>
+                        </p>
 
-                            <h1>Rata-rata Jumlah Waktu Operasi Gudang:</h1>
+                        <p class="m-0 pb-2" id="rataWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                             <?php
-                            $dataOperasiGudang1 = json_decode($data['waktuOperasiGudang']);
+                            $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang']);
                             $rataRata2 = array_sum($dataOperasiGudang1) / count($dataOperasiGudang1);
                             echo $rataRata2 . "<br>";
                             ?>
+                        </p>
 
-                            <h1>Min Jumlah Waktu Operasi Gudang:</h1>
+
+
+                        <p class="m-0 pb-2" id="minWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                             <?php
-                            $dataOperasiGudang1 = json_decode($data['waktuOperasiGudang']);
+                            $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang']);
                             $min = min($dataOperasiGudang1);
                             echo $min . "<br>";
                             ?>
+                        </p>
 
-                            <h1>Max Jumlah Waktu Operasi Gudang:</h1>
+                        <p class="m-0 pb-2" id="maxWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                             <?php
-                            $dataOperasiGudang1 = json_decode($data['waktuOperasiGudang']);
+                            $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang']);
                             $max = max($dataOperasiGudang1);
                             echo $max . "<br>";
                             ?>
+                        </p>
 
-                            <h1>Stdev Jumlah Waktu Operasi Gudang:</h1>
+                        <p class="m-0 pb-2" id="stdevWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                             <?php
-                            $dataOperasiGudang1 = json_decode($data['waktuOperasiGudang']);
+                            $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang'], true);
 
                             $rataRata = array_sum($dataOperasiGudang1) / count($dataOperasiGudang1);
 
@@ -368,47 +464,56 @@ require "ok2.php";
                             echo $standardDeviasi1 . "<br>";
                             ?>
 
+                        </p>
 
-                            <h1>Waktu Antri Truck:</h1>
+
+
+                        <p class="m-0 pb-2" id="waktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
                             <?php
-                            $waktuAntriArray = json_decode($data['waktuAntriTruk']);
-                            foreach ($waktuAntriArray  as $index => $waktuAntri) {
-                                echo "Waktu Antri Truck " . ($index + 1) . ": " . $waktuAntri . "<br>";
+                            $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk']);
+                            for ($i = 0; $i < count($dataWaktuAntriTruck1); $i++) {
+                                echo  $dataWaktuAntriTruck1[$i] . "<br>";
                             }
                             ?>
+                        </p>
 
-                            <h1>Sum Jumlah Waktu Antri Truck:</h1>
+                        <p class="m-0 pb-2" id="sumWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
                             <?php
-                            $dataWaktuAntriTruck1 = json_decode($data['waktuAntriTruk']);
+                            $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk']);
                             $sumValue = array_sum($dataWaktuAntriTruck1);
                             echo $sumValue . "<br>";
                             ?>
+                        </p>
 
-                            <h1>Rata-rata Jumlah Waktu Antri Truck</h1>
+
+                        <p class="m-0 pb-2" id="rataWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
                             <?php
-                            $dataWaktuAntriTruck1 = json_decode($data['waktuAntriTruk']);
+                            $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk']);
                             $rataRata3 = array_sum($dataWaktuAntriTruck1) / count($dataWaktuAntriTruck1);
                             echo $rataRata3 . "<br>";
                             ?>
+                        </p>
 
-                            <h1>Min Jumlah Waktu Antri Truck:</h1>
+                        <p class="m-0 pb-2" id="minWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
                             <?php
-                            $dataWaktuAntriTruck1 = json_decode($data['waktuAntriTruk']);
+                            $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk']);
                             $minValue = min($dataWaktuAntriTruck1);
                             echo $minValue . "<br>";
                             ?>
+                        </p>
 
-                            <h1>Max Jumlah Waktu Antri Truck:</h1>
+
+                        <p class="m-0 pb-2" id="maxWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
                             <?php
-                            $dataWaktuAntriTruck1 = json_decode($data['waktuAntriTruk']);
+                            $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk']);
                             $maxValue = max($dataWaktuAntriTruck1);
                             echo $maxValue . "<br>";
                             ?>
+                        </p>
 
-                            <h1>Stdev Jumlah Waktu Operasi Gudang:</h1>
-
+                        <p class="m-0 pb-2" id="stdevWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
                             <?php
-                            $dataWaktuAntriTruck1 = json_decode($data['waktuAntriTruk'], true);
+                            $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk'], true);
 
                             $meanValue = array_sum($dataWaktuAntriTruck1) / count($dataWaktuAntriTruck1);
 
@@ -422,36 +527,328 @@ require "ok2.php";
 
                             echo $stdevValue2 . "<br>";
                             ?>
-
+                        </p>
 
 
                     <?php
-                        }
-                    } else {
                     }
-
-
-
                     ?>
+
+                </div>
+
+            </div>
+
+
+            <div class="row mb-3 mt-5">
+                <div class="col-md-2">
+
+                </div>
+                <div class="col-md-8">
+                    <p class="mb-5">Waktu Operasi Gudang</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title"> Waktu Operasi Gudang</p>
+                            <canvas id="myChart1" style="width: 100%;"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">Rata-rata Waktu Operasi Gudang</p>
+                            <canvas id="myChart2" style="width: 100%;"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">Stdev Waktu Operasi Gudang</p>
+                            <canvas id="myChart3" style="width: 100%;"></canvas>
+                        </div>
+                    </div>
+
+                    <p class="mb-5 mt-5">Waktu Antri Truck</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">Waktu Antri Truck</p>
+                            <canvas id="myChart4" style="width:100%;"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">Rata-rata Waktu Antri Truck</p>
+                            <canvas id="myChart5" style="width:100%;"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">Stdev Waktu Antri Truck</p>
+                            <canvas id="myChart6" style="width:100%;"></canvas>
+                        </div>
+                    </div>
+
+
+                    <p class="mb-5 mt-5">Truck per Gudang</p>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">Truck per Gudang</p>
+                            <canvas id="myChart7" style="width:100%;"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">Rata-rata Truck per Gudang</p>
+                            <canvas id="myChart8" style="width:100%;"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-title">Sum Truck per Gudang</p>
+                            <canvas id="myChart9" style="width:100%;"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+
                 </div>
             </div>
-        </div>
 
 
 
 
-        <script>
-            $(document).ready(function() {
-                $('#truckDetailsTable').DataTable();
-            });
-        </script>
-        <!-- Include jQuery and DataTables JavaScript -->
-        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+        <?php
+            $selected1 = $_POST['nama1'];
+            $fetchData1 = mysqli_query($conn, "SELECT * FROM hasil WHERE namaSimul = '$selected1'");
+            $data1 = mysqli_fetch_assoc($fetchData1);
+            $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang']);
+            $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk']);
+            $dataIsiGudang1 = json_decode($data1['isiGudang']);
 
-        <!-- Include Bootstrap JavaScript -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous" defer></script>
+
+            $maxGudang = count($dataOperasiGudang1);
+            $xValuesGudang1 = array_map(function ($gudang) {
+                return 'Gudang ' . $gudang;
+            }, range(1, $maxGudang));
+
+            $maxTruck = count($dataWaktuAntriTruck1);
+            $xValuesTruck1 = array_map(function ($truck) {
+                return 'Truck ' . $truck;
+            }, range(1, $maxTruck));
+
+            $countedArrayGudang1 = array_map('count', $dataIsiGudang1);
+        }
+
+        ?>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <script>
+        //Waktu Operasi Gudang
+        const xValuesGudang1 = <?= json_encode($xValuesGudang1) ?>;
+        const chartDataGudang1 = <?= json_encode($dataOperasiGudang1) ?>;
+        new Chart("myChart1", {
+            type: "line",
+            data: {
+                labels: xValuesGudang1,
+                datasets: [{
+                    data: chartDataGudang1,
+                    borderColor: "red",
+                    fill: false,
+                    label: 'Simulation Data 1',
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            }
+        });
+
+        const rataData2Gudang = <?= json_encode($rataRata2) ?>;
+        const rataData2GudangLine = Array(xValuesGudang1.length).fill(rataData2Gudang);
+        new Chart("myChart2", {
+            type: "line",
+            data: {
+                labels: xValuesGudang1,
+                datasets: [{
+                    data: rataData2GudangLine,
+                    borderColor: "blue",
+                    fill: false,
+                    label: 'Rata-rata Data 2 Line',
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            }
+        });
+        const stdevData1Gudang = <?= json_encode($standardDeviasi1) ?>;
+        const stdevData1GudangLine = Array(xValuesGudang1.length).fill(stdevData1Gudang);
+
+        new Chart("myChart3", {
+            type: "line",
+            data: {
+                labels: xValuesGudang1,
+                datasets: [{
+                    data: stdevData1GudangLine,
+                    borderColor: "blue",
+                    fill: false,
+                    label: 'stdev Data 1 Line',
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            }
+        });
+
+
+
+        // waktu Antri Truck
+        const xValuesTruck1 = <?= json_encode($xValuesTruck1) ?>;
+        const chartDataTruck1 = <?= json_encode($dataWaktuAntriTruck1) ?>;
+
+        new Chart("myChart4", {
+            type: "line",
+            data: {
+                labels: xValuesTruck1,
+                datasets: [{
+                    data: chartDataTruck1,
+                    borderColor: "red",
+                    fill: false,
+                    label: 'Simulation Data 1',
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            }
+        });
+
+        const rataData3 = <?= json_encode($rataRata3) ?>;
+        const rataData3Line = Array(xValuesTruck1.length).fill(rataData3);
+
+        new Chart("myChart5", {
+            type: "line",
+            data: {
+                labels: xValuesTruck1,
+                datasets: [{
+                    data: rataData3Line,
+                    borderColor: "blue",
+                    fill: false,
+                    label: 'Rata-rata Data 1 Line',
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            }
+        });
+
+        const stdevData2 = <?= json_encode($stdevValue2) ?>;
+        const stdevData2Line = Array(xValuesTruck1.length).fill(stdevData2);
+
+        new Chart("myChart6", {
+            type: "line",
+            data: {
+                labels: xValuesTruck1,
+                datasets: [{
+                    data: stdevData2Line,
+                    borderColor: "blue",
+                    fill: false,
+                    label: 'stdev Data 1 Line',
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            }
+        });
+
+
+        // Create the third chart for counted Gudang data
+        const xValuesCountedGudang1 = <?= json_encode($xValuesGudang1) ?>;
+        const chartDataCountedGudang1 = <?= json_encode($countedArrayGudang1) ?>;
+
+        new Chart("myChart7", {
+            type: "line",
+            data: {
+                labels: xValuesCountedGudang1,
+                datasets: [{
+                    data: chartDataCountedGudang1,
+                    borderColor: "red",
+                    fill: false,
+                    label: 'Simulation Data 1',
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            }
+        });
+
+        const chartrataTruck1 = <?= json_encode($rataTruck1) ?>;
+        new Chart("myChart8", {
+            type: "line",
+            data: {
+                labels: xValuesCountedGudang1,
+                datasets: [{
+                    data: chartrataTruck1,
+                    borderColor: "Blue",
+                    fill: false,
+                    label: 'Rata-rata Data 1',
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            }
+        });
+
+        const chartSumTruck1 = <?= json_encode($sumTruck1) ?>;
+        new Chart("myChart9", {
+            type: "line",
+            data: {
+                labels: xValuesCountedGudang1,
+                datasets: [{
+                    data: chartSumTruck1,
+                    borderColor: "purple",
+                    fill: false,
+                    label: 'Sum Data 1',
+                }]
+            },
+            options: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                }
+            }
+        });
+    </script>
+
+
 </body>
 
 </html>

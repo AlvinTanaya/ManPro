@@ -148,6 +148,10 @@ require "ok2.php";
                 window.location.href = "simul.php";
             });
 
+            $("#hasil-tab").click(function() {
+                window.location.href = "hasil.php";
+            });
+
         });
     </script>
 </head>
@@ -166,10 +170,12 @@ require "ok2.php";
                 <div class="nav_left d-lg-flex align-items-center">
                     <nav>
                         <div class="nav d-block d-lg-flex nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link" id="index-tab" data-bs-toggle="tab" data-bs-target="#index" type="button" role="tab" aria-controls="home" aria-selected="false" onclick="redirectToIndex()" style="color: black;">Input</button>
-                            <button class="nav-link active" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" onclick="redirectToData()" style="color: black;">Data</button>
-                            <button class="nav-link" id="simul-tab" data-bs-toggle="tab" data-bs-target="#simul" type="button" role="tab" aria-controls="data" aria-selected="false" onclick="redirectToData()" style="color: black;">Simulation</button>
-                            <button class="nav-link" id="compare-tab" data-bs-toggle="tab" data-bs-target="#timing" type="button" role="tab" aria-controls="timing" aria-selected="false" onclick="redirectToCompare()" style="color: black;">Compare</button>
+                            <button class="nav-link" id="index-tab" data-bs-toggle="tab" data-bs-target="#index" type="button" role="tab" aria-controls="home" aria-selected="false" style="color: black;">Input</button>
+                            <button class="nav-link active" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" style="color: black;">Data</button>
+                            <button class="nav-link" id="simul-tab" data-bs-toggle="tab" data-bs-target="#simul" type="button" role="tab" aria-controls="data" aria-selected="false" style="color: black;">Simulation</button>
+                            <button class="nav-link" id="hasil-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" style="color: black;">Hasil</button>
+                            <button class="nav-link" id="compare-tab" data-bs-toggle="tab" data-bs-target="#timing" type="button" role="tab" aria-controls="timing" aria-selected="false" style="color: black;">Compare</button>
+
                         </div>
                     </nav>
                 </div>
@@ -180,28 +186,29 @@ require "ok2.php";
 
     <div class="container-fluid pt-1 pe-5 ps-5 pb-1">
         <div class="row mt-4 mb-2">
-            <div class="col-md-4 mb-2">
-                <div class="rounded p-3">
+            <div class="col-md-6 mb-2">
+                <div class="rounded pt-3">
                     <form method="post">
-                        <div style="display: flex; align-items: center;">
-                            <h1 style="margin-right: 20px;">Data</h1>
-                            <select class="form-select" aria-label="Raw Data Name" name="rawDataName">
+                        <div style="display: flex; align-items: center; justify-content: space-between;">
+                            <h1 style="flex-grow: 1; margin-right: 20px; white-space: nowrap;">Raw Data</h1>
+                            <select class="form-select" style="flex-grow: 2; margin-right: 20px;" aria-label="Raw Data Name" name="rawDataName">
                                 <option value="" disabled selected>Choose Raw Data Name</option>
                                 <?php
                                 $ambilSemuaNama = mysqli_query($conn, "SELECT rawDataName FROM rawdata");
                                 while ($data = mysqli_fetch_assoc($ambilSemuaNama)) {
-                                ?>
-                                    <option value="<?= $data['rawDataName']; ?>"><?= $data['rawDataName']; ?></option>
-                                <?php
+                                    echo '<option value="' . htmlspecialchars($data['rawDataName']) . '">' . htmlspecialchars($data['rawDataName']) . '</option>';
                                 }
                                 ?>
                             </select>
-                            <input type="submit" name="submit" class="btn btn-success ms-3" value="Search">
+                            <input type="submit" name="submit" class="btn btn-success" value="Search" style="flex-grow: 1;">
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
+
+
 
         <div class="container-fluid p-0">
             <div class="row mt-4">
@@ -272,35 +279,38 @@ require "ok2.php";
                             <?php
                                             $jsonString = $data['detailTruk'];
                                             $truckDetails = json_decode($jsonString, true);
-
-                                            echo '<table class="table" id="truckDetailsTable">';
-                                            echo '<thead>';
-                                            echo '<tr>';
-                                            echo '<th>Truck Number</th>';
-                                            echo '<th>Index Area</th>';
-                                            echo '<th>Jarak</th>';
-                                            echo '<th>Durasi Waktu Perjalanan</th>';
-                                            echo '<th>Waktu Berangkat</th>';
-                                            echo '<th>Waktu Delay</th>';
-                                            echo '<th>Waktu Sampai</th>';
-                                            echo '</tr>';
-                                            echo '</thead>';
-                                            echo '<tbody>';
-
-                                            foreach ($truckDetails as $truckNumber => $truckData) {
+                                            if (is_array($truckDetails)) {
+                                                echo '<table class="table" id="truckDetailsTable">';
+                                                echo '<thead>';
                                                 echo '<tr>';
-                                                echo "<td>Truck $truckNumber</td>";
-                                                echo "<td>{$truckData[0]}</td>";
-                                                echo "<td>{$truckData[1]}</td>";
-                                                echo "<td>{$truckData[2]}</td>";
-                                                echo "<td>{$truckData[3]}</td>";
-                                                echo "<td>{$truckData[4]}</td>";
-                                                echo "<td>{$truckData[5]}</td>";
+                                                echo '<th>Truck Number</th>';
+                                                echo '<th>Index Area</th>';
+                                                echo '<th>Jarak</th>';
+                                                echo '<th>Durasi Waktu Perjalanan</th>';
+                                                echo '<th>Waktu Berangkat</th>';
+                                                echo '<th>Waktu Delay</th>';
+                                                echo '<th>Waktu Sampai</th>';
                                                 echo '</tr>';
+                                                echo '</thead>';
+                                                echo '<tbody>';
+
+                                                foreach ($truckDetails as $truckNumber => $truckData) {
+                                                    echo '<tr>';
+                                                    echo "<td>Truck $truckNumber</td>";
+                                                    echo "<td>{$truckData[0]}</td>";
+                                                    echo "<td>{$truckData[1]}</td>";
+                                                    echo "<td>{$truckData[2]}</td>";
+                                                    echo "<td>{$truckData[3]}</td>";
+                                                    echo "<td>{$truckData[4]}</td>";
+                                                    echo "<td>{$truckData[5]}</td>";
+                                                    echo '</tr>';
+                                                }
+
+                                                echo '</tbody>';
+                                                echo '</table>';
                                             }
 
-                                            echo '</tbody>';
-                                            echo '</table>';
+
                             ?>
 
 

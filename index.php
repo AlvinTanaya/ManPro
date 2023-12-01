@@ -310,9 +310,10 @@ require "ok2.php";
                 <div class="nav_left d-lg-flex align-items-center">
                     <nav>
                         <div class="nav d-block d-lg-flex nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link active " id="index-tab" data-bs-toggle="tab" data-bs-target="#index" type="button" role="tab" aria-controls="home" aria-selected="false" onclick="redirectToIndex()" style="color: black;">Input</button>
+                            <button class="nav-link active" id="index-tab" data-bs-toggle="tab" data-bs-target="#index" type="button" role="tab" aria-controls="home" aria-selected="false" onclick="redirectToIndex()" style="color: black;">Input</button>
                             <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" onclick="redirectToData()" style="color: black;">Data</button>
                             <button class="nav-link" id="simul-tab" data-bs-toggle="tab" data-bs-target="#simul" type="button" role="tab" aria-controls="simul" aria-selected="false" onclick="redirectToSimul()" style="color: black;">Simulation</button>
+                            <button class="nav-link" id="hasil-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" onclick="redirectToHasil()" style="color: black;">Hasil</button>
                             <button class="nav-link" id="timing-tab" data-bs-toggle="tab" data-bs-target="#timing" type="button" role="tab" aria-controls="timing" aria-selected="false" onclick="redirectToCompare()" style="color: black;">Compare</button>
                         </div>
                     </nav>
@@ -393,7 +394,7 @@ require "ok2.php";
                 </div>
 
                 <div class="formbold-form-step-3">
-                    
+
                 </div>
                 <div class="formbold-form-btn-wrapper">
                     <button id="BACK" class="formbold-back-btn" identify="">
@@ -422,7 +423,7 @@ require "ok2.php";
         var formData = {}
     </script>
 
-    
+
 
     <script>
         function redirectToIndex() {
@@ -454,7 +455,10 @@ require "ok2.php";
             })
         }
 
-
+        function redirectToHasil() {
+            // Redirect the user to raw_data.php
+            window.location.href = "hasil.php";
+        }
 
         function redirectToData() {
             // Redirect the user to raw_data.php
@@ -501,7 +505,7 @@ require "ok2.php";
                 formBackBtn.classList.remove('active')
                 const warning = document.getElementById("labelWarning")
                 warning.remove(warning)
-            } else if(identify == "btn2") {
+            } else if (identify == "btn2") {
                 console.log("back 2")
                 event.preventDefault()
 
@@ -529,70 +533,70 @@ require "ok2.php";
 
         })
 
-        function tambah(idElemen){
+        function tambah(idElemen) {
             let area = document.getElementById('areaAmount').value;
             let truckHasInput = 0
             const totalTruck = document.getElementById('totalTruck').value;
-            for(let i = 1; i <= area; i++){
+            for (let i = 1; i <= area; i++) {
                 truckHasInput += Number(document.getElementById(`loadValue${i}`).value);
                 console.log(truckHasInput)
             }
-            console.log( Number(document.getElementById(`loadValue${idElemen}`).value))
-            if(truckHasInput < totalTruck){
+            console.log(Number(document.getElementById(`loadValue${idElemen}`).value))
+            if (truckHasInput < totalTruck) {
                 console.log("aman")
-            
+
                 const valNow = Number(document.getElementById(`inputLoadVal${idElemen}`).value);
                 let rilVal = Number(document.getElementById(`loadValue${idElemen}`).value);
                 const tampil = document.getElementById(`inputTruckLoadDistributions${idElemen}`);
-                let oneTruckVal = parseFloat(100/totalTruck);
-                if (rilVal > 0){
-                    rilVal +=1;
+                let oneTruckVal = parseFloat(100 / totalTruck);
+                if (rilVal > 0) {
+                    rilVal += 1;
                     let hasil = rilVal * oneTruckVal;
                     const inputElement = document.getElementById(`inputLoadVal${idElemen}`);
                     const inputNow = document.getElementById(`loadValue${idElemen}`);
                     inputNow.value = rilVal.toString();
-                    inputElement.value  = hasil.toString();
-                    tampil.value = hasil.toString()+"%"
+                    inputElement.value = hasil.toString();
+                    tampil.value = hasil.toString() + "%"
                     // valNow.value = hasil.toString();
                     console.log("berhasil 1")
-                }else{
-                    rilVal +=1;
+                } else {
+                    rilVal += 1;
                     const inputNow = document.getElementById(`loadValue${idElemen}`);
                     inputNow.value = rilVal.toString();
-                    let hasil =oneTruckVal;
+                    let hasil = oneTruckVal;
                     const inputElement = document.getElementById(`inputLoadVal${idElemen}`);
-                    inputElement.value  = hasil.toString();
-                    tampil.value = hasil.toString()+"%"
+                    inputElement.value = hasil.toString();
+                    tampil.value = hasil.toString() + "%"
                     // valNow.value = hasil.toString();
                     console.log("berhasil 2")
                 }
             }
         }
 
-        function kurang(idElemen){
+        function kurang(idElemen) {
             const valNow = Number(document.getElementById(`inputLoadVal${idElemen}`).value);
             let rilVal = Number(document.getElementById(`loadValue${idElemen}`).value);
             const totalTruck = document.getElementById('totalTruck').value;
             const tampil = document.getElementById(`inputTruckLoadDistributions${idElemen}`);
-            let oneTruckVal = parseFloat(100/totalTruck);
-            if (rilVal > 0){
-                rilVal -=1;
+            let oneTruckVal = parseFloat(100 / totalTruck);
+            if (rilVal > 0) {
+                rilVal -= 1;
                 let hasil = rilVal * oneTruckVal;
                 const inputElement = document.getElementById(`inputLoadVal${idElemen}`);
                 const inputNow = document.getElementById(`loadValue${idElemen}`);
                 inputNow.value = rilVal.toString();
-                inputElement.value  = hasil.toString();
-                tampil.value = hasil.toString()+"%"
+                inputElement.value = hasil.toString();
+                tampil.value = hasil.toString() + "%"
                 // valNow.value = hasil.toString();
                 console.log("berhasil 1")
-            }else{
-                rilVal =0;
+            } else {
+                rilVal = 0;
                 const inputNow = document.getElementById(`loadValue${idElemen}`);
                 inputNow.value = rilVal.toString();
                 let hasil = 0;
                 const inputElement = document.getElementById(`inputLoadVal${idElemen}`);
-                inputElement.value  = hasil.toString();
-                tampil.value = hasil.toString()+"%"
+                inputElement.value = hasil.toString();
+                tampil.value = hasil.toString() + "%"
                 // valNow.value = hasil.toString();
                 console.log("berhasil 2")
             }
@@ -620,10 +624,10 @@ require "ok2.php";
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 var data = 'namadata=' + encodeURIComponent(namadata);
                 xhr.send(data);
-                xhr.onreadystatechange = function () {
+                xhr.onreadystatechange = function() {
                     if (xhr.readyState == 4 && xhr.status == 200) {
                         console.log(xhr.responseText);
-                        if (namadata.length > 0  && area.length > 0  && totaltruck.length > 0  && duration.length > 0 && rangeLoad.length > 0 && rangeDelay.length > 0 && xhr.responseText == 0){
+                        if (namadata.length > 0 && area.length > 0 && totaltruck.length > 0 && duration.length > 0 && rangeLoad.length > 0 && rangeDelay.length > 0 && xhr.responseText == 0) {
                             const jumlahArea = document.getElementById('areaAmount').value;
                             let newPageContent = `
                             <p>
@@ -673,18 +677,18 @@ require "ok2.php";
                             console.log(stepMenuThree.className);
 
                             console.log("-------------")
-                        }else if( xhr.responseText > 0){
+                        } else if (xhr.responseText > 0) {
                             const warning = document.getElementById("warningName")
                             let newPageContent = `
                             <label for="rawDataName" id="labelWarning" class="formbold-form-label" style="color: red;"> Nama Sudah Ada, Silahkan Coba Nama Lain <span style="color: red;">*</span></label> 
                             `;
                             warning.innerHTML = newPageContent;
-                        }       
+                        }
                     }
                 };
 
 
-                
+
 
 
             } else if (stepMenuTwo.className == 'formbold-step-menu2 active') {
@@ -697,14 +701,14 @@ require "ok2.php";
                 const rangeDelay = document.getElementById('rangeDelay').value;
 
                 let kosong = false;
-                for(let i = 1; i <= jumlahArea; i++){
-                    if(document.getElementById(`inputJarak${i}`).value.length == 0){
+                for (let i = 1; i <= jumlahArea; i++) {
+                    if (document.getElementById(`inputJarak${i}`).value.length == 0) {
                         kosong = true;
                         console.log(kosong)
                     }
                 }
 
-                if(kosong == false){
+                if (kosong == false) {
                     let countTruckName = 1;
 
                     let newPageContent = `
@@ -717,63 +721,63 @@ require "ok2.php";
                     for (let i = 1; i <= jumlahArea; i++) {
                         const numberOfDistributions = Number(document.getElementById(`loadValue${i}`).value);
                         let minDistance = 1;
-                        if (i > 1){
+                        if (i > 1) {
                             minDistance = document.getElementById(`inputJarak${i-1}`).value;
                         }
                         let maxDistance = document.getElementById(`inputJarak${i}`).value;
-                        
-                        for (let j = 1; j <= numberOfDistributions; j++){
+
+                        for (let j = 1; j <= numberOfDistributions; j++) {
                             //random Area Distance
-                            let randomValue = parseFloat((Math.random()*(maxDistance-minDistance+1)).toFixed(1));
-                            let ranWaktuLoad = Math.floor((Math.random()*rangeLoad)+1)
+                            let randomValue = parseFloat((Math.random() * (maxDistance - minDistance + 1)).toFixed(1));
+                            let ranWaktuLoad = Math.floor((Math.random() * rangeLoad) + 1)
                             //Random Delay Truck
-                            let ranWaktuDelayH = Math.floor((Math.random()*rangeDelay))
-                            let ranWaktuDelayM = Math.floor(Math.random()*(60))
-                            let ranWaktuDelayD = Math.floor(Math.random()*(60))
-                            let waktuDelay = ranWaktuDelayH.toString()+':'+ranWaktuDelayM.toString()+':'+ranWaktuDelayD.toString()
+                            let ranWaktuDelayH = Math.floor((Math.random() * rangeDelay))
+                            let ranWaktuDelayM = Math.floor(Math.random() * (60))
+                            let ranWaktuDelayD = Math.floor(Math.random() * (60))
+                            let waktuDelay = ranWaktuDelayH.toString() + ':' + ranWaktuDelayM.toString() + ':' + ranWaktuDelayD.toString()
                             //Random waktu Berangkat truck
-                            let ranPH = Math.floor(Math.random()*(durasiSimul-1+1)+1)
-                            let ranPM = Math.floor(Math.random()*(60))
-                            let ranPD = Math.floor(Math.random()*(60))
-                            let waktuPergi = ranPH.toString()+':'+ranPM.toString()+':'+ranPD.toString()
-                            
-                        
-                            if(i>1){
+                            let ranPH = Math.floor(Math.random() * (durasiSimul - 1 + 1) + 1)
+                            let ranPM = Math.floor(Math.random() * (60))
+                            let ranPD = Math.floor(Math.random() * (60))
+                            let waktuPergi = ranPH.toString() + ':' + ranPM.toString() + ':' + ranPD.toString()
+
+
+                            if (i > 1) {
                                 console.log(randomValue);
-                                randomValue+=parseFloat(minDistance)+1;
-                                if(randomValue >=5){
-                                    randomValue-=1;
+                                randomValue += parseFloat(minDistance) + 1;
+                                if (randomValue >= 5) {
+                                    randomValue -= 1;
                                 }
                                 console.log(randomValue);
-                            }else{
-                                randomValue+=parseFloat(minDistance);
+                            } else {
+                                randomValue += parseFloat(minDistance);
                             }
 
                             //Perhitungan truck sampai
-                            let jarakXD = (randomValue*10)*1.2
-                            let waktuAkhirH = parseInt(jarakXD/60)
-                            let waktuAkhirM = parseInt(jarakXD-(waktuAkhirH*60))
+                            let jarakXD = (randomValue * 10) * 1.2
+                            let waktuAkhirH = parseInt(jarakXD / 60)
+                            let waktuAkhirM = parseInt(jarakXD - (waktuAkhirH * 60))
                             let waktuAkhirD = 0
 
                             waktuAkhirD = ranPD + ranWaktuDelayD
-                            if(waktuAkhirD >=60){
-                                waktuAkhirD-=60
-                                waktuAkhirM+=1
+                            if (waktuAkhirD >= 60) {
+                                waktuAkhirD -= 60
+                                waktuAkhirM += 1
                             }
 
-                            waktuAkhirM+= ranPM + ranWaktuDelayM
-                            while(waktuAkhirM >=60){
-                                waktuAkhirM-=60
-                                waktuAkhirH+=1
+                            waktuAkhirM += ranPM + ranWaktuDelayM
+                            while (waktuAkhirM >= 60) {
+                                waktuAkhirM -= 60
+                                waktuAkhirH += 1
                             }
 
-                            waktuAkhirH+= ranPH + ranWaktuDelayH
+                            waktuAkhirH += ranPH + ranWaktuDelayH
 
-                            waktuSampaiTruck = waktuAkhirH.toString()+":"+waktuAkhirM.toString()+":"+waktuAkhirD
+                            waktuSampaiTruck = waktuAkhirH.toString() + ":" + waktuAkhirM.toString() + ":" + waktuAkhirD
 
-                            console.log("Jam: "+waktuAkhirH)
-                            console.log("Menit: "+waktuAkhirM)
-                            console.log("Detik: "+waktuAkhirD)
+                            console.log("Jam: " + waktuAkhirH)
+                            console.log("Menit: " + waktuAkhirM)
+                            console.log("Detik: " + waktuAkhirD)
                             newPageContent += `
                         
                             <div  class="formbold-input-flex">
@@ -809,11 +813,11 @@ require "ok2.php";
                             
                                     
                             `;
-                            
-                                newPageContent += `
+
+                            newPageContent += `
                                 </div>
                             `;
-                            countTruckName+=1;
+                            countTruckName += 1;
                         }
                     }
                     stepThree.innerHTML = newPageContent;
@@ -870,7 +874,7 @@ require "ok2.php";
                     formSubmitBtn.textContent = 'Submit'
                 }
             } else if (stepMenuThree.className == 'formbold-step-menu3 active') {
-                
+
                 // document.querySelector("form").submit()
                 formBackBtn.classList.remove('active')
 

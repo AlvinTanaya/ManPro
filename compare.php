@@ -39,6 +39,10 @@ require "ok2.php";
             $("#simul-tab").click(function() {
                 window.location.href = "simul.php";
             });
+
+            $("#hasil-tab").click(function() {
+                window.location.href = "hasil.php";
+            });
         });
     </script>
 </head>
@@ -143,6 +147,7 @@ require "ok2.php";
                             <button class="nav-link" id="index-tab" data-bs-toggle="tab" data-bs-target="#index" type="button" role="tab" aria-controls="home" aria-selected="false" style="color: black;">Input</button>
                             <button class="nav-link" id="data-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" style="color: black;">Data</button>
                             <button class="nav-link" id="simul-tab" data-bs-toggle="tab" data-bs-target="#simul" type="button" role="tab" aria-controls="data" aria-selected="false" style="color: black;">Simulation</button>
+                            <button class="nav-link" id="hasil-tab" data-bs-toggle="tab" data-bs-target="#data" type="button" role="tab" aria-controls="data" aria-selected="false" style="color: black;">Hasil</button>
                             <button class="nav-link active" id="compare-tab" data-bs-toggle="tab" data-bs-target="#compare" type="button" role="tab" aria-controls="compare" aria-selected="false" style="color: black;">Compare</button>
                         </div>
                     </nav>
@@ -155,16 +160,13 @@ require "ok2.php";
 
 
     <div class="container-fluid pt-3 pe-5 ps-5 pb-1">
-
         <form method="post">
             <div class="row mt-4">
-
-                <div class="col pb-3">
+                <div class="col-md-2 pb-3">
                     <h1>Compare</h1>
                 </div>
 
-
-                <div class="col-md-5 ps-3 pb-3 pt-2 pe-3">
+                <div class="col-md-4 mt-2" style="padding-right: 2%;">
                     <div style="display: flex; align-items: center;">
                         <select class="form-select" aria-label="Simulation Name" name="nama1">
                             <option value="" disabled selected>Choose Simulation Name</option>
@@ -177,16 +179,10 @@ require "ok2.php";
                             }
                             ?>
                         </select>
-
                     </div>
-
                 </div>
 
-
-
-                <div class="col-md-5 ps-3 pb-3 pt-2 pe-3">
-
-
+                <div class="col-md-4 mt-2" style="padding-left: 2%; padding-right: 2%;">
                     <div style="display: flex; align-items: center;">
                         <select class="form-select" aria-label="Simulation Name" name="nama2">
                             <option value="" disabled selected>Choose Simulation Name</option>
@@ -199,20 +195,16 @@ require "ok2.php";
                             }
                             ?>
                         </select>
-
                     </div>
-
-
                 </div>
 
-
-                <div class="col mt-2">
-                    <input type="submit" name="submit" class="btn btn-success" value="Submit">
+                <div class="col-md-2 mt-2" style="padding-left: 2%;">
+                    <input type="submit" name="submit" class="btn btn-success" value="Submit" style="width: 100%;">
                 </div>
-
-
             </div>
         </form>
+
+
 
         <?php
         if (isset($_POST['submit']) && isset($_POST['nama1']) && isset($_POST['nama2']) && !empty($_POST['nama1']) && !empty($_POST['nama2'])) {
@@ -836,6 +828,7 @@ require "ok2.php";
 
                     </div>
                     <div class="col-md-8">
+                        <p class="mb-5">Waktu Operasi Gudang</p>
                         <div class="card">
                             <div class="card-body">
                                 <p class="card-title"> Waktu Operasi Gudang</p>
