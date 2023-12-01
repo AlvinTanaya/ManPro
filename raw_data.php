@@ -259,10 +259,11 @@ require "ok2.php";
                                                     $decodedData = json_decode($jsonString, true);
 
                                                     $index = 0;
+                                                    $totalTruck = $data['totalTruk'];
                                                     if (is_array($decodedData)) {
                                                         foreach ($decodedData as $value) {
-
-                                                            echo "<p>Area $index: $value</p>";
+                                                            $persen = ($value / $totalTruck) * 100;
+                                                            echo "<p>Area $index: $persen%</p>";
                                                             $index++;
                                                         }
                                                     }
