@@ -101,10 +101,10 @@ $limit_percentage = 80; // minimal berapa persen truk yang pasti datang
 $daftarJarak = array();
 for ($i=0; $i<count($daftarJarak_limit);$i++){
     if ($i == 0){
-        $daftarJarak[] = array(1, $daftarJarak_limit[$i] + 1); 
+        $daftarJarak[] = array(1, $daftarJarak_limit[$i] + 1); #tidak perlu + 1
     }
     else{
-        $daftarJarak[] = array($daftarJarak_limit[$i - 1] + 1, $daftarJarak_limit[$i] + 1);
+        $daftarJarak[] = array($daftarJarak_limit[$i - 1] + 1, $daftarJarak_limit[$i] + 1); #tidak perlu + 1 untuk yang terakhir
     }
 }
 

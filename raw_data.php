@@ -287,7 +287,7 @@ require "ok2.php";
                                                 echo '<th>Truck Number</th>';
                                                 echo '<th>Index Area</th>';
                                                 echo '<th>Jarak</th>';
-                                                echo '<th>Durasi Waktu Perjalanan</th>';
+                                                echo '<th>Waktu Loading</th>';
                                                 echo '<th>Waktu Berangkat</th>';
                                                 echo '<th>Waktu Delay</th>';
                                                 echo '<th>Waktu Sampai</th>';
