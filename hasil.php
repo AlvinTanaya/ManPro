@@ -226,6 +226,10 @@ require "ok2.php";
                     </p>
 
                     <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        Total Rata-rata Jumlah Truck Gudang
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                         Minimum jumlah Truck Pada Gudang
                     </p>
 
@@ -246,7 +250,15 @@ require "ok2.php";
                     </p>
 
                     <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
-                        Rata-rata Waktu Operasi Gudang
+                        <?php
+                        for ($i = 1; $i <= $loop; $i++) {
+                            echo 'Rata-rata Waktu Operasi Gudang ' . $i . "<br>";
+                        }
+                        ?>
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        Total Rata-rata Waktu Operasi Gudang
                     </p>
 
                     <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
@@ -258,7 +270,11 @@ require "ok2.php";
                     </p>
 
                     <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
-                        Standard Deviasi Waktu Operasi Gudang
+                        <?php
+                        for ($i = 1; $i <= $loop; $i++) {
+                            echo 'Standard Deviasi Waktu Operasi Gudang ' . $i . "<br>";
+                        }
+                        ?>
                     </p>
 
                     <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
@@ -277,12 +293,31 @@ require "ok2.php";
                         ?>
                     </p>
 
+
+
+
                     <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
                         Sum Waktu Antri Truck
                     </p>
 
                     <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
-                        Rata-rata Waktu Antri Truck
+                        <?php
+                        $ambilDataTruck = mysqli_query($conn, "SELECT rawData.totalTruk FROM hasil INNER JOIN rawData ON hasil.rawDataName = rawData.rawDataName WHERE hasil.namaSimul = '$selected1'");
+
+                        $dataTruck = mysqli_fetch_assoc($ambilDataTruck);
+
+                        $totalTruk = $dataTruck['totalTruk'];
+
+                        for ($i = 1; $i <= $totalTruk; $i++) {
+                            echo 'Rata-rata Waktu Antri Truck ' . $i . "<br>";
+                        }
+
+
+                        ?>
+                    </p>
+
+                    <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
+                        Total Rata-rata Waktu Antri Truck
                     </p>
 
                     <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
@@ -293,8 +328,21 @@ require "ok2.php";
                         Maximum Waktu Antri Truck
                     </p>
 
+
                     <p class="m-0 pb-2" style="display: flex; align-items: center; justify-content: center;">
-                        Standard Deviasi Waktu Antri Truck
+                        <?php
+                        $ambilDataTruck = mysqli_query($conn, "SELECT rawData.totalTruk FROM hasil INNER JOIN rawData ON hasil.rawDataName = rawData.rawDataName WHERE hasil.namaSimul = '$selected1'");
+
+                        $dataTruck = mysqli_fetch_assoc($ambilDataTruck);
+
+                        $totalTruk = $dataTruck['totalTruk'];
+
+                        for ($i = 1; $i <= $totalTruk; $i++) {
+                            echo 'Standard Deviasi Waktu Antri Truck ' . $i . "<br>";
+                        }
+
+
+                        ?>
                     </p>
 
                 </div>
@@ -362,6 +410,14 @@ require "ok2.php";
                                 echo $average1 . "<br>";
                             }
                             ?>
+                        </p>
+
+                        <p class="m-0 pb-2" id="TotalrataGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <?php
+                            $sumOfRataTruck1 = array_sum($rataTruck1);
+                            $totalavg = $sumOfRataTruck1 / count($rataTruck1);
+                            echo $totalavg;
+                            ?>
 
                         </p>
 
@@ -421,6 +477,33 @@ require "ok2.php";
                             ?>
                         </p>
 
+                        <p class="m-0 pb-2" id="rata1WaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <?php
+                            $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang']);
+                            $individualAverages = [];
+
+                            foreach ($dataOperasiGudang1 as $index => $value) {
+                                // Create an array excluding the current value
+                                $arrayExcludingCurrentValue = $dataOperasiGudang1;
+                                unset($arrayExcludingCurrentValue[$index]);
+
+                                // Calculate average of remaining values
+                                if (count($arrayExcludingCurrentValue) > 0) {
+                                    $average = array_sum($arrayExcludingCurrentValue) / count($arrayExcludingCurrentValue);
+                                } else {
+                                    $average = 0; // Handle the case where the array is empty
+                                }
+
+                                $individualAverages[] = $average;
+                            }
+
+                            // Display each average
+                            foreach ($individualAverages as $average) {
+                                echo $average . "<br>";
+                            }
+                            ?>
+                        </p>
+
                         <p class="m-0 pb-2" id="rataWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                             <?php
                             $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang']);
@@ -450,18 +533,31 @@ require "ok2.php";
                         <p class="m-0 pb-2" id="stdevWaktuOperasiGudang1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
                             <?php
                             $dataOperasiGudang1 = json_decode($data1['waktuOperasiGudang'], true);
+                            $stdevValuesGudang = [];
 
-                            $rataRata = array_sum($dataOperasiGudang1) / count($dataOperasiGudang1);
+                            foreach ($dataOperasiGudang1 as $index => $value) {
+                                // Create an array excluding the current value
+                                $arrayExcludingCurrentValue = $dataOperasiGudang1;
+                                unset($arrayExcludingCurrentValue[$index]);
 
-                            $selisihKuadrat = array_map(function ($x) use ($rataRata) {
-                                return pow($x - $rataRata, 2);
-                            }, $dataOperasiGudang1);
+                                // Calculate mean
+                                $meanValue = array_sum($arrayExcludingCurrentValue) / count($arrayExcludingCurrentValue);
 
-                            $rataSelisihKuadrat = array_sum($selisihKuadrat) / count($dataOperasiGudang1);
+                                // Calculate squared differences
+                                $squaredDifferences = array_map(function ($x) use ($meanValue) {
+                                    return pow($x - $meanValue, 2);
+                                }, $arrayExcludingCurrentValue);
 
-                            $standardDeviasi1 = sqrt($rataSelisihKuadrat);
+                                // Calculate mean of squared differences
+                                $meanSquaredDifferences = array_sum($squaredDifferences) / count($arrayExcludingCurrentValue);
 
-                            echo $standardDeviasi1 . "<br>";
+                                // Calculate standard deviation
+                                $stdevValue = sqrt($meanSquaredDifferences);
+
+                                $stdevValuesGudang[] = $stdevValue;
+
+                                echo "$stdevValue<br>";
+                            }
                             ?>
 
                         </p>
@@ -482,6 +578,34 @@ require "ok2.php";
                             $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk']);
                             $sumValue = array_sum($dataWaktuAntriTruck1);
                             echo $sumValue . "<br>";
+                            ?>
+                        </p>
+
+                        <p class="m-0 pb-2" id="rata1WaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center; text-align: center;">
+                            <?php
+                            $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk']);
+                            $individualAverages2 = [];
+
+                            foreach ($dataWaktuAntriTruck1 as $index => $value) {
+                                // Create an array excluding the current value
+                                $arrayExcludingCurrentValue = $dataWaktuAntriTruck1;
+                                unset($arrayExcludingCurrentValue[$index]);
+
+                                // Calculate average of remaining values
+                                if (count($arrayExcludingCurrentValue) > 0) {
+                                    $average = array_sum($arrayExcludingCurrentValue) / count($arrayExcludingCurrentValue);
+                                } else {
+                                    $average = 0; // Handle the case where the array is empty
+                                }
+
+                                $individualAverages2[] = $average;
+                            }
+
+                            // Display each average
+                            foreach ($individualAverages2 as $average) {
+                                echo $average . "<br>";
+                            }
+
                             ?>
                         </p>
 
@@ -514,18 +638,32 @@ require "ok2.php";
                         <p class="m-0 pb-2" id="stdevWaktuAntriTruk1" style="display: flex; align-items: center; justify-content: center;">
                             <?php
                             $dataWaktuAntriTruck1 = json_decode($data1['waktuAntriTruk'], true);
+                            $stdevValues = [];
 
-                            $meanValue = array_sum($dataWaktuAntriTruck1) / count($dataWaktuAntriTruck1);
+                            foreach ($dataWaktuAntriTruck1 as $index => $value) {
 
-                            $squaredDifferences = array_map(function ($x) use ($meanValue) {
-                                return pow($x - $meanValue, 2);
-                            }, $dataWaktuAntriTruck1);
+                                // Create an array excluding the current value
+                                $arrayExcludingCurrentValue = $dataWaktuAntriTruck1;
+                                unset($arrayExcludingCurrentValue[$index]);
 
-                            $meanSquaredDifferences = array_sum($squaredDifferences) / count($dataWaktuAntriTruck1);
+                                // Calculate mean
+                                $meanValue = array_sum($arrayExcludingCurrentValue) / count($arrayExcludingCurrentValue);
 
-                            $stdevValue2 = sqrt($meanSquaredDifferences);
+                                // Calculate squared differences
+                                $squaredDifferences = array_map(function ($x) use ($meanValue) {
+                                    return pow($x - $meanValue, 2);
+                                }, $arrayExcludingCurrentValue);
 
-                            echo $stdevValue2 . "<br>";
+                                // Calculate mean of squared differences
+                                $meanSquaredDifferences = array_sum($squaredDifferences) / count($arrayExcludingCurrentValue);
+
+                                // Calculate standard deviation
+                                $stdevValue = sqrt($meanSquaredDifferences);
+                                $stdevValues[] = $stdevValue;
+
+
+                                echo "$stdevValue<br>";
+                            }
                             ?>
                         </p>
 
@@ -599,12 +737,7 @@ require "ok2.php";
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="card-body">
-                            <p class="card-title">Sum Truck per Gudang</p>
-                            <canvas id="myChart9" style="width:100%;"></canvas>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="col-md-2">
 
@@ -632,6 +765,8 @@ require "ok2.php";
             $xValuesTruck1 = array_map(function ($truck) {
                 return 'Truck ' . $truck;
             }, range(1, $maxTruck));
+
+
 
             $countedArrayGudang1 = array_map('count', $dataIsiGudang1);
         }
@@ -672,14 +807,14 @@ require "ok2.php";
             }
         });
 
-        const rataData2Gudang = <?= json_encode($rataRata2) ?>;
-        const rataData2GudangLine = Array(xValuesGudang1.length).fill(rataData2Gudang);
+        const individualAverages = <?= json_encode($individualAverages) ?>;
+
         new Chart("myChart2", {
             type: "line",
             data: {
                 labels: xValuesGudang1,
                 datasets: [{
-                    data: rataData2GudangLine,
+                    data: individualAverages,
                     borderColor: "blue",
                     fill: false,
                     label: 'Rata-rata Data 2 Line',
@@ -692,15 +827,19 @@ require "ok2.php";
                 }
             }
         });
-        const stdevData1Gudang = <?= json_encode($standardDeviasi1) ?>;
-        const stdevData1GudangLine = Array(xValuesGudang1.length).fill(stdevData1Gudang);
+
+
+
+
+
+        const stdevData1Gudang = <?= json_encode($stdevValuesGudang) ?>;
 
         new Chart("myChart3", {
             type: "line",
             data: {
                 labels: xValuesGudang1,
                 datasets: [{
-                    data: stdevData1GudangLine,
+                    data: stdevData1Gudang,
                     borderColor: "blue",
                     fill: false,
                     label: 'stdev Data 1 Line',
@@ -739,15 +878,14 @@ require "ok2.php";
             }
         });
 
-        const rataData3 = <?= json_encode($rataRata3) ?>;
-        const rataData3Line = Array(xValuesTruck1.length).fill(rataData3);
+        const rataData3 = <?= json_encode($individualAverages2) ?>;
 
         new Chart("myChart5", {
             type: "line",
             data: {
                 labels: xValuesTruck1,
                 datasets: [{
-                    data: rataData3Line,
+                    data: rataData3,
                     borderColor: "blue",
                     fill: false,
                     label: 'Rata-rata Data 1 Line',
@@ -761,18 +899,17 @@ require "ok2.php";
             }
         });
 
-        const stdevData2 = <?= json_encode($stdevValue2) ?>;
-        const stdevData2Line = Array(xValuesTruck1.length).fill(stdevData2);
 
+        const stdevData2 = <?= json_encode($stdevValues) ?>;
         new Chart("myChart6", {
             type: "line",
             data: {
                 labels: xValuesTruck1,
                 datasets: [{
-                    data: stdevData2Line,
+                    data: stdevData2,
                     borderColor: "blue",
                     fill: false,
-                    label: 'stdev Data 1 Line',
+                    label: 'stdev Data',
                 }]
             },
             options: {
@@ -817,26 +954,6 @@ require "ok2.php";
                     borderColor: "Blue",
                     fill: false,
                     label: 'Rata-rata Data 1',
-                }]
-            },
-            options: {
-                legend: {
-                    display: true,
-                    position: 'top',
-                }
-            }
-        });
-
-        const chartSumTruck1 = <?= json_encode($sumTruck1) ?>;
-        new Chart("myChart9", {
-            type: "line",
-            data: {
-                labels: xValuesCountedGudang1,
-                datasets: [{
-                    data: chartSumTruck1,
-                    borderColor: "purple",
-                    fill: false,
-                    label: 'Sum Data 1',
                 }]
             },
             options: {
