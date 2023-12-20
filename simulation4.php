@@ -568,7 +568,7 @@ $sqlInsert = "INSERT INTO hasil (namaSimul, isiGudang, waktuOperasiGudang, waktu
 
 $stmt = mysqli_prepare($con, $sqlInsert);
 if ($stmt) {
-    $namaSimul = "Bisa Ini"; // Replace this with the actual simulation name
+    $namaSimul = "Coba Simulasi"; // Replace this with the actual simulation name
     $waktuOperasiGudang = json_encode($daftarWaktuOperasiGudangArray);
     $daftarWaktuTunggu = json_encode($daftarWaktuTunggu);
     $daftarIsiGudang = json_encode($daftarIsiGudangArray);
