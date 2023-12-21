@@ -47,24 +47,6 @@ if(isset($_POST["simulationName"])){
         $sql = mysqli_query($conn, "INSERT INTO simulasi (namaSimul, jumlahGudang, spekGudang, rawDataName) VALUES ('$simulname', '$warehouse','$encodeSpec','$grdn')");
     }
 
-    if ($sql) {
-        header('location: index.php');
-        echo
-        '
-            <script>
-            alert("berhasil");
-            window.location.href="simul.php";
-            </script>
-            ';
-    } else {
-        echo
-        '
-            <script>
-            alert("Add barang gagal karena barang sudah ada! Mohon menginput barang yang baru!");
-            window.location.href="simul.php";
-        </script>
-        ';
-    }
 
     
 }else{
@@ -88,7 +70,7 @@ if(isset($_POST["simulationName"])){
     $data2 = mysqli_fetch_assoc($result2);
 
     // Now perform your SQL query or other operations based on $rawData
-    $sql1 = "SELECT * FROM simulasi RIGHT JOIN rawdata ON simulasi.rawDataName = rawdata.rawDataName WHERE simulasi.rawDataName = '" . $data2['rawDataName'] . "'";
+    $sql1 = "SELECT * FROM simulasi RIGHT JOIN rawdata ON simulasi.rawDataName = rawdata.rawDataName WHERE simulasi.namaSimul = '" . $simulname . "'";
     $result = mysqli_query($conn, $sql1);
 
     if ($result) {
@@ -244,6 +226,7 @@ class Gudang
         if (count($this->waitList) > 0) {
             if ($this->currentWaktuTunggu < 1) {
                 $truk = array_shift($this->waitList);
+                echo " <br> Keluar" .$truk->getID() . "<br>";
                 $this->loadingMuatan($truk);
             }
         }
@@ -431,7 +414,7 @@ for ($i = 1; $i <= count($contoh_truk); $i++) {
         $i,
         $contoh_truk[$i][0],
         $contoh_truk[$i][1],
-        $contoh_truk[$i][2] * 60,
+        $contoh_truk[$i][2],
         $contoh_truk[$i][3],
         $contoh_truk[$i][5],
         $contoh_truk[$i][4]
@@ -492,13 +475,16 @@ while ($simulasi && $durasi < $durasiSimulasi * 60 + 1) {
         if ((convert_time_to_min($daftarTruk[$i]->getWaktuSampai()) < $durasi) && !$daftarTruk[$i]->getStatus()) {
             $arrivalTruk[] = $daftarTruk[$i];
             $daftarTruk[$i]->setStatus(TRUE);
+            echo " <br> Datang" .$daftarTruk[$i]->getID() . "<br>";
         }
     }
+
+    
 
     // Process the arrived trucks
     for ($i = 0; $i < count($arrivalTruk); $i++) {
         $jarak = (int) $arrivalTruk[$i]->getIndexJarak();
-        $waktuTunggu = $durasiSimulasi;
+        $waktuTunggu = $durasiSimulasi * 10000 * $totalTruk;
         $indexGudang = null;
 
         for ($j = 0; $j < count($daftarGudang); $j++) {
@@ -515,9 +501,11 @@ while ($simulasi && $durasi < $durasiSimulasi * 60 + 1) {
             $daftarTolak[] = $arrivalTruk[$i];
         } elseif ($indexGudang !== null && $waktuTunggu == 0) {
             $daftarGudang[$indexGudang]->loadingMuatan($arrivalTruk[$i]);
+            echo " <br> Masuk gudang" .$arrivalTruk[$i]->getID() . "<br>";
         } else {
             $daftarGudang[$indexGudang]->masukWaitList($arrivalTruk[$i]);
-            $daftarWaktuTunggu[$i] = $waktuTunggu;
+            $daftarWaktuTunggu[$arrivalTruk[$i]->getID() - 1] = $waktuTunggu;
+            echo " <br> Masuk waitlist" .$arrivalTruk[$i]->getID() . "<br>";
         }
     }
 
@@ -619,7 +607,7 @@ foreach ($daftarGudang as $gudang) {
     echo ("Gudang ke " . (string)$count . " : ");
     $list = $gudang->getWaitList();
     for ($i = 0; $i < count($list); $i++) {
-        echo ($list[$i] . " ");
+        echo ($list[$i]->getID() . " ");
     }
     echo ("<br>");
     $count++;
@@ -633,6 +621,11 @@ foreach ($daftarGudang as $gudang) {
     echo $gudang->getWaktuOperasi() . "<br>";
     $daftarWaktuOperasiGudangArray[] = $gudang->getWaktuOperasi();
     $count++;
+}
+
+echo "<br> Daftar Tolak: <br>";
+foreach ($daftarTolak as $truk){
+    echo $truk->getID() . " ";
 }
 
 echo "Waktu Tunggu Truk :<br>";
@@ -661,10 +654,29 @@ if ($stmt) {
     $daftarIsiGudang = json_encode($daftarIsiGudangArray);
     $rawDataName = $rawData; // Replace this with the actual rawDataName
 
-    mysqli_query($conn, "INSERT INTO hasil (namaSimul, isiGudang, waktuOperasiGudang, waktuAntriTruk, rawDataName) VALUES ('$namaSimul', '$daftarIsiGudang', '$waktuOperasiGudang', '$daftarWaktuTunggu', '" . $data2['rawDataName'] . "')");
+    $sql_insert = mysqli_query($conn, "INSERT INTO hasil (namaSimul, isiGudang, waktuOperasiGudang, waktuAntriTruk, rawDataName) VALUES ('$namaSimul', '$daftarIsiGudang', '$waktuOperasiGudang', '$daftarWaktuTunggu', '" . $data2['rawDataName'] . "')");
 } else {
     echo "Statement preparation failed: " . mysqli_error($conn);
 }
+
+if ($sql_insert) {
+        header('location: index.php');
+        echo
+        '
+            <script>
+            alert("berhasil");
+            window.location.href="simul.php";
+            </script>
+            ';
+    } else {
+        echo
+        '
+            <script>
+            alert("Add barang gagal karena barang sudah ada! Mohon menginput barang yang baru!");
+            window.location.href="simul.php";
+        </script>
+        ';
+    }
 
 mysqli_close($conn);
 ?>
