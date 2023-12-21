@@ -496,7 +496,7 @@ require "ok2.php";
 
                 <!-- waktuOperasiGudang -->
                 <div class="row mt-3 mb-3">
-                    <h2 class="pt-2 pb-1">Waktu Operasi Gudang </h2>
+                    <h2 class="pt-2 pb-1" style="display: flex; align-items: center; justify-content: center;">Waktu Operasi Gudang </h2>
                     <div class="col-md-6 ps-0 pb-0 pt-2 pe-5">
 
                         <?php
@@ -728,7 +728,7 @@ require "ok2.php";
 
                 <!-- WaktuAntriTruck -->
                 <div class="row mt-3 mb-3">
-                    <h2 class="pt-2 pb-1">Waktu Antri Truck</h2>
+                    <h2 class="pt-2 pb-1" style="display: flex; align-items: center; justify-content: center;">Waktu Antri Truck</h2>
                     <div class="col-md-6 ps-0 pb-0 pt-2 pe-5">
                         <?php
                         $ambilData1 = mysqli_query($conn, "SELECT * FROM hasil where namaSimul = '$selected1'");
